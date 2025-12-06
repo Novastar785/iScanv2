@@ -129,7 +129,7 @@ export default function ProfileScreen() {
   };
 
   const handleSupport = async () => {
-    const email = 'info@aura-ai.com';
+    const email = 'sequeira.adsegom@gmail.com';
     const subject = t('profile.subject');
     const url = `mailto:${email}?subject=${subject}`;
 
@@ -289,7 +289,7 @@ export default function ProfileScreen() {
           {/* FOOTER */}
           <View className="px-6 pb-10">
             <Text className="text-zinc-600 text-[10px] text-center mt-6 uppercase tracking-widest">
-              Aura AI v1.0.0
+              Love Your Home v1.0.0
             </Text>
           </View>
 

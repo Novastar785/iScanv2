@@ -87,17 +87,37 @@ export default function WizardToolScreen({
   };
 
   const handleSave = async () => {
-    if (!resultImage) return;
-    const perm = await MediaLibrary.requestPermissionsAsync();
-    if (perm.status !== 'granted') return;
-    try {
-        const filename = FileSystem.cacheDirectory + `aura_${Date.now()}.jpg`;
-        const base64 = resultImage.split('base64,')[1];
-        await FileSystem.writeAsStringAsync(filename, base64, { encoding: 'base64' });
-        await MediaLibrary.createAssetAsync(filename);
-        Alert.alert(t('common.saved'));
-    } catch(e) { Alert.alert("Error saving"); }
-  };
+  if (!resultImage) return;
+  
+  // 1. Pedir permisos
+  const perm = await MediaLibrary.requestPermissionsAsync();
+  if (perm.status !== 'granted') {
+    Alert.alert(t('common.permission_denied'));
+    return;
+  }
+
+  try {
+      // 2. Crear asset con prefijo nuevo 'lyh_' (Love Your Home)
+      const filename = FileSystem.cacheDirectory + `lyh_design_${Date.now()}.jpg`; //
+      const base64 = resultImage.split('base64,')[1];
+      await FileSystem.writeAsStringAsync(filename, base64, { encoding: 'base64' });
+      
+      const asset = await MediaLibrary.createAssetAsync(filename);
+
+      // 3. Guardar en álbum "Love Your Home"
+      const album = await MediaLibrary.getAlbumAsync('Love Your Home');
+      if (album) {
+        await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
+      } else {
+        await MediaLibrary.createAlbumAsync('Love Your Home', asset, false);
+      }
+
+      Alert.alert(t('common.saved'));
+  } catch(e) { 
+      console.error(e);
+      Alert.alert(t('common.error'), "No se pudo guardar en el álbum."); 
+  }
+};
 
   const reset = () => {
     setStep(1);

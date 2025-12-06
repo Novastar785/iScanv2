@@ -87,78 +87,7 @@ export default function HomeScreen() {
      image: 'https://rizzflows.com/img_aura/Vtryon.png', 
      badge: 'FUN' 
    },
-   { 
-     id: 'interiordesign', 
-     route: '/features/interiordesign', 
-     title: t('tools.stylist.title'), 
-     subtitle: t('tools.stylist.subtitle'), 
-     price: getCost('stylist', 2), // <--- CAMBIO: Precio dinámico (default 2)
-     image: 'https://rizzflows.com/img_aura/Image_fx(3).png', 
-     badge: 'TRENDING' 
-   },
-   { 
-     id: 'hairstudio', 
-     route: '/features/hairstudio', 
-     title: t('tools.hairstudio.title'), 
-     subtitle: t('tools.hairstudio.subtitle'), 
-     price: getCost('hairstudio', 2), // <--- CAMBIO 
-     image: 'https://rizzflows.com/img_aura/Image_fx(13).png', 
-     badge: 'NEW' 
-   },
-    { 
-     id: 'fitness', 
-     route: '/features/fitness', 
-     title: t('tools.fitness.title'), 
-     subtitle: t('tools.fitness.subtitle'), 
-     price: getCost('fitness', 3), // <--- CAMBIO
-     image: 'https://rizzflows.com/img_aura/Image_fx(14).png', 
-     badge: '' 
-   },
-     { 
-     id: 'glowup', 
-     route: '/features/glowup', 
-     title: t('tools.glowup.title'), 
-     subtitle: t('tools.glowup.subtitle'), 
-     price: getCost('glowup', 2), // <--- CAMBIO
-     image: 'https://rizzflows.com/img_aura/Image_fx(8).png', 
-     badge: '' 
-   },
-   { 
-     id: 'luxury', 
-     route: '/features/luxury', 
-     title: t('tools.luxury.title'), 
-     subtitle: t('tools.luxury.subtitle'), 
-     price: getCost('luxury', 2), // <--- CAMBIO
-     image: 'https://rizzflows.com/img_aura/bmw%20rojo.jpg', 
-     badge: 'VIRAL' 
-   },
-   { 
-     id: 'socials', 
-     route: '/features/socials', 
-     title: t('tools.socials.title'), 
-     subtitle: t('tools.socials.subtitle'), 
-     price: getCost('socials', 2), // <--- CAMBIO
-     image: 'https://rizzflows.com/img_aura/Image_fx(10).png', 
-     badge: '' 
-   },
-     { 
-     id: 'globetrotter', 
-     route: '/features/globetrotter', 
-     title: t('tools.globetrotter.title'), 
-     subtitle: t('tools.globetrotter.subtitle'), 
-     price: getCost('globetrotter', 2), // <--- CAMBIO 
-     image: 'https://rizzflows.com/img_aura/Image_fx(12).png', 
-     badge: 'NEW' 
-   }, 
-   { 
-     id: 'headshot', 
-     route: '/features/headshot', 
-     title: t('tools.headshot.title'), 
-     subtitle: t('tools.headshot.subtitle'), 
-     price: getCost('headshot', 3), // <--- CAMBIO
-     image: 'https://rizzflows.com/img_aura/Image_fx(1).png', 
-     badge: 'POPULAR' 
-   },
+   
  ];
 
   useEffect(() => {
@@ -180,7 +109,7 @@ export default function HomeScreen() {
 
   const loadAuraAlbum = async () => {
     try {
-      const album = await MediaLibrary.getAlbumAsync('Aura AI');
+      const album = await MediaLibrary.getAlbumAsync('Love Your Home'); 
       if (album) {
         const assets = await MediaLibrary.getAssetsAsync({
           album: album,

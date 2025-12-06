@@ -87,17 +87,28 @@ export default function DualImageToolScreen({
   };
 
   const handleSave = async () => {
-    if (!resultImage) return;
-    const perm = await MediaLibrary.requestPermissionsAsync();
-    if (perm.status !== 'granted') return;
-    try {
-        const filename = FileSystem.cacheDirectory + `aura_style_${Date.now()}.jpg`;
-        const base64 = resultImage.split('base64,')[1];
-        await FileSystem.writeAsStringAsync(filename, base64, { encoding: 'base64' });
-        await MediaLibrary.createAssetAsync(filename);
-        Alert.alert(t('common.saved'));
-    } catch(e) { Alert.alert("Error saving"); }
-  };
+  if (!resultImage) return;
+  const perm = await MediaLibrary.requestPermissionsAsync();
+  if (perm.status !== 'granted') return;
+
+  try {
+      const filename = FileSystem.cacheDirectory + `lyh_style_${Date.now()}.jpg`; //
+      const base64 = resultImage.split('base64,')[1];
+      await FileSystem.writeAsStringAsync(filename, base64, { encoding: 'base64' });
+      
+      const asset = await MediaLibrary.createAssetAsync(filename);
+
+      // Lógica de Álbum
+      const album = await MediaLibrary.getAlbumAsync('Love Your Home');
+      if (album) {
+        await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
+      } else {
+        await MediaLibrary.createAlbumAsync('Love Your Home', asset, false);
+      }
+
+      Alert.alert(t('common.saved'));
+  } catch(e) { Alert.alert("Error saving"); }
+};
 
   const reset = () => {
     setResultImage(null);
