@@ -1,0 +1,86 @@
+{
+  "expo": {
+    "name": "Love Your Home",
+    "slug": "LoveYourHome",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "loveyourhome",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "ios": {
+      "buildNumber": "1",
+      "supportsTablet": false,
+      "bundleIdentifier": "com.loveyourhome.app",
+      "userInterfaceStyle": "dark",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Love Your Home needs access to your photo library to allow you to select photos for analysis and generation.",
+        "NSCameraUsageDescription": "Love Your Home needs access to your camera to let you take photos for AI generation.",
+        "NSMicrophoneUsageDescription": "Love your Home needs access to your microphone for video features.",
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#000000",
+        "foregroundImage": "./assets/images/adaptive-icon.png"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.loveyourhome.app",
+      "versionCode": 1
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff",
+          "dark": {
+            "backgroundColor": "#000000"
+          }
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow Love Your Home to access your photos to save your edits.",
+          "savePhotosPermission": "Allow Love Your home to save your generated images to your gallery.",
+          "isAccessMediaLocationEnabled": false
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Love Your Home needs access to your photos so you can choose which one to edit.",
+          "cameraPermission": "Love Your Home needs access to the camera to take a picture to edit.",
+          "microphonePermission": "Allow Love Your Home to access the microphone."
+        }
+      ],
+      "expo-localization",
+      "expo-web-browser"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": ""
+      }
+    }
+  }
+}

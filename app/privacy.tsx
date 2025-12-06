@@ -1,0 +1,111 @@
+import { useRouter } from 'expo-router';
+import { ArrowLeft, Lock } from 'lucide-react-native';
+import React from 'react';
+import { Trans, useTranslation } from 'react-i18next';
+import { ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+export default function PrivacyScreen() {
+  const router = useRouter();
+  const { t } = useTranslation();
+
+  return (
+    <View className="flex-1 bg-[#0f0f0f]">
+      <StatusBar barStyle="light-content" />
+      
+      {/* Header */}
+      <SafeAreaView edges={['top']} className="px-6 pb-4 bg-[#0f0f0f] border-b border-white/5 z-10">
+        <View className="flex-row items-center gap-4">
+          <TouchableOpacity 
+            onPress={() => router.back()} 
+            className="w-10 h-10 bg-zinc-900 rounded-full items-center justify-center border border-white/10"
+          >
+            <ArrowLeft size={20} color="white" />
+          </TouchableOpacity>
+          <Text className="text-white text-xl font-bold">{t('legal.privacy_title')}</Text>
+        </View>
+      </SafeAreaView>
+
+      <ScrollView className="flex-1 px-6 pt-6" contentContainerStyle={{ paddingBottom: 100 }} showsVerticalScrollIndicator={false}>
+        
+        <View className="items-center mb-8">
+          <View className="w-16 h-16 bg-emerald-500/10 rounded-full items-center justify-center mb-4 border border-emerald-500/20">
+            <Lock size={32} color="#34d399" />
+          </View>
+          <Text className="text-zinc-400 text-xs uppercase tracking-widest">{t('legal.data_secure')}</Text>
+          <Text className="text-zinc-500 text-[10px] mt-1">{t('legal.last_updated')}</Text>
+        </View>
+
+        <View className="gap-6">
+          <Text className="text-zinc-300 leading-6 text-base">
+            <Trans 
+              i18nKey="legal.privacy.intro" 
+              values={{ appName: t('legal.app_name'), companyName: t('legal.company_name') }}
+              components={{ bold: <Text className="font-bold text-white" /> }} 
+            />
+          </Text>
+
+          <Section title={t('legal.privacy.section_1_title')}>
+            <Text className="font-bold text-indigo-400">{t('legal.privacy.section_1_a')}</Text>
+            {(t('legal.privacy.section_1_a_list', { returnObjects: true }) as string[]).map((item, i) => (
+              <Text key={`a-${i}`}>{'\n'}• {item}</Text>
+            ))}
+            {'\n\n'}
+            <Text className="font-bold text-indigo-400">{t('legal.privacy.section_1_b')}</Text>
+            {(t('legal.privacy.section_1_b_list', { returnObjects: true }) as string[]).map((item, i) => (
+              <Text key={`b-${i}`}>{'\n'}• {item}</Text>
+            ))}
+          </Section>
+
+          <Section title={t('legal.privacy.section_2_title')}>
+            {(t('legal.privacy.section_2_list', { returnObjects: true }) as string[]).map((item, i) => (
+              <Text key={i}>{'\n'}• {item}</Text>
+            ))}
+          </Section>
+
+          <Section title={t('legal.privacy.section_3_title')}>
+            {t('legal.privacy.section_3_text')}
+          </Section>
+
+          <Section title={t('legal.privacy.section_4_title')}>
+            {(t('legal.privacy.section_4_list', { returnObjects: true }) as string[]).map((item, i) => (
+              <Text key={i}>{'\n'}• {item}</Text>
+            ))}
+          </Section>
+
+          <Section title={t('legal.privacy.section_5_title')}>
+            {t('legal.privacy.section_5_text')}
+          </Section>
+
+          <Section title={t('legal.privacy.section_6_title')}>
+            {t('legal.privacy.section_6_text')}
+          </Section>
+
+          <Section title={t('legal.privacy.section_7_title')}>
+            {t('legal.privacy.section_7_text')}
+          </Section>
+
+          <Section title={t('legal.privacy.section_8_title')}>
+            {t('legal.privacy.section_8_text')}
+          </Section>
+
+          <Section title={t('legal.privacy.section_9_title')}>
+            <Text className="font-bold text-white">Email:</Text> {t('legal.contact_email')}
+            {'\n'}<Text className="font-bold text-white">Company:</Text> {t('legal.company_name')}
+          </Section>
+        </View>
+
+        <View className="h-20" />
+      </ScrollView>
+    </View>
+  );
+}
+
+function Section({ title, children }: { title: string, children: React.ReactNode }) {
+  return (
+    <View>
+      <Text className="text-white text-lg font-bold mb-2">{title}</Text>
+      <Text className="text-zinc-400 leading-6 text-base">{children}</Text>
+    </View>
+  );
+}
