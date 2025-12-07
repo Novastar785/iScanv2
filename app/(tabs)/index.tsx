@@ -139,7 +139,7 @@ export default function HomeScreen() {
           {/* HEADER */}
           <View className="flex-row justify-between items-center px-6 pt-2 mb-8">
             <View>
-              <Text className="text-zinc-500 text-xs font-medium tracking-widest uppercase mb-1">AURA AI</Text>
+              <Text className="text-zinc-500 text-xs font-medium tracking-widest uppercase mb-1">LOVE YOUR HOME</Text>
               <Text className="text-white text-3xl font-bold">{t('home.subtitle')}</Text>
             </View>
             <TouchableOpacity className="flex-row items-center bg-zinc-800/80 px-3 py-1.5 rounded-full border border-zinc-700">

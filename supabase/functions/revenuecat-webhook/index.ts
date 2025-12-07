@@ -7,31 +7,29 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const CREDIT_MAP = {
   // SUSCRIPCIONES (Recurrentes - "Use it or lose it")
-  "aura_premium:auraweeklypremium": 150,   // Semanal
-  "aura_premium:auramonthlypremium": 700,  // Mensual
-  "aurayearlypremium": 10000, // Antes: aura_yearly_premium
+  "lyhweeklypremium": 150,   // Semanal
+  "lyhmonthlypremium": 700,  // Mensual
+  "lyhyearlypremium": 10000, // anual
 
   // Si usaste guiones medios en Google, descomenta y usa estos:
-  // "aura-weekly-premium": 150,
-  // "aura-monthly-premium": 700,
-
+ 
   // PACKS (Pago único - Se suman)
   // Estos suelen ser "In-App Products", Google suele ser más flexible aquí,
   // pero por consistencia revisa si también necesitas cambiarlos.
-  "aurapack50": 50,    
-  "aurapack100": 100, 
-  "aurapack500": 500   
+  "lyhpack50": 50,    
+  "lyhpack100": 100, 
+  "lyhpack500": 500   
 };
 
 serve(async (req) => {
   try {
     // 1. Verificar seguridad (Token secreto en la URL)
-    // URL esperada: .../revenuecat-webhook?secret=MI_SECRETO_AURA_123
+    // URL esperada: .../revenuecat-webhook?secret=LYH_SECRET_WEBHOOK_KEY_2025
     const url = new URL(req.url);
     const secret = url.searchParams.get("secret");
 
     // ¡CAMBIA ESTO POR TU SECRETO REAL!
-    if (secret !== "MI_SECRETO_AURA_123") { 
+    if (secret !== "LYH_SECRET_WEBHOOK_KEY_2025") { 
       return new Response("Unauthorized", { status: 401 });
     }
 

@@ -15,7 +15,7 @@ export const REVENUECAT_API_KEY = Platform.select({
 });
 
 // Otras configuraciones (Mantenemos tus otros valores)
-export const SUPABASE_URL = "https://acrqlwtkhcvdnkmdeibi.supabase.co"; 
-export const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjcnFsd3RraGN2ZG5rbWRlaWJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3NTUzODAsImV4cCI6MjA3OTMzMTM4MH0.ZdJiwSjSvfcUG2Dqy_04Nf4pCVd1SqEgNWZWQsut_bc"; // Tu clave anónima pública
+export const SUPABASE_URL = "https://nnoofrjtujkemrjnlios.supabase.co"; 
+export const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ub29mcmp0dWprZW1yam5saW9zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUwNTIzODgsImV4cCI6MjA4MDYyODM4OH0.vtlUcTzxzFxpL-5aGMlkoVR0a7Ld9Kq1CfRx-_6mt5U"; // Tu clave anónima pública
 
 export const APP_NAME = "Love Your Home";
