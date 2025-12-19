@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Alert, Image, Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { generateDesignImage } from '../src/services/designService';
+import BeforeAfterSlider from './BeforeAfterSlider'; // <--- 1. AGREGAR IMPORT
 
 export interface DesignOption {
   id: string; // ID en la base de datos
@@ -105,14 +106,37 @@ export default function SingleStepDesignScreen({
   if (resultImage) {
     return (
       <View className="flex-1 bg-black">
-        <Image source={{ uri: resultImage }} className="absolute w-full h-full" resizeMode="contain" />
-        <SafeAreaView className="flex-1 justify-between px-6 pb-8">
-          <View className="flex-row justify-between pt-4">
-             <TouchableOpacity onPress={() => Alert.alert("Reported")} className="w-10 h-10 bg-black/40 rounded-full items-center justify-center"><Flag size={20} color="#ef4444" /></TouchableOpacity>
-             <TouchableOpacity onPress={reset} className="w-10 h-10 bg-black/40 rounded-full items-center justify-center"><X size={20} color="white" /></TouchableOpacity>
+        {/* 1. SLIDER / IMAGEN (Fondo) */}
+        {selectedImage ? (
+           <BeforeAfterSlider 
+              beforeImage={selectedImage} 
+              afterImage={resultImage} 
+           />
+        ) : (
+           <Image source={{ uri: resultImage }} className="absolute w-full h-full" resizeMode="contain" />
+        )}
+
+        {/* 2. CONTROLES (Capa Superior) */}
+        {/* CORRECCIÓN: Agregamos 'absolute w-full h-full' para que flote sobre el slider sin moverlo */}
+        <SafeAreaView 
+            className="absolute w-full h-full flex-1 justify-between px-6 pb-8" 
+            pointerEvents="box-none"
+        >
+          {/* Parte Superior: Reportar y Cerrar */}
+          <View className="flex-row justify-between pt-4" pointerEvents="box-none">
+             <TouchableOpacity onPress={() => Alert.alert("Reported")} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md">
+                <Flag size={20} color="#f87171" />
+             </TouchableOpacity>
+             <TouchableOpacity onPress={reset} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md">
+                <X size={20} color="white" />
+             </TouchableOpacity>
           </View>
-          <View className="flex-row gap-4">
-             <TouchableOpacity onPress={handleSave} className="flex-1 bg-white h-12 rounded-xl justify-center items-center"><Text className="font-bold text-black">{t('common.save')}</Text></TouchableOpacity>
+          
+          {/* Parte Inferior: Guardar */}
+          <View className="flex-row gap-4" pointerEvents="box-none">
+             <TouchableOpacity onPress={handleSave} className="flex-1 bg-white h-12 rounded-xl justify-center items-center shadow-lg">
+                <Text className="font-bold text-gray-900">{t('common.save')}</Text>
+             </TouchableOpacity>
           </View>
         </SafeAreaView>
       </View>

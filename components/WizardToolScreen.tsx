@@ -3,6 +3,7 @@ import * as FileSystem from 'expo-file-system/legacy';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as MediaLibrary from 'expo-media-library';
+import BeforeAfterSlider from './BeforeAfterSlider';
 import { useRouter } from 'expo-router';
 import { ArrowLeft, ArrowRight, Camera, Check, Flag, Image as ImageIcon, Sparkles, X } from 'lucide-react-native';
 import React, { useState } from 'react';
@@ -130,14 +131,26 @@ export default function WizardToolScreen({
   if (step === 4 && resultImage) {
     return (
       <View className="flex-1 bg-black">
-        {/* Aquí mantenemos fondo negro para resaltar la imagen generada, pero los controles flotantes cambian */}
-        <Image source={{ uri: resultImage }} className="absolute w-full h-full" resizeMode="contain" />
-        <SafeAreaView className="flex-1 justify-between px-6 pb-8">
-          <View className="flex-row justify-between pt-4">
+        
+        {/* REEMPLAZO DE LA IMAGEN ESTÁTICA POR EL SLIDER */}
+        {selectedImage ? (
+           <BeforeAfterSlider 
+              beforeImage={selectedImage} // La foto que subió el usuario
+              afterImage={resultImage}    // El resultado de la IA
+           />
+        ) : (
+           // Fallback por si acaso no hay imagen original (aunque siempre debería haber)
+           <Image source={{ uri: resultImage }} className="absolute w-full h-full" resizeMode="contain" />
+        )}
+
+        {/* CONTROLES FLOTANTES (Se mantienen igual) */}
+        <SafeAreaView className="absolute w-full h-full flex-1 justify-between px-6 pb-8 pointer-events-box-none">
+          {/* pointer-events-box-none es IMPORTANTE para que el SafeView deje pasar los toques al slider debajo */}
+          <View className="flex-row justify-between pt-4" pointerEvents="box-none">
              <TouchableOpacity onPress={() => Alert.alert("Reported")} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md"><Flag size={20} color="#f87171" /></TouchableOpacity>
              <TouchableOpacity onPress={reset} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md"><X size={20} color="white" /></TouchableOpacity>
           </View>
-          <View className="flex-row gap-4">
+          <View className="flex-row gap-4" pointerEvents="box-none">
              <TouchableOpacity onPress={handleSave} className="flex-1 bg-white h-12 rounded-xl justify-center items-center shadow-lg"><Text className="font-bold text-gray-900">{t('common.save')}</Text></TouchableOpacity>
           </View>
         </SafeAreaView>
@@ -173,9 +186,13 @@ export default function WizardToolScreen({
               <Text className="text-gray-900 text-3xl font-bold text-center mb-2">{title}</Text>
               <Text className="text-gray-500 text-center mb-8">{subtitle}</Text>
               
-              <TouchableOpacity onPress={() => setShowPicker(true)} className="aspect-[3/4] bg-gray-50 rounded-3xl border-2 border-dashed border-gray-300 items-center justify-center overflow-hidden relative shadow-sm">
+              {/* CAMBIO AQUÍ: aspect-[3/4] cambiado a aspect-[4/3] para formato horizontal */}
+              <TouchableOpacity 
+                onPress={() => setShowPicker(true)} 
+                className="aspect-[4/3] bg-gray-50 rounded-3xl border-2 border-dashed border-gray-300 items-center justify-center overflow-hidden relative shadow-sm"
+              >
                 {selectedImage ? 
-                  <Image source={{ uri: selectedImage }} className="w-full h-full" /> : 
+                  <Image source={{ uri: selectedImage }} className="w-full h-full" resizeMode="cover" /> : 
                   <View className="items-center gap-3">
                     <View className="w-16 h-16 bg-white rounded-full items-center justify-center shadow-sm">
                         <Camera size={32} color="#6366f1" />

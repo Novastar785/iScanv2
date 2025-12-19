@@ -211,14 +211,16 @@ export default function HomeScreen() {
               </View>
             </View>
             
-            <View className="flex-row flex-wrap justify-between">
+            {/* CAMBIO AQUÍ: Eliminamos 'flex-row flex-wrap justify-between' para que sea una lista vertical de tarjetas */}
+            <View className="">
               {displayPhotos.map((photo) => (
                 <TouchableOpacity 
                   key={photo.id} 
                   activeOpacity={0.8}
                   onPress={() => setSelectedPhoto(photo.uri)}
-                  className="bg-white rounded-3xl mb-4 overflow-hidden border border-gray-100 shadow-sm relative"
-                  style={{ width: (width - 48) / 2 - 6, height: 240 }}
+                  className="bg-white rounded-3xl mb-6 overflow-hidden border border-gray-100 shadow-sm relative"
+                  // CAMBIO AQUÍ: Ancho al 100% para llenar horizontalmente. Mantenemos height: 240.
+                  style={{ width: '100%', height: 240 }}
                 >
                   <Image source={{ uri: photo.uri }} className="w-full h-full" resizeMode="cover" />
                   

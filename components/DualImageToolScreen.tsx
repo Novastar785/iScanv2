@@ -2,6 +2,7 @@ import * as FileSystem from 'expo-file-system/legacy';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as MediaLibrary from 'expo-media-library';
+import BeforeAfterSlider from './BeforeAfterSlider';
 import { useRouter } from 'expo-router';
 import { ArrowLeft, Camera, Check, Download, Flag, Home, Image as ImageIcon, Palette, Sparkles, X } from 'lucide-react-native';
 import React, { useState } from 'react';
@@ -121,13 +122,39 @@ export default function DualImageToolScreen({
   if (resultImage) {
     return (
       <View className="flex-1 bg-black">
-        <Image source={{ uri: resultImage }} className="absolute w-full h-full" resizeMode="contain" />
-        <SafeAreaView className="flex-1 justify-between px-6 pb-8">
-          <View className="flex-row justify-between pt-4">
-             <TouchableOpacity onPress={() => Alert.alert("Reported")} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md"><Flag size={20} color="#f87171" /></TouchableOpacity>
-             <TouchableOpacity onPress={reset} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md"><X size={20} color="white" /></TouchableOpacity>
+        
+        {/* 1. SLIDER (Usamos img1 como 'Before') */}
+        {img1 ? (
+           <BeforeAfterSlider 
+              beforeImage={img1} 
+              afterImage={resultImage} 
+           />
+        ) : (
+           <Image source={{ uri: resultImage }} className="absolute w-full h-full" resizeMode="contain" />
+        )}
+
+        {/* 2. CONTROLES (Capa Superior) */}
+        {/* CORRECCIÓN: 'absolute w-full h-full' agregado aquí también */}
+        <SafeAreaView 
+            className="absolute w-full h-full flex-1 justify-between px-6 pb-8" 
+            pointerEvents="box-none"
+        >
+          {/* Parte Superior */}
+          <View className="flex-row justify-between pt-4" pointerEvents="box-none">
+             <TouchableOpacity onPress={() => Alert.alert("Reported")} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md">
+                <Flag size={20} color="#f87171" />
+             </TouchableOpacity>
+             <TouchableOpacity onPress={reset} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md">
+                <X size={20} color="white" />
+             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={handleSave} className="bg-white h-14 rounded-xl justify-center items-center shadow-lg"><Text className="font-bold text-gray-900">{t('common.save')}</Text></TouchableOpacity>
+
+          {/* Parte Inferior */}
+          <View className="w-full" pointerEvents="box-none">
+            <TouchableOpacity onPress={handleSave} className="bg-white h-14 rounded-xl justify-center items-center shadow-lg">
+                <Text className="font-bold text-gray-900">{t('common.save')}</Text>
+            </TouchableOpacity>
+          </View>
         </SafeAreaView>
       </View>
     );
@@ -160,7 +187,8 @@ export default function DualImageToolScreen({
             className={`flex-1 rounded-[24px] border-2 border-dashed items-center justify-center relative overflow-hidden transition-all ${img1 ? 'border-indigo-500 bg-white' : 'border-gray-300 bg-gray-50'}`}
           >
             {img1 ? (
-                <Image source={{ uri: img1 }} className="w-full h-full opacity-90" />
+                // CAMBIO: resizeMode="contain" para que la imagen quepa entera sin deformarse
+                <Image source={{ uri: img1 }} className="w-full h-full opacity-90" resizeMode="contain" />
             ) : (
                 <View className="items-center gap-2">
                     <View className="w-14 h-14 bg-white rounded-full items-center justify-center shadow-sm border border-gray-100">
@@ -183,7 +211,8 @@ export default function DualImageToolScreen({
             className={`flex-1 rounded-[24px] border-2 border-dashed items-center justify-center relative overflow-hidden transition-all ${img2 ? 'border-purple-500 bg-white' : 'border-gray-300 bg-gray-50'}`}
           >
             {img2 ? (
-                <Image source={{ uri: img2 }} className="w-full h-full opacity-90" />
+                // CAMBIO: resizeMode="contain" aquí también
+                <Image source={{ uri: img2 }} className="w-full h-full opacity-90" resizeMode="contain" />
             ) : (
                 <View className="items-center gap-2">
                     <View className="w-14 h-14 bg-white rounded-full items-center justify-center shadow-sm border border-gray-100">

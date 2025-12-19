@@ -38,7 +38,7 @@ export default function StoreScreen() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#0f0f0f', paddingBottom: 120 }}>
+    <View style={{ flex: 1, backgroundColor: '#F5F5F4', paddingBottom: 120 }}>
       {/* Renderizado Condicional: Solo mostramos el Paywall si la pantalla tiene el foco */}
       {isFocused && (
         <RevenueCatUI.Paywall 
