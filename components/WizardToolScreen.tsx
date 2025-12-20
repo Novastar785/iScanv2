@@ -3,6 +3,7 @@ import * as FileSystem from 'expo-file-system/legacy';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as MediaLibrary from 'expo-media-library';
+import { reportContent } from '../src/services/reportService';
 import BeforeAfterSlider from './BeforeAfterSlider';
 import { useRouter } from 'expo-router';
 import { ArrowLeft, ArrowRight, Camera, Check, Flag, Image as ImageIcon, Sparkles, X } from 'lucide-react-native';
@@ -147,7 +148,17 @@ export default function WizardToolScreen({
         <SafeAreaView className="absolute w-full h-full flex-1 justify-between px-6 pb-8 pointer-events-box-none">
           {/* pointer-events-box-none es IMPORTANTE para que el SafeView deje pasar los toques al slider debajo */}
           <View className="flex-row justify-between pt-4" pointerEvents="box-none">
-             <TouchableOpacity onPress={() => Alert.alert("Reported")} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md"><Flag size={20} color="#f87171" /></TouchableOpacity>
+             <TouchableOpacity 
+  onPress={() => {
+    // Llamada real al servicio de reporte
+    // featureId viene de las props del componente
+    // resultImage es la imagen generada que el usuario está viendo
+    reportContent(featureId, "User flagged content", resultImage);
+  }} 
+  className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md"
+>
+  <Flag size={20} color="#f87171" />
+</TouchableOpacity>
              <TouchableOpacity onPress={reset} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md"><X size={20} color="white" /></TouchableOpacity>
           </View>
           <View className="flex-row gap-4" pointerEvents="box-none">

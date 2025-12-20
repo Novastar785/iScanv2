@@ -3,6 +3,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as MediaLibrary from 'expo-media-library';
 import BeforeAfterSlider from './BeforeAfterSlider';
+import { reportContent } from '../src/services/reportService';
 import { useRouter } from 'expo-router';
 import { ArrowLeft, Camera, Check, Download, Flag, Home, Image as ImageIcon, Palette, Sparkles, X } from 'lucide-react-native';
 import React, { useState } from 'react';
@@ -141,9 +142,12 @@ export default function DualImageToolScreen({
         >
           {/* Parte Superior */}
           <View className="flex-row justify-between pt-4" pointerEvents="box-none">
-             <TouchableOpacity onPress={() => Alert.alert("Reported")} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md">
-                <Flag size={20} color="#f87171" />
-             </TouchableOpacity>
+             <TouchableOpacity 
+  onPress={() => reportContent(featureId, "User flagged content", resultImage)} 
+  className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md"
+>
+   <Flag size={20} color="#f87171" />
+</TouchableOpacity>
              <TouchableOpacity onPress={reset} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md">
                 <X size={20} color="white" />
              </TouchableOpacity>

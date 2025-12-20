@@ -21,7 +21,6 @@
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Love Your Home needs access to your photo library to allow you to select photos for analysis and generation.",
         "NSCameraUsageDescription": "Love Your Home needs access to your camera to let you take photos for AI generation.",
-        "NSMicrophoneUsageDescription": "Love your Home needs access to your microphone for video features.",
         "ITSAppUsesNonExemptEncryption": false
       }
     },
@@ -65,8 +64,7 @@
         "expo-image-picker",
         {
           "photosPermission": "Love Your Home needs access to your photos so you can choose which one to edit.",
-          "cameraPermission": "Love Your Home needs access to the camera to take a picture to edit.",
-          "microphonePermission": "Allow Love Your Home to access the microphone."
+          "cameraPermission": "Love Your Home needs access to the camera to take a picture to edit."
         }
       ],
       "expo-localization",
