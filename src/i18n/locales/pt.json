@@ -237,5 +237,25 @@
     "restore_title": "Restaurado",
     "restore_msg": "Compras restauradas.",
     "restore_error": "Erro ao restaurar."
+  },
+  "onboarding": {
+    "slide1_title": "Redesenhe seu",
+    "slide1_title_accent": "Espaço Ideal",
+    "slide1_text": "Envie uma foto e deixe a mágica acontecer. Veja a mudança real instantaneamente.",
+    "badge_before": "ANTES",
+    "badge_after": "DEPOIS",
+    "slide2_title": "Defina seu",
+    "slide2_title_accent": "Estilo",
+    "slide2_text": "Explore estilos e encontre sua inspiração.",
+    "style_nordic": "Nórdico",
+    "style_modern": "Moderno",
+    "style_minimalist": "Minimalista",
+    "slide3_title": "Seu Presente",
+    "slide3_title_accent": "Exclusivo!",
+    "slide3_text": "Comece sua transformação hoje com créditos de cortesia.",
+    "gift_title": "3 Créditos Grátis",
+    "gift_subtitle": "Prontos para usar agora",
+    "btn_next": "Continuar",
+    "btn_claim": "Resgatar e Começar"
   }
 }

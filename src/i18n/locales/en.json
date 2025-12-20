@@ -237,5 +237,25 @@
     "restore_title": "Restored",
     "restore_msg": "Your purchases have been restored.",
     "restore_error": "Could not restore purchases. Please try again later."
+  },
+  "onboarding": {
+    "slide1_title": "Redesign your",
+    "slide1_title_accent": "Dream Space",
+    "slide1_text": "Upload a photo and let magic happen. See real change instantly.",
+    "badge_before": "BEFORE",
+    "badge_after": "AFTER",
+    "slide2_title": "Define your",
+    "slide2_title_accent": "Style",
+    "slide2_text": "Explore styles and find your inspiration.",
+    "style_nordic": "Nordic",
+    "style_modern": "Modern",
+    "style_minimalist": "Minimalist",
+    "slide3_title": "Your Exclusive",
+    "slide3_title_accent": "Gift!",
+    "slide3_text": "Start your transformation today with complimentary credits.",
+    "gift_title": "3 Free Credits",
+    "gift_subtitle": "Ready to use now",
+    "btn_next": "Continue",
+    "btn_claim": "Claim & Start"
   }
 }
