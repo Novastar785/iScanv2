@@ -1,6 +1,6 @@
 import { DefaultTheme, Theme, ThemeProvider } from '@react-navigation/native';
 import * as NavigationBar from 'expo-navigation-bar';
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router"; // Se agregó useRouter
 import * as SplashScreen from 'expo-splash-screen';
 import * as SystemUI from 'expo-system-ui';
 import LottieView from 'lottie-react-native';
@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { Platform, StyleSheet, View, StatusBar } from "react-native";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Purchases from 'react-native-purchases';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Se agregó AsyncStorage
 
 // --- IMPORTACIONES ORIGINALES ---
 import { REVENUECAT_API_KEY } from '../src/config/secrets';
@@ -42,7 +43,9 @@ const GlassyTheme: Theme = {
 export default function Layout() {
   const [appIsReady, setAppIsReady] = useState(false);
   const [animationFinished, setAnimationFinished] = useState(false);
+  const [isFirstLaunch, setIsFirstLaunch] = useState<boolean>(false); // Nuevo estado para control de onboarding
   const animationRef = useRef<LottieView>(null);
+  const router = useRouter(); // Hook de navegación
 
   useEffect(() => {
     async function prepare() {
@@ -58,15 +61,21 @@ export default function Layout() {
           StatusBar.setBarStyle("dark-content");
         }
 
-        // 2. Configurar RevenueCat PRIMERO
+        // 2. Verificar si el usuario ya vio el Onboarding
+        // COMENTA ESTAS LÍNEAS:
+        // const hasSeenOnboarding = await AsyncStorage.getItem('HAS_SEEN_ONBOARDING');
+        // setIsFirstLaunch(hasSeenOnboarding !== 'true');
+        
+        // AGREGA ESTA LÍNEA PARA PRUEBAS:
+        setIsFirstLaunch(true);
+
+        // 3. Configurar RevenueCat PRIMERO
         if (REVENUECAT_API_KEY) {
           await Purchases.configure({ apiKey: REVENUECAT_API_KEY });
           console.log("RevenueCat configurado");
         }
 
-        // 3. Inicializar usuario en la DB (Ahora que RevenueCat está listo)
-        // Lo llamamos sin 'await' si no quieres que bloquee el splash screen,
-        // o con 'await' si quieres asegurar que el usuario exista antes de que entre a la app.
+        // 4. Inicializar usuario en la DB (Ahora que RevenueCat está listo)
         await initializeUser(); 
 
       } catch (e) {
@@ -89,6 +98,16 @@ export default function Layout() {
       }
     }
   }, [appIsReady]);
+
+  // Nuevo Effect para redirigir una vez termine la animación del Splash
+  useEffect(() => {
+    if (appIsReady && animationFinished) {
+      if (isFirstLaunch) {
+        router.replace('/onboarding');
+      }
+      // Si no es first launch, Expo Router carga la ruta inicial por defecto (tabs)
+    }
+  }, [appIsReady, animationFinished, isFirstLaunch]);
 
   if (!appIsReady || !animationFinished) {
     // Usamos estilo inline aquí solo porque styles.container está definido abajo y es un splash nativo
@@ -120,6 +139,16 @@ export default function Layout() {
         >
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+          {/* Agrega esta línea: */}
+<Stack.Screen 
+  name="paywall" 
+  options={{ 
+    headerShown: false, 
+    presentation: 'modal', // Opcional: hace que aparezca de abajo hacia arriba (muy común en paywalls)
+    animation: 'slide_from_bottom'
+  }} 
+/>
+          
         </Stack>
       </ThemeProvider>
     </GestureHandlerRootView>
