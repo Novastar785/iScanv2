@@ -231,6 +231,22 @@
     "user_id_missing": "User ID not found.",
     "no_image_returned": "The cloud did not return any image."
   },
+  "quick_actions": {
+    "new_design_title": "New Design",
+    "new_design_subtitle": "Create an interior",
+    "store_title": "Store",
+    "store_subtitle": "Get credits"
+  },
+  "a11y": {
+    "onboarding_next": "Go to next screen",
+    "onboarding_claim": "Claim offer",
+    "save_image": "Save image to gallery",
+    "report_content": "Report content",
+    "close_preview": "Close preview",
+    "go_back": "Go back",
+    "select_image_for": "Select image for {{label}}",
+    "generate_design": "Generate design"
+  },
   "store": {
     "success_title": "Success!",
     "success_msg": "Your purchase was successful.",

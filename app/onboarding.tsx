@@ -2,9 +2,10 @@ import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, FlatList, Dimensions, Image, TouchableOpacity, StatusBar, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // <--- AGREGA ESTO
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import LottieView from 'lottie-react-native';
-import { useTranslation } from 'react-i18next'; // <--- IMPORTANTE
+import { useTranslation } from 'react-i18next'; 
+import * as Haptics from 'expo-haptics';
 import Animated, { 
   useSharedValue, 
   useAnimatedStyle, 
@@ -20,11 +21,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 const { width } = Dimensions.get('window');
 
 // --- COMPONENTE: Slider Antes/Después ---
-// Pasamos 't' como prop o usamos el hook dentro si lo preferimos, 
-// pero para componentes pequeños puros es mejor pasarlo o usar textos simples.
-// Aquí usaremos el hook dentro para simplicidad.
 const AutoCompareSlider = () => {
-  const { t } = useTranslation(); // Hook de traducción
+  const { t } = useTranslation(); 
   const progress = useSharedValue(0); 
 
   useEffect(() => {
@@ -129,14 +127,16 @@ const ShimmerCard = ({ image, title, delay }: { image: any, title: string, delay
 // --- PANTALLA PRINCIPAL ---
 export default function OnboardingScreen() {
   const router = useRouter();
-  const { t } = useTranslation(); // Hook de traducción principal
+  const { t } = useTranslation(); 
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
 
   const handleNext = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     if (currentIndex < 2) {
       flatListRef.current?.scrollToIndex({ index: currentIndex + 1 });
     } else {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       router.replace('/paywall');
     }
   };
@@ -258,7 +258,6 @@ export default function OnboardingScreen() {
           }}
         />
 
-        {/* BOTTOM SECTION */}
         <View className="px-6 pb-6 pt-2 bg-white">
           <View className="flex-row justify-center space-x-2 mb-6">
             {screens.map((_, index) => {
@@ -280,6 +279,9 @@ export default function OnboardingScreen() {
           <TouchableOpacity
             onPress={handleNext}
             activeOpacity={0.9}
+            accessibilityRole="button"
+            // --- CORREGIDO: Uso de t() ---
+            accessibilityLabel={currentIndex === 2 ? t('a11y.onboarding_claim') : t('a11y.onboarding_next')}
             className="w-full rounded-2xl shadow-xl shadow-stone-200"
           >
             <LinearGradient

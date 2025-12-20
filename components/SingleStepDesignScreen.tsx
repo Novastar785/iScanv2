@@ -10,7 +10,9 @@ import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Alert, Image, Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { generateDesignImage } from '../src/services/designService';
-import BeforeAfterSlider from './BeforeAfterSlider'; // <--- 1. AGREGAR IMPORT
+import BeforeAfterSlider from './BeforeAfterSlider';
+import * as StoreReview from 'expo-store-review';
+import * as Haptics from 'expo-haptics';
 
 export interface DesignOption {
   id: string; // ID en la base de datos
@@ -94,8 +96,15 @@ export default function SingleStepDesignScreen({
         const base64 = resultImage.split('base64,')[1];
         await FileSystem.writeAsStringAsync(filename, base64, { encoding: 'base64' });
         await MediaLibrary.createAssetAsync(filename);
+        
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
         Alert.alert(t('common.saved'));
+
+        if (await StoreReview.hasAction()) {
+            StoreReview.requestReview();
+        }
     } catch(e) { 
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
         Alert.alert(t('common.error'), t('common.error_save')); 
     }
   };
@@ -140,7 +149,13 @@ export default function SingleStepDesignScreen({
           
           {/* Parte Inferior: Guardar */}
           <View className="flex-row gap-4" pointerEvents="box-none">
-             <TouchableOpacity onPress={handleSave} className="flex-1 bg-white h-12 rounded-xl justify-center items-center shadow-lg">
+             <TouchableOpacity 
+                onPress={handleSave} 
+                accessibilityRole="button"
+                // --- CORREGIDO: Uso de t() ---
+                accessibilityLabel={t('a11y.save_image')}
+                className="flex-1 bg-white h-12 rounded-xl justify-center items-center shadow-lg"
+             >
                 <Text className="font-bold text-gray-900">{t('common.save')}</Text>
              </TouchableOpacity>
           </View>

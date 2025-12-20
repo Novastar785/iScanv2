@@ -11,6 +11,8 @@ import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Alert, Image, Modal, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { generateDesignImage } from '../src/services/designService';
+import * as StoreReview from 'expo-store-review';
+import * as Haptics from 'expo-haptics';
 
 interface DualImageProps {
   featureId: string; // 'styletransfer'
@@ -59,6 +61,7 @@ export default function DualImageToolScreen({
   };
 
   const openPicker = (slot: 1 | 2) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setActivePicker(slot);
     setShowPicker(true);
   };
@@ -66,6 +69,7 @@ export default function DualImageToolScreen({
   const handleGenerate = async () => {
     if (!img1 || !img2) return;
     
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setIsProcessing(true);
     try {
       const result = await generateDesignImage({
@@ -74,7 +78,9 @@ export default function DualImageToolScreen({
         featureId: featureId
       });
       setResultImage(result);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } catch (error: any) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       if (error.message === 'INSUFFICIENT_CREDITS') {
         Alert.alert(t('common.insufficient_title'), t('common.insufficient_msg'), [
           { text: "OK" },
@@ -108,8 +114,17 @@ export default function DualImageToolScreen({
         await MediaLibrary.createAlbumAsync('Love Your Home', asset, false);
       }
 
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       Alert.alert(t('common.saved'));
-  } catch(e) { Alert.alert(t('common.error'), t('common.error_save')); } 
+
+      if (await StoreReview.hasAction()) {
+        StoreReview.requestReview();
+      }
+
+  } catch(e) { 
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      Alert.alert(t('common.error'), t('common.error_save')); 
+  } 
 };
 
   const reset = () => {
@@ -144,18 +159,33 @@ export default function DualImageToolScreen({
           <View className="flex-row justify-between pt-4" pointerEvents="box-none">
              <TouchableOpacity 
   onPress={() => reportContent(featureId, "User flagged content", resultImage)} 
+  accessibilityRole="button"
+  // --- CORREGIDO: Uso de t() ---
+  accessibilityLabel={t('a11y.report_content')}
   className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md"
 >
    <Flag size={20} color="#f87171" />
 </TouchableOpacity>
-             <TouchableOpacity onPress={reset} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md">
+             <TouchableOpacity 
+                onPress={reset} 
+                accessibilityRole="button"
+                // --- CORREGIDO: Uso de t() ---
+                accessibilityLabel={t('a11y.close_preview')}
+                className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md"
+             >
                 <X size={20} color="white" />
              </TouchableOpacity>
           </View>
 
           {/* Parte Inferior */}
           <View className="w-full" pointerEvents="box-none">
-            <TouchableOpacity onPress={handleSave} className="bg-white h-14 rounded-xl justify-center items-center shadow-lg">
+            <TouchableOpacity 
+                onPress={handleSave} 
+                accessibilityRole="button"
+                // --- CORREGIDO: Uso de t() ---
+                accessibilityLabel={t('a11y.save_image')}
+                className="bg-white h-14 rounded-xl justify-center items-center shadow-lg"
+            >
                 <Text className="font-bold text-gray-900">{t('common.save')}</Text>
             </TouchableOpacity>
           </View>
@@ -173,7 +203,13 @@ export default function DualImageToolScreen({
       
       <SafeAreaView className="flex-1 px-6">
         <View className="flex-row justify-between items-center mb-6">
-          <TouchableOpacity onPress={() => router.back()} className="w-10 h-10 bg-white rounded-full items-center justify-center border border-gray-200 shadow-sm">
+          <TouchableOpacity 
+            onPress={() => router.back()} 
+            accessibilityRole="button"
+            // --- CORREGIDO: Uso de t() ---
+            accessibilityLabel={t('a11y.go_back')}
+            className="w-10 h-10 bg-white rounded-full items-center justify-center border border-gray-200 shadow-sm"
+          >
             <ArrowLeft size={20} color="#374151" />
           </TouchableOpacity>
           <View className="bg-white px-3 py-1 rounded-full border border-gray-200 shadow-sm">
@@ -188,6 +224,9 @@ export default function DualImageToolScreen({
           {/* SLOT 1 (Tu Espacio) */}
           <TouchableOpacity 
             onPress={() => openPicker(1)} 
+            accessibilityRole="button"
+            // --- CORREGIDO: Uso de t() con parámetros ---
+            accessibilityLabel={t('a11y.select_image_for', { label: label1 })}
             className={`flex-1 rounded-[24px] border-2 border-dashed items-center justify-center relative overflow-hidden transition-all ${img1 ? 'border-indigo-500 bg-white' : 'border-gray-300 bg-gray-50'}`}
           >
             {img1 ? (
@@ -212,6 +251,9 @@ export default function DualImageToolScreen({
           {/* SLOT 2 (Referencia) */}
           <TouchableOpacity 
             onPress={() => openPicker(2)} 
+            accessibilityRole="button"
+            // --- CORREGIDO: Uso de t() con parámetros ---
+            accessibilityLabel={t('a11y.select_image_for', { label: label2 })}
             className={`flex-1 rounded-[24px] border-2 border-dashed items-center justify-center relative overflow-hidden transition-all ${img2 ? 'border-purple-500 bg-white' : 'border-gray-300 bg-gray-50'}`}
           >
             {img2 ? (
@@ -237,6 +279,10 @@ export default function DualImageToolScreen({
         <TouchableOpacity 
           disabled={!img1 || !img2 || isProcessing}
           onPress={handleGenerate}
+          accessibilityRole="button"
+          // --- CORREGIDO: Uso de t() ---
+          accessibilityLabel={t('a11y.generate_design')}
+          accessibilityState={{ disabled: !img1 || !img2 || isProcessing }}
           className={`my-8 h-16 rounded-2xl flex-row items-center justify-center shadow-lg transition-all ${img1 && img2 ? 'bg-indigo-600 shadow-indigo-300' : 'bg-gray-200 shadow-none'}`}
         >
           {isProcessing ? (

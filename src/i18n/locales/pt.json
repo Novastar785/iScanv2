@@ -231,6 +231,22 @@
     "user_id_missing": "ID não encontrado.",
     "no_image_returned": "Nenhuma imagem retornada."
   },
+  "quick_actions": {
+    "new_design_title": "Novo Design",
+    "new_design_subtitle": "Crie um interior",
+    "store_title": "Loja",
+    "store_subtitle": "Obter créditos"
+  },
+  "a11y": {
+    "onboarding_next": "Ir para a próxima tela",
+    "onboarding_claim": "Resgatar oferta",
+    "save_image": "Salvar imagem na galeria",
+    "report_content": "Denunciar conteúdo",
+    "close_preview": "Fechar visualização",
+    "go_back": "Voltar",
+    "select_image_for": "Selecionar imagem para {{label}}",
+    "generate_design": "Gerar design"
+  },
   "store": {
     "success_title": "Sucesso!",
     "success_msg": "Compra realizada.",

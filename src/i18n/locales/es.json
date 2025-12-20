@@ -238,6 +238,22 @@
     "restore_msg": "Compras restauradas.",
     "restore_error": "Error al restaurar."
   },
+  "quick_actions": {
+    "new_design_title": "Nuevo Diseño",
+    "new_design_subtitle": "Crea un interior",
+    "store_title": "Tienda",
+    "store_subtitle": "Obtener créditos"
+  },
+  "a11y": {
+    "onboarding_next": "Avanza a la siguiente pantalla",
+    "onboarding_claim": "Reclamar oferta",
+    "save_image": "Guardar imagen en galería",
+    "report_content": "Reportar contenido",
+    "close_preview": "Cerrar vista previa",
+    "go_back": "Volver atrás",
+    "select_image_for": "Seleccionar imagen para {{label}}",
+    "generate_design": "Generar diseño"
+  },
   "onboarding": {
     "slide1_title": "Rediseña tu",
     "slide1_title_accent": "Espacio Ideal",
@@ -258,4 +274,5 @@
     "btn_next": "Continuar",
     "btn_claim": "Reclamar y Empezar"
   }
+  
 }

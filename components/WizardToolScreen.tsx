@@ -12,6 +12,8 @@ import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Alert, Image, Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { generateDesignImage } from '../src/services/designService';
+import * as StoreReview from 'expo-store-review';
+import * as Haptics from 'expo-haptics';
 
 export interface WizardOption {
   id: string; // Este ID debe existir en la DB (ej: 'room_kitchen')
@@ -114,9 +116,16 @@ export default function WizardToolScreen({
         await MediaLibrary.createAlbumAsync('Love Your Home', asset, false);
       }
 
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       Alert.alert(t('common.saved'));
+
+      if (await StoreReview.hasAction()) {
+        StoreReview.requestReview();
+      }
+
   } catch(e) { 
       console.error(e);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       Alert.alert(t('common.error'), t('common.error_save')); // Antes: "No se pudo guardar en el álbum."
   }
 };
@@ -162,7 +171,15 @@ export default function WizardToolScreen({
              <TouchableOpacity onPress={reset} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md"><X size={20} color="white" /></TouchableOpacity>
           </View>
           <View className="flex-row gap-4" pointerEvents="box-none">
-             <TouchableOpacity onPress={handleSave} className="flex-1 bg-white h-12 rounded-xl justify-center items-center shadow-lg"><Text className="font-bold text-gray-900">{t('common.save')}</Text></TouchableOpacity>
+             <TouchableOpacity 
+                onPress={handleSave} 
+                accessibilityRole="button"
+                // --- CORREGIDO: Uso de t() ---
+                accessibilityLabel={t('a11y.save_image')}
+                className="flex-1 bg-white h-12 rounded-xl justify-center items-center shadow-lg"
+              >
+                <Text className="font-bold text-gray-900">{t('common.save')}</Text>
+             </TouchableOpacity>
           </View>
         </SafeAreaView>
       </View>
