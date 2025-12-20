@@ -15,17 +15,22 @@ function CustomTabBar() {
   const isStore = pathname.includes('store');
   const isProfile = pathname.includes('profile');
 
-  const TabItem = ({ icon: Icon, label, isActive, onPress }: { icon: any, label: string, isActive: boolean, onPress: () => void }) => (
+  // --- CAMBIO: Props de Accesibilidad agregadas ---
+  const TabItem = ({ icon: Icon, label, isActive, onPress, accessibilityLabel }: { icon: any, label: string, isActive: boolean, onPress: () => void, accessibilityLabel: string }) => (
     <TouchableOpacity 
       activeOpacity={0.7} 
       onPress={onPress} 
       className="flex-1 items-center justify-center h-full"
+      // ACCESIBILIDAD
+      accessibilityRole="tab"
+      accessibilityState={{ selected: isActive }}
+      accessibilityLabel={accessibilityLabel}
     >
       <Icon 
         size={24} 
-        color={isActive ? '#111827' : '#9CA3AF'} // Gray-900 (Activo) vs Gray-400 (Inactivo)
+        color={isActive ? '#111827' : '#9CA3AF'} 
         strokeWidth={isActive ? 2.5 : 2} 
-        fill={isActive ? '#111827' : 'transparent'} // Relleno sólido si está activo
+        fill={isActive ? '#111827' : 'transparent'} 
       />
       <Text className={`text-[10px] mt-1 font-medium ${isActive ? 'text-gray-900' : 'text-gray-400'}`}>
         {label}
@@ -41,7 +46,7 @@ function CustomTabBar() {
       <View 
         className="w-[90%] max-w-[400px]"
         style={{ 
-            shadowColor: "#4f46e5", // Sombra color índigo sutil (Clave del diseño Glassy Light)
+            shadowColor: "#4f46e5", 
             shadowOffset: { width: 0, height: 8 },
             shadowOpacity: 0.15,
             shadowRadius: 20,
@@ -54,11 +59,29 @@ function CustomTabBar() {
             <BlurView 
               intensity={95}
               tint="light" 
-              className="flex-row items-center justify-around h-20 bg-white/70" // Blanco muy translúcido
+              className="flex-row items-center justify-around h-20 bg-white/70"
             >
-              <TabItem icon={ShoppingBag} label={t('home.nav_shop')} isActive={isStore} onPress={() => router.push('/(tabs)/store')} />
-              <TabItem icon={Home} label="Home" isActive={isHome} onPress={() => router.push('/(tabs)')} />
-              <TabItem icon={User} label={t('home.nav_profile')} isActive={isProfile} onPress={() => router.push('/(tabs)/profile')} />
+              <TabItem 
+                icon={ShoppingBag} 
+                label={t('home.nav_shop')} 
+                isActive={isStore} 
+                onPress={() => router.push('/(tabs)/store')} 
+                accessibilityLabel={t('a11y.tab_store')} // Nueva clave
+              />
+              <TabItem 
+                icon={Home} 
+                label="Home" 
+                isActive={isHome} 
+                onPress={() => router.push('/(tabs)')} 
+                accessibilityLabel={t('a11y.tab_home')} // Nueva clave
+              />
+              <TabItem 
+                icon={User} 
+                label={t('home.nav_profile')} 
+                isActive={isProfile} 
+                onPress={() => router.push('/(tabs)/profile')} 
+                accessibilityLabel={t('a11y.tab_profile')} // Nueva clave
+              />
             </BlurView>
         </View>
       </View>
@@ -72,7 +95,7 @@ export default function TabLayout() {
       tabBar={() => <CustomTabBar />}
       screenOptions={{
         headerShown: false,
-        sceneStyle: { backgroundColor: 'transparent' } // Importante para ver el gradiente de fondo
+        sceneStyle: { backgroundColor: 'transparent' }
       }}
     >
       <Tabs.Screen name="index" />

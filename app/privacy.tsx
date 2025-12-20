@@ -12,7 +12,6 @@ export default function PrivacyScreen() {
 
   return (
     <View className="flex-1 bg-white">
-      {/* Fondo Gradiente Consistente */}
       <LinearGradient
         colors={['#EEF2FF', '#ffffff', '#F5F3FF']}
         start={{ x: 0, y: 0 }}
@@ -21,12 +20,15 @@ export default function PrivacyScreen() {
       />
       <StatusBar barStyle="dark-content" />
       
-      {/* Header */}
       <SafeAreaView edges={['top']} className="px-6 pb-4 z-10">
         <View className="flex-row items-center gap-4">
           <TouchableOpacity 
             onPress={() => router.back()} 
             className="w-10 h-10 bg-white rounded-full items-center justify-center border border-gray-200 shadow-sm"
+            // --- ACCESIBILIDAD AGREGADA ---
+            accessibilityRole="button"
+            accessibilityLabel={t('a11y.go_back')}
+            accessibilityHint="Vuelve a la pantalla anterior"
           >
             <ArrowLeft size={20} color="#111827" />
           </TouchableOpacity>
@@ -64,8 +66,6 @@ export default function PrivacyScreen() {
               <Text key={`b-${i}`}>{'\n'}• {item}</Text>
             ))}
           </Section>
-
-          {/* ... resto de secciones iguales, el componente Section se encarga del estilo ... */}
           
           <Section title={t('legal.privacy.section_2_title')}>
             {(t('legal.privacy.section_2_list', { returnObjects: true }) as string[]).map((item, i) => (

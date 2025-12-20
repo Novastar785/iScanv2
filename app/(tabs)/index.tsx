@@ -6,14 +6,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dimensions, Image, Modal, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
-// --- IMPORTACIONES DE TU LÓGICA ---
 import { useRemoteConfig } from '../../hooks/useRemoteConfig';
 import { getUserCredits } from '../../src/services/revenueCat';
 
 const { width } = Dimensions.get('window');
 
-// Mantenemos tus constantes
 const PLACEHOLDER_GALLERY = [
   { id: 'p1', uri: 'https://rizzflows.com/img_aura/gallery/placeholder1.png' },
   { id: 'p2', uri: 'https://rizzflows.com/img_aura/gallery/placeholder2.jpg' },
@@ -26,7 +23,6 @@ export default function HomeScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   
-  // --- LÓGICA DE NEGOCIO ORIGINAL (INTACTA) ---
   const { getCost } = useRemoteConfig();
   const [galleryPhotos, setGalleryPhotos] = useState<any[]>([]);
   const [hasPermission, setHasPermission] = useState<boolean>(false);
@@ -107,10 +103,8 @@ export default function HomeScreen() {
   const displayPhotos = galleryPhotos.length > 0 ? galleryPhotos : PLACEHOLDER_GALLERY;
   const isShowingPlaceholders = galleryPhotos.length === 0;
 
-  // --- RENDERIZADO VISUAL ACTUALIZADO (GLASSY LIGHT) ---
   return (
     <View className="flex-1 bg-white">
-      {/* Fondo Gradiente usando Tailwind absolute inset-0 */}
       <LinearGradient
         colors={['#EEF2FF', '#ffffff', '#F5F3FF']} 
         start={{ x: 0, y: 0 }}
@@ -120,7 +114,6 @@ export default function HomeScreen() {
       
       <StatusBar barStyle="dark-content" />
       
-      {/* Container principal respetando Insets */}
       <View style={{ paddingTop: insets.top }} className="flex-1">
         <ScrollView className="flex-1" showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 140 }}>
           
@@ -131,8 +124,14 @@ export default function HomeScreen() {
               <Text className="text-gray-900 text-3xl font-extrabold leading-tight">Your Dream Home</Text>
             </View>
             
-            {/* Pill de Créditos ACTUALIZADO */}
-            <TouchableOpacity className="flex-row items-center bg-[#F5F2EF] px-3 py-1.5 rounded-full border border-[#E5E0D8] shadow-sm">
+            <TouchableOpacity 
+              className="flex-row items-center bg-[#F5F2EF] px-3 py-1.5 rounded-full border border-[#E5E0D8] shadow-sm"
+              // ACCESIBILIDAD
+              accessibilityRole="button"
+              accessibilityLabel={t('a11y.credits_balance', { count: credits })}
+              accessibilityHint={t('a11y.credits_hint')}
+              onPress={() => router.push('/(tabs)/store')}
+            >
               <View className="w-2 h-2 rounded-full bg-[#A58D76] mr-2" />
               <Text className="text-gray-800 font-bold mr-2 text-xs">{credits}</Text>
               <Plus size={12} color="#A58D76" />
@@ -159,33 +158,32 @@ export default function HomeScreen() {
                   key={item.id} 
                   activeOpacity={0.9}
                   className="relative overflow-hidden rounded-[32px] bg-white border border-white"
-                  // Usamos style aquí para sombra específica de color que NativeWind a veces no mapea bien en Android/iOS mixtos
                   style={{ width: width * 0.75, height: 400, shadowColor: '#4f46e5', shadowOpacity: 0.1, shadowRadius: 10, elevation: 5 }}
                   onPress={() => router.push(item.route as any)}
+                  // ACCESIBILIDAD
+                  accessibilityRole="button"
+                  accessibilityLabel={t('a11y.open_tool', { title: item.title })}
+                  accessibilityHint={item.subtitle}
                 >
                   <Image source={{ uri: item.image }} className="w-full h-full" resizeMode="cover" />
 
-                  {/* BADGE: Posicionado arriba a la derecha */}
                   {item.badge && (
                     <View className="absolute top-5 right-5 bg-white/90 px-2 py-1 rounded-lg border border-white shadow-sm z-10">
                       <Text className="text-indigo-600 text-[10px] font-bold tracking-wider">{item.badge}</Text>
                     </View>
                   )}
                   
-                  {/* Overlay Gradiente */}
                   <LinearGradient
                     colors={['transparent', 'rgba(255,255,255,0.8)', 'rgba(255,255,255,1)']}
                     className="absolute bottom-0 w-full h-1/2 justify-end p-6"
                   >
-                    
                     <Text className="text-gray-900 text-3xl font-bold leading-tight mb-1">{item.title}</Text>
                     <Text className="text-gray-500 text-sm mb-5 font-medium">{item.subtitle}</Text>
                     
-                    {/* BOTÓN ACTUALIZADO: Estilo Marrón con Flecha */}
                     <View className="bg-[#A58D76] self-start px-6 py-4 rounded-2xl flex-row items-center justify-between w-full shadow-lg">
                       <View className="flex-row items-center">
                         <Text className="text-white font-serif text-lg font-medium mr-2">Start Design</Text>
-                        </View>
+                      </View>
                       
                       <View className="flex-row items-center opacity-80">
                         <View className="w-[1px] h-3 bg-white/40 mx-2" />
@@ -211,16 +209,18 @@ export default function HomeScreen() {
               </View>
             </View>
             
-            {/* CAMBIO AQUÍ: Eliminamos 'flex-row flex-wrap justify-between' para que sea una lista vertical de tarjetas */}
             <View className="">
-              {displayPhotos.map((photo) => (
+              {displayPhotos.map((photo, index) => (
                 <TouchableOpacity 
                   key={photo.id} 
                   activeOpacity={0.8}
                   onPress={() => setSelectedPhoto(photo.uri)}
                   className="bg-white rounded-3xl mb-6 overflow-hidden border border-gray-100 shadow-sm relative"
-                  // CAMBIO AQUÍ: Ancho al 100% para llenar horizontalmente. Mantenemos height: 240.
                   style={{ width: '100%', height: 240 }}
+                  // ACCESIBILIDAD
+                  accessibilityRole="imagebutton"
+                  accessibilityLabel={t('a11y.gallery_image_index', { index: index + 1 })}
+                  accessibilityHint={t('a11y.gallery_image_hint')}
                 >
                   <Image source={{ uri: photo.uri }} className="w-full h-full" resizeMode="cover" />
                   
@@ -242,7 +242,6 @@ export default function HomeScreen() {
         </ScrollView>       
       </View>
 
-      {/* MODAL (Tailwind aplicado) */}
       <Modal 
         visible={!!selectedPhoto} 
         transparent={true} 
@@ -258,6 +257,9 @@ export default function HomeScreen() {
             <TouchableOpacity 
               onPress={() => setSelectedPhoto(null)} 
               className="absolute top-12 right-6 w-10 h-10 bg-gray-100 rounded-full items-center justify-center border border-gray-200 shadow-sm"
+              // ACCESIBILIDAD
+              accessibilityRole="button"
+              accessibilityLabel={t('a11y.close_preview')}
             >
               <X color="#374151" size={20} />
             </TouchableOpacity>

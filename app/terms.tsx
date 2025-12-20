@@ -25,6 +25,10 @@ export default function TermsScreen() {
           <TouchableOpacity 
             onPress={() => router.back()} 
             className="w-10 h-10 bg-white rounded-full items-center justify-center border border-gray-200 shadow-sm"
+            // --- ACCESIBILIDAD AGREGADA ---
+            accessibilityRole="button"
+            accessibilityLabel={t('a11y.go_back')}
+            accessibilityHint="Vuelve a la pantalla anterior"
           >
             <ArrowLeft size={20} color="#111827" />
           </TouchableOpacity>
@@ -62,7 +66,6 @@ export default function TermsScreen() {
           <Section title={t('legal.terms.section_2_title')}>
             {t('legal.terms.section_2_text')}
             {'\n\n'}
-            {/* Disclaimer Box actualizado a Light */}
             <View className="bg-indigo-50 p-4 rounded-xl border border-indigo-100">
               <Text className="text-indigo-900 font-bold mb-2">{t('legal.terms.ai_disclaimer_title')}</Text>
               <Text className="text-indigo-700 text-sm">
@@ -70,8 +73,6 @@ export default function TermsScreen() {
               </Text>
             </View>
           </Section>
-
-          {/* ... resto de secciones idénticas ... */}
           
           <Section title={t('legal.terms.section_3_title')}>
             {t('legal.terms.section_3_payments')}
