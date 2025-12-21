@@ -19,6 +19,12 @@
       "bundleIdentifier": "com.loveyourhome.app",
       "userInterfaceStyle": "dark",
       "infoPlist": {
+        "CFBundleAllowMixedLocalizations": true,
+    "CFBundleLocalizations": [
+      "en",
+      "es",
+      "pt"
+    ],
         "NSPhotoLibraryUsageDescription": "Love Your Home needs access to your photo library to allow you to select photos for analysis and generation.",
         "NSCameraUsageDescription": "Love Your Home needs access to your camera to let you take photos for AI generation.",
         "ITSAppUsesNonExemptEncryption": false

@@ -12,27 +12,27 @@ export default function GardenDesignScreen() {
     { 
       id: 'garden_zen', 
       label: t('styles.zen'), 
-      image: 'https://images.unsplash.com/photo-1590483005691-36dc30d1b0f4?w=300' 
+      image: 'https://rizzflows.com/img_lyh/garden/zen.jpg' 
     },
     { 
       id: 'garden_tropical', 
       label: t('styles.tropical'), 
-      image: 'https://images.unsplash.com/photo-1574315042633-999fa5b07222?w=300' 
+      image: 'https://rizzflows.com/img_lyh/garden/tropical.jpg' 
     },
     { 
       id: 'garden_modern', 
       label: t('styles.modern'), 
-      image: 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=300' 
+      image: 'https://rizzflows.com/img_lyh/garden/moderm.jpg' 
     },
     { 
       id: 'garden_english', 
       label: t('styles.english'), 
-      image: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=300' 
+      image: 'https://rizzflows.com/img_lyh/garden/english.jpg' 
     },
     { 
       id: 'garden_mediterranean', 
       label: t('styles.mediterranean'), 
-      image: 'https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=300' 
+      image: 'https://rizzflows.com/img_lyh/garden/mediterranean.jpg' 
     },
   ];
 
@@ -43,7 +43,7 @@ export default function GardenDesignScreen() {
       subtitle={t('tools.gardendesign.subtitle')}
       price={getCost('gardendesign', 3)}
       // Esta es la misma imagen que usas en el Home para la tarjeta de Garden Design
-      backgroundImage="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800"
+      backgroundImage="https://rizzflows.com/img_lyh/jardin.png"
       options={gardenStyles}
       selectionTitle={t('wizard.step_style_title')}
     />

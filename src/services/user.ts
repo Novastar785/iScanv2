@@ -65,9 +65,9 @@ export const initializeUser = async () => {
       
       // Mensaje de bienvenida
       Alert.alert(
-        "¡Welcome to Love Your Home!", 
-        "As a welcome gift, we've added 3 free credits to your account. Enjoy exploring Love Your Home!"
-      );
+  i18n.t('common.welcome_title'), 
+  i18n.t('common.welcome_gift_msg')
+);
     } else {
       console.log("El usuario ya existía (o la DB lo reportó como existente).");
     }

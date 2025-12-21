@@ -12,10 +12,10 @@ import { getUserCredits } from '../../src/services/revenueCat';
 const { width } = Dimensions.get('window');
 
 const PLACEHOLDER_GALLERY = [
-  { id: 'p1', uri: 'https://rizzflows.com/img_aura/gallery/placeholder1.png' },
-  { id: 'p2', uri: 'https://rizzflows.com/img_aura/gallery/placeholder2.jpg' },
-  { id: 'p3', uri: 'https://rizzflows.com/img_aura/gallery/placeholder3.jpg' },
-  { id: 'p4', uri: 'https://rizzflows.com/img_aura/gallery/placeholder4.jpg' },
+  { id: 'p1', uri: 'https://rizzflows.com/img_lyh/galaria1.jpg' },
+  { id: 'p2', uri: 'https://rizzflows.com/img_lyh/style-nordic.jpg' },
+  { id: 'p3', uri: 'https://rizzflows.com/img_lyh/style-modern.jpg' },
+  { id: 'p4', uri: 'https://rizzflows.com/img_lyh/style-minimalist.jpg' },
 ];
 
 export default function HomeScreen() {
@@ -46,7 +46,7 @@ export default function HomeScreen() {
       title: t('tools.interiordesign.title'), 
       subtitle: t('tools.interiordesign.subtitle'), 
       price: getCost('interiordesign', 3), 
-      image: 'http://rizzflows.com/img_lyh/interior.png', 
+      image: 'https://rizzflows.com/img_lyh/interior.png', 
       badge: 'NEW' 
     },
     { 
@@ -55,7 +55,7 @@ export default function HomeScreen() {
       title: t('tools.exteriordesign.title'), 
       subtitle: t('tools.exteriordesign.subtitle'), 
       price: getCost('exteriordesign', 3), 
-      image: 'http://rizzflows.com/img_lyh/exterior.jpg', 
+      image: 'https://rizzflows.com/img_lyh/exterior.jpg', 
       badge: 'PRO' 
     },
     { 
@@ -64,7 +64,7 @@ export default function HomeScreen() {
       title: t('tools.gardendesign.title'), 
       subtitle: t('tools.gardendesign.subtitle'), 
       price: getCost('gardendesign', 3), 
-      image: 'http://rizzflows.com/img_lyh/jardin.png', 
+      image: 'https://rizzflows.com/img_lyh/jardin.png', 
       badge: 'PRO' 
     },
     { 
@@ -73,7 +73,7 @@ export default function HomeScreen() {
      title: t('tools.styletransfer.title'), 
      subtitle: t('tools.styletransfer.subtitle'), 
      price: getCost('styletransfer', 3), 
-     image: 'http://rizzflows.com/img_lyh/transfer.png', 
+     image: 'https://rizzflows.com/img_lyh/transfer.png', 
      badge: 'FUN' 
    },
  ];

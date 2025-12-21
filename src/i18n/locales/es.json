@@ -23,6 +23,7 @@
     "permissions_missing": "Faltan permisos",
     "permissions_access": "Necesitamos acceso para continuar.",
     "error": "Error",
+    "ok": "Aceptar",
     "error_generation": "El modelo no pudo generar la imagen. Intenta de nuevo.",
     "error_technical": "Hubo un problema técnico.",
     "error_connection": "Falló la conexión.",
@@ -49,6 +50,8 @@
     "choose_source": "Elige el origen",
     "insufficient_title": "Saldo Insuficiente",
     "insufficient_msg": "No tienes suficientes créditos para generar este diseño.",
+    "welcome_title": "¡Bienvenido a Love Your Home!",
+    "welcome_gift_msg": "Como regalo de bienvenida, hemos añadido 3 créditos gratis a tu cuenta. ¡Disfruta explorando Love Your Home!",
     "go_store": "Ir a la Tienda"
   },
   "generic_tool": {
@@ -92,9 +95,10 @@
   },
   "styles": {
     "modern": "Moderno",
-    "industrial": "Industrial",
+    "nordic": "Nórdico",
     "mediterranean": "Mediterráneo",
     "scandinavian": "Escandinavo",
+    "american": "Americano",
     "farmhouse": "Casa de Campo",
     "boho": "Bohemio",
     "luxury": "Lujo",
@@ -116,7 +120,7 @@
     "data_secure": "Tus datos están seguros",
     "company_name": "ADSEGOM LTD",
     "app_name": "Love Your Home",
-    "contact_email": "info@loveyourhome.app",
+    "contact_email": "info@rizzflows.com",
     "terms": {
       "intro": "Bienvenido a <bold>{{appName}}</bold>. Estos Términos rigen su uso de la App.",
       "section_1_title": "1. Acuerdo",
@@ -260,6 +264,7 @@
     "gallery_image_hint": "Toca para ver en pantalla completa",
     "go_back": "Volver atrás",
     "select_image_for": "Seleccionar imagen para {{label}}",
+    "upload_photo_hint": "Cuesta {{cost}} créditos. Abre la cámara o galería.",
     "generate_design": "Generar diseño"
   },
   "onboarding": {
@@ -273,6 +278,7 @@
     "slide2_text": "Explora estilos arquitectónicos y encuentra tu inspiración.",
     "style_nordic": "Nórdico",
     "style_modern": "Moderno",
+    "style_american": "Americano",
     "style_minimalist": "Minimalista",
     "slide3_title": "¡Tu Regalo",
     "slide3_title_accent": "Exclusivo!",

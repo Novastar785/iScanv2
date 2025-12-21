@@ -15,7 +15,7 @@ import * as StoreReview from 'expo-store-review';
 import * as Haptics from 'expo-haptics';
 
 export interface DesignOption {
-  id: string; // ID en la base de datos
+  id: string; 
   label: string;
   image: string;
 }
@@ -75,8 +75,9 @@ export default function SingleStepDesignScreen({
       setResultImage(result);
     } catch (error: any) {
       if (error.message === 'INSUFFICIENT_CREDITS') {
+        // CORRECCIÓN: Usar t('common.ok') en lugar de "OK"
         Alert.alert(t('common.insufficient_title'), t('common.insufficient_msg'), [
-          { text: "OK" },
+          { text: t('common.ok') }, 
           { text: t('common.go_store'), onPress: () => router.push('/(tabs)/store') }
         ]);
       } else {
@@ -114,11 +115,10 @@ export default function SingleStepDesignScreen({
     setSelectedImage(null);
   };
 
-  // PANTALLA DE RESULTADO (Se mantiene oscura para resaltar la imagen generada)
+  // PANTALLA DE RESULTADO
   if (resultImage) {
     return (
       <View className="flex-1 bg-black">
-        {/* 1. SLIDER / IMAGEN (Fondo) */}
         {selectedImage ? (
            <BeforeAfterSlider 
               beforeImage={selectedImage} 
@@ -128,31 +128,33 @@ export default function SingleStepDesignScreen({
            <Image source={{ uri: resultImage }} className="absolute w-full h-full" resizeMode="contain" />
         )}
 
-        {/* 2. CONTROLES (Capa Superior) */}
-        {/* CORRECCIÓN: Agregamos 'absolute w-full h-full' para que flote sobre el slider sin moverlo */}
         <SafeAreaView 
             className="absolute w-full h-full flex-1 justify-between px-6 pb-8" 
             pointerEvents="box-none"
         >
-          {/* Parte Superior: Reportar y Cerrar */}
           <View className="flex-row justify-between pt-4" pointerEvents="box-none">
              <TouchableOpacity 
-  onPress={() => reportContent(featureId, "User flagged content", resultImage)} 
-  className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md"
->
-   <Flag size={20} color="#f87171" />
-</TouchableOpacity>
-             <TouchableOpacity onPress={reset} className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md">
+                onPress={() => reportContent(featureId, "User flagged content", resultImage)} 
+                className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md"
+                accessibilityRole="button"
+                accessibilityLabel={t('a11y.report_content')}
+             >
+                <Flag size={20} color="#f87171" />
+             </TouchableOpacity>
+             <TouchableOpacity 
+                onPress={reset} 
+                className="w-10 h-10 bg-white/20 rounded-full items-center justify-center backdrop-blur-md"
+                accessibilityRole="button"
+                accessibilityLabel={t('a11y.close_preview')}
+             >
                 <X size={20} color="white" />
              </TouchableOpacity>
           </View>
           
-          {/* Parte Inferior: Guardar */}
           <View className="flex-row gap-4" pointerEvents="box-none">
              <TouchableOpacity 
                 onPress={handleSave} 
                 accessibilityRole="button"
-                // --- CORREGIDO: Uso de t() ---
                 accessibilityLabel={t('a11y.save_image')}
                 className="flex-1 bg-white h-12 rounded-xl justify-center items-center shadow-lg"
              >
@@ -164,21 +166,15 @@ export default function SingleStepDesignScreen({
     );
   }
 
-  // PANTALLA DE SELECCIÓN (Estilo Claro)
-// SELECCIÓN
+  // PANTALLA DE SELECCIÓN
   return (
-    // 1. CAMBIO DE FONDO: De bg-[#0f0f0f] a bg-white
     <View className="flex-1 bg-white">
-      
       <Image 
         source={{ uri: selectedImage || backgroundImage }} 
-        // 2. CAMBIO DE IMAGEN: opacity-60 y blurRadius={20} (Igual que GenericTool)
         className="absolute w-full h-full opacity-60" 
         blurRadius={selectedImage ? 0 : 20} 
         resizeMode="cover" 
       />
-      
-      {/* 3. CAMBIO DE GRADIENTE: De transparente a Blanco (#ffffff) */}
       <LinearGradient 
         colors={['rgba(255,255,255,0)', '#ffffff']} 
         className="absolute w-full h-full" 
@@ -186,13 +182,22 @@ export default function SingleStepDesignScreen({
       
       <SafeAreaView className="flex-1 px-6">
         <View className="flex-row justify-between items-center mb-6">
-          {/* 4. BOTÓN ATRÁS: Fondo blanco y borde gris para contraste */}
-          <TouchableOpacity onPress={() => router.back()} className="w-10 h-10 bg-white rounded-full items-center justify-center border border-gray-200">
-            <ArrowLeft size={20} color="#374151" /> {/* Icono Gris Oscuro */}
+          <TouchableOpacity 
+            onPress={() => router.back()} 
+            className="w-10 h-10 bg-white rounded-full items-center justify-center border border-gray-200"
+            accessibilityRole="button"
+            accessibilityLabel={t('a11y.go_back')}
+          >
+            <ArrowLeft size={20} color="#374151" />
           </TouchableOpacity>
           
           {selectedImage && (
-            <TouchableOpacity onPress={() => setSelectedImage(null)} className="bg-white/80 px-3 py-1 rounded-full border border-gray-200">
+            <TouchableOpacity 
+              onPress={() => setSelectedImage(null)} 
+              className="bg-white/80 px-3 py-1 rounded-full border border-gray-200"
+              accessibilityRole="button"
+              accessibilityLabel={t('common.cancel')}
+            >
               <Text className="text-gray-900 text-xs font-bold">{t('common.cancel')}</Text>
             </TouchableOpacity>
           )}
@@ -201,34 +206,41 @@ export default function SingleStepDesignScreen({
         <View className="flex-1 justify-end pb-8">
           {!selectedImage ? (
             <View>
-              {/* 5. TEXTOS: Cambiar text-white a text-gray-900 (Oscuro) */}
               <Text className="text-gray-900 text-4xl font-bold mb-2">{title}</Text>
               <Text className="text-gray-500 text-lg mb-8">{subtitle}</Text>
               
-              <TouchableOpacity onPress={() => setShowPicker(true)} className="h-16 bg-indigo-600 rounded-2xl flex-row items-center justify-center">
+              <TouchableOpacity 
+                onPress={() => setShowPicker(true)} 
+                className="h-16 bg-indigo-600 rounded-2xl flex-row items-center justify-center"
+                accessibilityRole="button"
+                accessibilityLabel={t('common.upload_photo')}
+                // CORRECCIÓN: Ahora usa la clave nueva que agregaste a los JSON
+                accessibilityHint={t('a11y.upload_photo_hint', { cost: price })}
+              >
                 <Camera size={24} color="white" className="mr-3" />
                 <Text className="text-white font-bold text-lg">{t('common.upload_photo')} ({price} 💎)</Text>
               </TouchableOpacity>
             </View>
           ) : (
-            // CAJA DE SELECCIÓN (Estilo Glassy Light)
             <View className="bg-white/80 p-6 rounded-3xl border border-white/40">
                <Text className="text-gray-500 text-xs font-bold mb-3 uppercase tracking-widest">{selectionTitle || t('generic_tool.choose_style')}</Text>
                
                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 12 }}>
                  {options.map((opt) => (
-                   <TouchableOpacity key={opt.id} onPress={() => setSelectedOption(opt.id)} activeOpacity={0.8} className="relative">
+                   <TouchableOpacity 
+                      key={opt.id} 
+                      onPress={() => setSelectedOption(opt.id)} 
+                      activeOpacity={0.8} 
+                      className="relative"
+                      accessibilityRole="radio"
+                      accessibilityState={{ checked: selectedOption === opt.id }}
+                      accessibilityLabel={opt.label}
+                   >
                      <View className={`w-24 h-32 rounded-xl overflow-hidden border-2 ${selectedOption === opt.id ? 'border-indigo-600' : 'border-gray-200'}`}>
                        <Image source={{ uri: opt.image }} className="w-full h-full" />
-                       
-                       {/* MEJORA 1: Degradado negro abajo para que el texto resalte (sustituye al bg-black/10) */}
-                       <LinearGradient 
-                          colors={['transparent', 'rgba(0,0,0,0.7)']} 
-                          className="absolute bottom-0 w-full h-16" 
-                       />
+                       <LinearGradient colors={['transparent', 'rgba(0,0,0,0.7)']} className="absolute bottom-0 w-full h-16" />
                      </View>
                      
-                     {/* MEJORA 2: Sombra de TEXTO (style directo) para contorno negro seguro */}
                      <Text 
                         className="absolute bottom-2 w-full text-center text-xs font-bold text-white"
                         style={{ 
@@ -249,6 +261,9 @@ export default function SingleStepDesignScreen({
                  disabled={isProcessing} 
                  onPress={handleGenerate} 
                  className={`mt-6 h-14 rounded-xl flex-row items-center justify-center ${isProcessing ? 'bg-gray-400' : 'bg-indigo-600'}`}
+                 accessibilityRole="button"
+                 accessibilityLabel={t('generic_tool.generate_btn')}
+                 accessibilityState={{ disabled: isProcessing }}
                >
                  {isProcessing ? <ActivityIndicator color="white" /> : <Text className="text-white font-bold text-lg">{t('generic_tool.generate_btn')}</Text>}
                </TouchableOpacity>
@@ -257,23 +272,37 @@ export default function SingleStepDesignScreen({
         </View>
       </SafeAreaView>
 
-      {/* MODAL (También necesita ajuste a tema claro) */}
       <Modal visible={showPicker} transparent animationType="slide">
         <View className="flex-1 justify-end bg-black/20">
           <View className="bg-white p-6 rounded-t-3xl gap-4 border-t border-gray-100">
             <Text className="text-gray-900 font-bold text-center text-lg mb-2">{t('common.select_image')}</Text>
             
-            <TouchableOpacity onPress={() => pickImage(true)} className="bg-gray-50 p-4 rounded-xl flex-row gap-3 items-center border border-gray-100">
+            <TouchableOpacity 
+                onPress={() => pickImage(true)} 
+                className="bg-gray-50 p-4 rounded-xl flex-row gap-3 items-center border border-gray-100"
+                accessibilityRole="button"
+                accessibilityLabel={t('common.camera')}
+            >
                 <Camera color="#4f46e5" />
                 <Text className="text-gray-700 font-bold">{t('common.camera')}</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity onPress={() => pickImage(false)} className="bg-gray-50 p-4 rounded-xl flex-row gap-3 items-center border border-gray-100">
+            <TouchableOpacity 
+                onPress={() => pickImage(false)} 
+                className="bg-gray-50 p-4 rounded-xl flex-row gap-3 items-center border border-gray-100"
+                accessibilityRole="button"
+                accessibilityLabel={t('common.gallery')}
+            >
                 <ImageIcon color="#4f46e5" />
                 <Text className="text-gray-700 font-bold">{t('common.gallery')}</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity onPress={() => setShowPicker(false)} className="p-4 items-center">
+            <TouchableOpacity 
+                onPress={() => setShowPicker(false)} 
+                className="p-4 items-center"
+                accessibilityRole="button"
+                accessibilityLabel={t('common.cancel')}
+            >
                 <Text className="text-gray-400 font-bold">{t('common.cancel')}</Text>
             </TouchableOpacity>
           </View>

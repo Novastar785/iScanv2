@@ -240,7 +240,7 @@ export default function WizardToolScreen({
                     accessibilityState={{ checked: opt1?.id === opt.id }}
                     accessibilityLabel={opt.label}
                   >
-                    <Image source={{ uri: opt.image }} className="w-16 h-16 rounded-xl bg-gray-200" />
+                    <Image source={{ uri: opt.image }} className="w-32 h-32 rounded-xl bg-gray-200" />
                     <Text className={`font-bold text-lg ${opt1?.id === opt.id ? 'text-indigo-900' : 'text-gray-700'}`}>{opt.label}</Text>
                     {opt1?.id === opt.id && <View className="ml-auto bg-indigo-500 rounded-full p-1"><Check size={14} color="white" /></View>}
                   </TouchableOpacity>
