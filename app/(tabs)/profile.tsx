@@ -80,7 +80,7 @@ export default function ProfileScreen() {
   };
 
   const handleSupport = async () => {
-    const email = 'sequeira.adsegom@gmail.com';
+    const email = 'info@rizzflows.com';
     const url = `mailto:${email}?subject=${t('profile.subject')}`;
     const canOpen = await Linking.canOpenURL(url);
     if (canOpen) await Linking.openURL(url);

@@ -93,7 +93,7 @@ export default function SingleStepDesignScreen({
     const perm = await MediaLibrary.requestPermissionsAsync();
     if (perm.status !== 'granted') return;
     try {
-        const filename = FileSystem.cacheDirectory + `aura_garden_${Date.now()}.jpg`;
+        const filename = FileSystem.cacheDirectory + `lyh_garden_${Date.now()}.jpg`;
         const base64 = resultImage.split('base64,')[1];
         await FileSystem.writeAsStringAsync(filename, base64, { encoding: 'base64' });
         await MediaLibrary.createAssetAsync(filename);

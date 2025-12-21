@@ -20,13 +20,13 @@
       "userInterfaceStyle": "dark",
       "infoPlist": {
         "CFBundleAllowMixedLocalizations": true,
-    "CFBundleLocalizations": [
-      "en",
-      "es",
-      "pt"
-    ],
-        "NSPhotoLibraryUsageDescription": "Love Your Home needs access to your photo library to allow you to select photos for analysis and generation.",
-        "NSCameraUsageDescription": "Love Your Home needs access to your camera to let you take photos for AI generation.",
+        "CFBundleLocalizations": [
+          "en",
+          "es",
+          "pt"
+        ],
+        "NSPhotoLibraryUsageDescription": "Love Your Home needs access to your photos so you can select an image of your room to verify its style and generate new interior designs..",
+        "NSCameraUsageDescription": "Love Your Home needs access to your camera to let you take photos of your room to verify its style and generate new interior designs.",
         "ITSAppUsesNonExemptEncryption": false
       }
     },
@@ -38,7 +38,16 @@
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "package": "com.loveyourhome.app",
-      "versionCode": 1
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.READ_MEDIA_AUDIO",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "output": "static",
@@ -84,7 +93,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": ""
+        "projectId": "429b89d1-81b5-47ff-ab62-02859212925a"
       }
     }
   }
