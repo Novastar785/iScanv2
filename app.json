@@ -17,7 +17,7 @@
       "buildNumber": "1",
       "supportsTablet": false,
       "bundleIdentifier": "com.loveyourhome.app",
-      "userInterfaceStyle": "dark",
+      "userInterfaceStyle": "light",
       "infoPlist": {
         "CFBundleAllowMixedLocalizations": true,
         "CFBundleLocalizations": [
