@@ -1,309 +1,226 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import * as MediaLibrary from 'expo-media-library';
-import { useFocusEffect, useRouter } from 'expo-router';
-import { Plus, Sparkles, X } from 'lucide-react-native';
-// 1. IMPORTAMOS cssInterop
-import { cssInterop } from 'nativewind'; 
-// MODIFICACION: Añadido useRef para el estado de la app
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+import { useRouter } from 'expo-router';
+import { Sparkles, Scan, PawPrint, Coins, Fish, Bug, Globe, Gem } from 'lucide-react-native';
+import { cssInterop } from 'nativewind';
+import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-// MODIFICACION: Añadido AppState para detectar cuando la app vuelve
-import { Dimensions, Image, Modal, ScrollView, StatusBar, Text, TouchableOpacity, View, AppState } from 'react-native';
+import { Dimensions, Image, ScrollView, StatusBar, Text, TouchableOpacity, View, Animated } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import BlobBackground from '../../components/BlobBackground';
 import { useRemoteConfig } from '../../hooks/useRemoteConfig';
-import { getUserCredits } from '../../src/services/revenueCat';
 
-// 2. CONFIGURAMOS LinearGradient PARA QUE ACEPTE CLASES DE TAILWIND
-cssInterop(LinearGradient, {
-  className: "style",
-});
+// Make sure icons can take classes if needed (though we use color props mostly)
+cssInterop(Sparkles, { className: "style" });
 
 const { width } = Dimensions.get('window');
 
-const PLACEHOLDER_GALLERY = [
-  { id: 'p1', uri: require('../../assets/images/galaria1.jpg') },
-  { id: 'p2', uri: require('../../assets/images/style-nordic.jpg') },
-  { id: 'p3', uri: require('../../assets/images/style-modern.jpg') },
-  { id: 'p4', uri: require('../../assets/images/style-minimalist.jpg') },
-];
+import { BlurView } from 'expo-blur';
+import { t } from 'i18next';
 
 export default function HomeScreen() {
-  const insets = useSafeAreaInsets();
-  const router = useRouter();
   const { t } = useTranslation();
-  
-  const { getCost } = useRemoteConfig();
-  const [galleryPhotos, setGalleryPhotos] = useState<any[]>([]);
-  const [hasPermission, setHasPermission] = useState<boolean>(false);
-  const [credits, setCredits] = useState(0);
-  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  const router = useRouter();
+  const insets = useSafeAreaInsets();
 
-  // MODIFICACION: Referencia para controlar el estado anterior de la app
-  const appState = useRef(AppState.currentState);
+  // Config or placeholders
+  const getCost = (feature: string, defaultPrice: number) => defaultPrice;
 
-  // MODIFICACION: Función extraída para ser llamada tanto por Focus como por AppState
-  const loadCredits = async () => {
-    const creditData = await getUserCredits();
-    setCredits(creditData.total);
-  };
-
-  // MODIFICACION: Listener para recargar créditos al volver de segundo plano
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
-      if (
-        appState.current.match(/inactive|background/) &&
-        nextAppState === 'active'
-      ) {
-        loadCredits();
-      }
-      appState.current = nextAppState;
-    });
-
-    return () => {
-      subscription.remove();
-    };
-  }, []);
-
-  useFocusEffect(
-    useCallback(() => {
-      loadCredits();
-    }, [])
-  );
-
-  const TOOLS = [
-    { 
-      id: 'interiordesign', 
-      route: '/features/interiordesign', 
-      title: t('tools.interiordesign.title'), 
-      subtitle: t('tools.interiordesign.subtitle'), 
-      price: getCost('interiordesign', 5), 
-      image: require('../../assets/images/img_lyh/interior.jpg'), 
-      badge: 'NEW' 
+  // Categories data matching the new design
+  const CATEGORIES = [
+    {
+      id: 'plant',
+      route: '/features/plant',
+      title: t('tools.plant.title') || "Plants",
+      icon: Sparkles, // Placeholder icon
+      iconName: 'psychiatry', // Material symbol equivalent
+      image: require('../../assets/images/index/plant.png')
     },
-    { 
-      id: 'exteriordesign', 
-      route: '/features/exteriordesign', 
-      title: t('tools.exteriordesign.title'), 
-      subtitle: t('tools.exteriordesign.subtitle'), 
-      price: getCost('exteriordesign', 3), 
-      image: require('../../assets/images/img_lyh/exterior.jpg'), 
-      badge: 'PRO' 
+    {
+      id: 'coin',
+      route: '/features/coin',
+      title: 'Coins',
+      icon: Coins,
+      iconName: 'monetization_on',
+      image: require('../../assets/images/index/coin.png')
     },
-    { 
-      id: 'gardendesign', 
-      route: '/features/gardendesign', 
-      title: t('tools.gardendesign.title'), 
-      subtitle: t('tools.gardendesign.subtitle'), 
-      price: getCost('gardendesign', 3), 
-      image: require('../../assets/images/img_lyh/jardin.jpg'), 
-      badge: 'PRO' 
+    {
+      id: 'fish',
+      route: '/features/fish',
+      title: t('tools.fish.title') || "Fish",
+      icon: Fish,
+      iconName: 'set_meal',
+      image: require('../../assets/images/index/fish.png')
     },
-    { 
-     id: 'styletransfer', 
-     route: '/features/styletransfer', 
-     title: t('tools.styletransfer.title'), 
-     subtitle: t('tools.styletransfer.subtitle'), 
-     price: getCost('styletransfer', 3), 
-     image: require('../../assets/images/img_lyh/transfer.jpg'),
-     badge: 'FUN' 
-   },
- ];
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const { status } = await MediaLibrary.requestPermissionsAsync();
-        if (status === 'granted') {
-          setHasPermission(true);
-          loadAuraAlbum();
-        }
-      } catch (e) { console.log("Error permisos o Expo Go"); }
-    })();
-  }, []);
-
-  const loadAuraAlbum = async () => {
-    try {
-      const album = await MediaLibrary.getAlbumAsync('Love Your Home'); 
-      if (album) {
-        const assets = await MediaLibrary.getAssetsAsync({ album, first: 20, mediaType: 'photo', sortBy: ['creationTime'] });
-        setGalleryPhotos(assets.assets);
-      } else { setGalleryPhotos([]); }
-    } catch (e) { setGalleryPhotos([]); }
-  };
-
-  const displayPhotos = galleryPhotos.length > 0 ? galleryPhotos : PLACEHOLDER_GALLERY;
-  const isShowingPlaceholders = galleryPhotos.length === 0;
+    {
+      id: 'cat',
+      route: '/features/cat',
+      title: t('tools.cat.title') || "Cat",
+      icon: PawPrint,
+      iconName: 'pets',
+      image: require('../../assets/images/index/cat.png')
+    },
+    {
+      id: 'dog',
+      route: '/features/dog',
+      title: t('tools.dog.title') || "Dog",
+      icon: PawPrint,
+      iconName: 'pets',
+      image: require('../../assets/images/index/dog.png')
+    },
+    {
+      id: 'rock',
+      route: '/features/rock',
+      title: t('tools.rock.title') || "Rocks",
+      icon: Gem,
+      iconName: 'landscape',
+      image: require('../../assets/images/index/rock.png')
+    },
+    {
+      id: 'insect',
+      route: '/features/insect',
+      title: t('tools.insect.title') || "Insects",
+      icon: Bug,
+      iconName: 'bug_report',
+      image: require('../../assets/images/index/insect.png')
+    },
+  ];
 
   return (
-    <View className="flex-1 bg-white">
-      <LinearGradient
-        colors={['#EEF2FF', '#ffffff', '#F5F3FF']} 
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        className="absolute inset-0"
-      />
-      
-      <StatusBar barStyle="dark-content" />
-      
-      <View style={{ paddingTop: insets.top }} className="flex-1">
-        <ScrollView className="flex-1" showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 140 }}>
-          
-          {/* HEADER */}
-          <View className="flex-row justify-between items-end px-6 pt-2 mb-8">
-            <View>
-              <Text className="text-gray-500 text-[10px] font-bold tracking-widest uppercase mb-1">LOVE YOUR HOME</Text>
-              <Text className="text-gray-900 text-3xl font-extrabold leading-tight">{t('home.subtitle')}</Text>
-            </View>
-            
-            <TouchableOpacity 
-              className="flex-row items-center bg-[#F5F2EF] px-3 py-1.5 rounded-full border border-[#E5E0D8] shadow-sm"
-              accessibilityRole="button"
-              accessibilityLabel={t('a11y.credits_balance', { count: credits })}
-              accessibilityHint={t('a11y.credits_hint')}
-              onPress={() => router.push('/(tabs)/store')}
-            >
-              <View className="w-2 h-2 rounded-full bg-[#A58D76] mr-2" />
-              <Text className="text-gray-800 font-bold mr-2 text-xs">{credits}</Text>
-              <Plus size={12} color="#A58D76" />
-            </TouchableOpacity>
-          </View>
+    <View className="flex-1 bg-background-dark">
+      <BlobBackground />
+      <StatusBar barStyle="light-content" />
 
-          {/* CARRUSEL */}
-          <View className="mb-8">
-            <View className="flex-row justify-between items-center px-6 mb-4">
-              <View className="flex-row items-center gap-2">
-                <Sparkles size={16} color="#F59E0B" fill="#F59E0B" />
-                <Text className="text-gray-900 font-bold text-sm tracking-wide">{t('home.tools_header')}</Text>
+      {/* Main Scroll Content */}
+      <ScrollView
+        className="flex-1"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 120, paddingTop: insets.top + 20 }}
+      >
+        {/* Header Text */}
+        <View className="px-6 mb-8 mt-4">
+          <Text className="text-white text-3xl font-bold leading-tight mb-2 drop-shadow-md">
+            {t('home.title_question') || "¿Qué quieres descubrir hoy?"}
+          </Text>
+          <Text className="text-stone-300 text-sm font-medium leading-relaxed max-w-[280px]">
+            {t('home.subtitle_instruction') || "Selecciona una categoría para ayudar a nuestra IA a darte un resultado preciso"}
+          </Text>
+        </View>
+
+        {/* Auto-Detect Button */}
+        {/* Auto-Detect Button */}
+        <View className="px-4 mb-6">
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={() => router.push('/features/custom')}
+            className="w-full relative"
+            style={{
+              height: 80,
+              borderRadius: 24, // Explicit border radius (rounded-3xl)
+              overflow: 'hidden', // Enforce clipping
+              shadowColor: '#d97706',
+              shadowOffset: { width: 0, height: 4 },
+              shadowOpacity: 0.2,
+              shadowRadius: 15,
+              elevation: 8,
+              backgroundColor: 'rgba(60, 40, 30, 0.8)' // Fallback background
+            }}
+          >
+            {/* Unified Background Layer */}
+            <BlurView intensity={40} tint="dark" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} />
+
+            <LinearGradient
+              colors={['rgba(80, 50, 40, 0.6)', 'rgba(60, 40, 30, 0.8)']}
+              style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+            />
+
+            {/* Shimmer Effect */}
+            <LinearGradient
+              colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.05)']}
+              style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+            />
+
+            {/* Border Overlay - Dedicated View for reliable border rendering */}
+            <View
+              className="absolute inset-0 border border-white/20 rounded-[24px]"
+              pointerEvents="none"
+            />
+
+            {/* Content */}
+            <View className="flex-row items-center justify-between h-full px-6">
+              <View className="flex-row items-center gap-4">
+                {/* Icon Container - Using consistent rounded style */}
+                <View className="w-12 h-12 rounded-xl bg-primary items-center justify-center border border-white/20 shadow-lg">
+                  <Sparkles color="white" size={24} />
+                </View>
+                <View>
+                  <Text className="text-white font-bold text-lg tracking-wide">{t('home.auto_detect') || "Auto-detectar"}</Text>
+                  <Text className="text-stone-300 text-xs">{t('home.smart_scan') || "Escaneo inteligente IA"}</Text>
+                </View>
               </View>
-              <Text className="text-gray-400 text-xs">{t('home.swipe')}</Text>
+              <Scan color="#f59e0b" size={28} className="opacity-80" />
             </View>
+          </TouchableOpacity>
+        </View>
 
-            <ScrollView 
-              horizontal 
-              showsHorizontalScrollIndicator={false} 
-              contentContainerStyle={{ paddingHorizontal: 24, gap: 16 }}
-            >
-              {TOOLS.map((item) => (
-                <TouchableOpacity 
-                  key={item.id} 
-                  activeOpacity={0.9}
-                  className="relative overflow-hidden rounded-[32px] bg-white border border-white"
-                  style={{ width: width * 0.75, height: 400, shadowColor: '#4f46e5', shadowOpacity: 0.1, shadowRadius: 10, elevation: 5 }}
+        {/* Grid of Categories */}
+        <View className="flex-row flex-wrap px-2">
+          {CATEGORIES.map((item, index) => {
+            const isWide = item.id === 'insect'; // Example logic for span-2
+            return (
+              <View key={item.id} className={`p-2 ${isWide ? 'w-full' : 'w-1/2'}`}>
+                <TouchableOpacity
+                  activeOpacity={0.8}
                   onPress={() => router.push(item.route as any)}
-                  accessibilityRole="button"
-                  accessibilityLabel={t('a11y.open_tool', { title: item.title })}
-                  accessibilityHint={item.subtitle}
+                  style={{
+                    aspectRatio: isWide ? 2.2 : 1,
+                    shadowColor: '#d97706',
+                    shadowOffset: { width: 0, height: 8 },
+                    shadowOpacity: 0.5,
+                    shadowRadius: 12,
+                    elevation: 10,
+                  }}
                 >
-                  <Image 
-  source={item.image} 
-  className="w-full h-full" 
-  resizeMode="cover" 
-/>
-
-                  {item.badge && (
-                    <View className="absolute top-5 right-5 bg-white/90 px-2 py-1 rounded-lg border border-white shadow-sm z-10">
-                      <Text className="text-indigo-600 text-[10px] font-bold tracking-wider">{item.badge}</Text>
-                    </View>
-                  )}
-                  
-                  {/* GRACIAS AL 'cssInterop' ARRIBA, AHORA ESTAS CLASES SÍ FUNCIONARÁN 
-                     CORRECTAMENTE EN LA BUILD NATIVA. 
-                  */}
+                  {/* RIM LIGHTING / SPECULAR HIGHLIGHT WRAPPER */}
                   <LinearGradient
-                    colors={['transparent', 'rgba(255,255,255,0.8)', 'rgba(255,255,255,1)']}
-                    className="absolute bottom-0 w-full h-1/2 justify-end p-6"
+                    colors={['rgba(255,255,255,0.7)', 'rgba(255,255,255,0.1)', 'rgba(255,255,255,0.05)']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={{ borderRadius: 20, padding: 1.5, flex: 1 }} // padding creates the border width
                   >
-                    <Text className="text-gray-900 text-3xl font-bold leading-tight mb-1">{item.title}</Text>
-                    <Text className="text-gray-500 text-sm mb-5 font-medium">{item.subtitle}</Text>
-                    
-                    <View className="bg-[#A58D76] self-start px-6 py-4 rounded-2xl flex-row items-center justify-between w-full shadow-lg">
-                      <View className="flex-row items-center">
-                        <Text className="text-white font-serif text-lg font-medium mr-2">Start Design</Text>
-                      </View>
-                      
-                      <View className="flex-row items-center opacity-80">
-                        <View className="w-[1px] h-3 bg-white/40 mx-2" />
-                        <Text className="text-white text-xs font-bold">{item.price} 💎</Text>
+                    <View className="flex-1 rounded-[19px] overflow-hidden bg-surface-dark relative">
+                      {/* Background Image - Full Vibrancy */}
+                      <Animated.Image
+                        source={item.image}
+                        className="absolute inset-0 w-full h-full"
+                        resizeMode="cover"
+                        // @ts-ignore
+                        sharedTransitionTag={`feature-image-${item.id}`}
+                      />
+                      {/* Subtle Gradient Overlay - Bottom only for text readability */}
+                      <LinearGradient
+                        colors={['transparent', 'transparent', 'rgba(0,0,0,0.8)']}
+                        locations={[0, 0.5, 1]}
+                        className="absolute inset-0"
+                      />
+
+                      {/* Content */}
+                      <View className="absolute bottom-0 left-0 w-full p-4 flex-col justify-end h-full">
+                        <View className="w-10 h-10 rounded-xl bg-surface-dark/50 backdrop-blur-md border border-white/20 items-center justify-center mb-2 shadow-lg">
+                          <item.icon color="#f59e0b" size={20} />
+                        </View>
+                        <Text className="text-white text-lg font-bold leading-tight drop-shadow-md">
+                          {item.title}
+                        </Text>
                       </View>
                     </View>
                   </LinearGradient>
                 </TouchableOpacity>
-              ))}
-            </ScrollView>
-          </View>
-
-          {/* GALERÍA */}
-          <View className="px-6">
-            <View className="flex-row justify-between items-center mb-4">
-              <View className="flex-row items-center gap-2">
-                <Text className="text-gray-900 font-bold text-lg">{t('home.gallery_header')}</Text>
-                {!isShowingPlaceholders && (
-                  <View className="bg-gray-100 px-2 py-0.5 rounded-md">
-                    <Text className="text-gray-500 text-xs font-bold">{galleryPhotos.length}</Text>
-                  </View>
-                )}
               </View>
-            </View>
-            
-            <View className="">
-              {displayPhotos.map((photo, index) => (
-                <TouchableOpacity 
-                  key={photo.id} 
-                  activeOpacity={0.8}
-                  onPress={() => setSelectedPhoto(photo.uri)}
-                  className="bg-white rounded-3xl mb-6 overflow-hidden border border-gray-100 shadow-sm relative"
-                  style={{ width: '100%', height: 240 }}
-                  accessibilityRole="imagebutton"
-                  accessibilityLabel={t('a11y.gallery_image_index', { index: index + 1 })}
-                  accessibilityHint={t('a11y.gallery_image_hint')}
-                >
-                  <Image 
-  source={typeof photo.uri === 'string' ? { uri: photo.uri } : photo.uri} 
-  className="w-full h-full" 
-  resizeMode="cover" 
-/>
-                  
-                  {isShowingPlaceholders && (
-                     <View className="absolute top-2 right-2 bg-white/80 px-2 py-1 rounded-md">
-                        <Text className="text-gray-500 text-[8px] font-bold tracking-wide">{t('home.example_tag')}</Text>
-                     </View>
-                  )}
-                </TouchableOpacity>
-              ))}
-            </View>
-
-            {isShowingPlaceholders && (
-               <Text className="text-gray-400 text-xs text-center mt-4">
-                  {t('home.empty_gallery')}
-               </Text>
-            )}
-          </View>
-        </ScrollView>       
-      </View>
-
-      <Modal 
-        visible={!!selectedPhoto} 
-        transparent={true} 
-        animationType="fade"
-        onRequestClose={() => setSelectedPhoto(null)}
-      >
-        <View className="flex-1 bg-white/95 justify-center items-center relative">
-            <Image 
-              source={{ uri: selectedPhoto || "" }} 
-              style={{ width: width, height: '80%', borderRadius: 20 }} 
-              resizeMode="contain" 
-            />
-            <TouchableOpacity 
-              onPress={() => setSelectedPhoto(null)} 
-              className="absolute top-12 right-6 w-10 h-10 bg-gray-100 rounded-full items-center justify-center border border-gray-200 shadow-sm"
-              accessibilityRole="button"
-              accessibilityLabel={t('a11y.close_preview')}
-            >
-              <X color="#374151" size={20} />
-            </TouchableOpacity>
+            );
+          })}
         </View>
-      </Modal>
 
+      </ScrollView>
     </View>
   );
 }

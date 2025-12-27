@@ -6,32 +6,23 @@ import i18n from '../i18n';
 // NOTA: La inicialización de RevenueCat (Purchases.configure) ya se hace en app/_layout.tsx
 // Aquí solo ponemos funciones auxiliares para créditos y restauración.
 
-// Función para obtener créditos de Supabase
-export const getUserCredits = async () => {
+// MODO DEBUG: Activado para pruebas sin build nativo
+const DEBUG_MODE = true;
+
+// Función para comprobar estado de suscripción
+export const getUserStatus = async () => {
+  if (DEBUG_MODE) {
+    console.log("DEBUG MODE: Returning active subscription");
+    return { isPro: true };
+  }
+
   try {
-    // CORRECCIÓN: Usamos el método específico para obtener el ID
-    const appUserID = await Purchases.getAppUserID();
-    
-    // Consulta directa a la tabla user_credits
-    const { data, error } = await supabase
-      .from('user_credits')
-      .select('subscription_credits, pack_credits')
-      .eq('user_id', appUserID)
-      .single();
-
-    if (error) {
-      // Si no hay fila, asumimos que es un usuario nuevo o sin créditos registrados
-      return { sub: 0, pack: 0, total: 0 };
-    }
-
-    return {
-      sub: data.subscription_credits || 0,
-      pack: data.pack_credits || 0,
-      total: (data.subscription_credits || 0) + (data.pack_credits || 0)
-    };
+    const customerInfo = await Purchases.getCustomerInfo();
+    const isPro = typeof customerInfo.entitlements.active['pro'] !== "undefined";
+    return { isPro };
   } catch (e) {
-    console.error("Error fetching credits:", e);
-    return { sub: 0, pack: 0, total: 0 };
+    console.error("Error fetching user status:", e);
+    return { isPro: false };
   }
 };
 
@@ -45,7 +36,7 @@ export const restorePurchases = async () => {
   } catch (e) {
     console.error("Error restaurando compras:", e);
     Alert.alert(
-      i18n.t('common.error'), 
+      i18n.t('common.error'),
       i18n.t('store.restore_error')
     );
     throw e;

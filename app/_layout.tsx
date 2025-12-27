@@ -41,14 +41,14 @@ cssInterop(LinearGradient, {
 });
 
 const GlassyTheme: Theme = {
-  ...DefaultTheme, 
+  ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: '#F5F3FF',
-    card: '#ffffff',       
-    text: '#111827',       
-    border: '#E5E7EB',     
-    primary: '#4F46E5',    
+    background: '#3e2723', // Matches background-dark
+    card: '#5d4037',       // Matches surface-dark
+    text: '#ffffff',
+    border: '#5d4037',
+    primary: '#d97706',
   },
 };
 
@@ -58,7 +58,7 @@ export default function Layout() {
   const [isFirstLaunch, setIsFirstLaunch] = useState<boolean>(false);
   const animationRef = useRef<LottieView>(null);
   const router = useRouter();
-  
+
   // --- USO DE TRADUCCIÓN ---
   const { t, i18n } = useTranslation();
 
@@ -71,7 +71,7 @@ export default function Layout() {
         type: 'action_design',
         title: t('quick_actions.new_design_title'), // Traducido
         subtitle: t('quick_actions.new_design_subtitle'), // Traducido
-        icon: 'compose', 
+        icon: 'compose',
         id: 'design',
         params: { href: '/features/interiordesign' },
       },
@@ -90,24 +90,25 @@ export default function Layout() {
     async function prepare() {
       try {
         if (Platform.OS === 'android') {
-          await SystemUI.setBackgroundColorAsync("#F5F3FF");
+          // Update to matches background-dark
+          await SystemUI.setBackgroundColorAsync("#3e2723");
           await NavigationBar.setVisibilityAsync("hidden");
           StatusBar.setHidden(true);
           await NavigationBar.setBehaviorAsync("overlay-swipe");
           await NavigationBar.setBackgroundColorAsync("transparent");
-          await NavigationBar.setButtonStyleAsync("dark"); 
-          StatusBar.setBarStyle("dark-content");
+          await NavigationBar.setButtonStyleAsync("light"); // Light icons for dark bg
+          StatusBar.setBarStyle("light-content"); // Light text for dark bg
         }
 
-           const hasSeenOnboarding = await AsyncStorage.getItem('HAS_SEEN_ONBOARDING');
-           setIsFirstLaunch(hasSeenOnboarding !== 'true');
+        const hasSeenOnboarding = await AsyncStorage.getItem('HAS_SEEN_ONBOARDING');
+        setIsFirstLaunch(hasSeenOnboarding !== 'true');
 
-        
+
         if (REVENUECAT_API_KEY) {
           await Purchases.configure({ apiKey: REVENUECAT_API_KEY });
         }
 
-        await initializeUser(); 
+        await initializeUser();
 
       } catch (e) {
         console.warn("Error en la preparación:", e);
@@ -132,46 +133,46 @@ export default function Layout() {
 
   useEffect(() => {
     if (appIsReady && isFirstLaunch) {
-        router.replace('/onboarding');
+      router.replace('/onboarding');
     }
   }, [appIsReady, isFirstLaunch]);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: '#3e2723' }}>
       <ThemeProvider value={GlassyTheme}>
-        <View style={{ flex: 1 }}>
-            <Stack 
-              screenOptions={{ 
+        <View style={{ flex: 1, backgroundColor: '#3e2723' }}>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              contentStyle: { backgroundColor: '#3e2723' }, // Set explicit background
+              animation: 'fade',
+            }}
+          >
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="paywall"
+              options={{
                 headerShown: false,
-                contentStyle: { backgroundColor: 'transparent' }, 
-                animation: 'fade', 
+                presentation: 'modal',
+                animation: 'slide_from_bottom'
               }}
-            >
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-              <Stack.Screen 
-                name="paywall" 
-                options={{ 
-                  headerShown: false, 
-                  presentation: 'modal', 
-                  animation: 'slide_from_bottom'
-                }} 
-              />
-            </Stack>
+            />
+          </Stack>
 
-            {(!appIsReady || !splashAnimationFinished) && (
-              <View style={[styles.splashContainer, { backgroundColor: '#ffffff' }]}>
-                <LottieView
-                  ref={animationRef}
-                  source={require('../assets/animations/splash-animation.json')}
-                  autoPlay={false} 
-                  loop={false}
-                  resizeMode="cover"
-                  onAnimationFinish={() => setSplashAnimationFinished(true)}
-                  style={styles.lottie}
-                />
-              </View>
-            )}
+          {(!appIsReady || !splashAnimationFinished) && (
+            <View style={[styles.splashContainer, { backgroundColor: '#ffffff' }]}>
+              <LottieView
+                ref={animationRef}
+                source={require('../assets/animations/splash-animation.json')}
+                autoPlay={false}
+                loop={false}
+                resizeMode="cover"
+                onAnimationFinish={() => setSplashAnimationFinished(true)}
+                style={styles.lottie}
+              />
+            </View>
+          )}
         </View>
       </ThemeProvider>
     </GestureHandlerRootView>
@@ -186,7 +187,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   lottie: {
-    width: 250, 
+    width: 250,
     height: 250,
   },
 });

@@ -26,49 +26,28 @@ export default function ProfileScreen() {
   const router = useRouter();
   const { t } = useTranslation();
 
-  const [credits, setCredits] = useState({ sub: 0, pack: 0, total: 0 });
   const [userId, setUserId] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
-
-  useFocusEffect(
-    useCallback(() => {
-      loadData();
-    }, [])
-  );
 
   const loadData = async () => {
     try {
       const customerInfo = await Purchases.getCustomerInfo();
-      const appUserID = await Purchases.getAppUserID(); 
+      const appUserID = await Purchases.getAppUserID();
       setUserId(appUserID);
       setIsSubscribed(!!customerInfo.entitlements.active['pro']);
-
-      const { data } = await supabase
-        .from('user_credits')
-        .select('subscription_credits, pack_credits')
-        .eq('user_id', appUserID)
-        .single();
-
-      if (data) {
-        const sub = data.subscription_credits || 0;
-        const pack = data.pack_credits || 0;
-        setCredits({ sub, pack, total: sub + pack });
-      } else {
-        setCredits({ sub: 0, pack: 0, total: 0 });
-      }
     } catch (e) { console.log(e); }
   };
 
   const handleDeleteAccount = () => {
     Alert.alert(t('profile.delete_account'), t('profile.delete_confirm'), [
-        { text: t('common.cancel'), style: 'cancel' },
-        { text: t('common.delete'), style: 'destructive', onPress: async () => { await deleteAccount(); loadData(); } }
-      ]
+      { text: t('common.cancel'), style: 'cancel' },
+      { text: t('common.delete'), style: 'destructive', onPress: async () => { await deleteAccount(); loadData(); } }
+    ]
     );
   };
 
   const handleRestore = async () => {
-    try { await restorePurchases(); await loadData(); Alert.alert(t('store.restore_title'), t('store.restore_msg')); } catch (e) {}
+    try { await restorePurchases(); await loadData(); Alert.alert(t('store.restore_title'), t('store.restore_msg')); } catch (e) { }
   };
 
   const openCustomerCenter = async () => {
@@ -76,7 +55,7 @@ export default function ProfileScreen() {
   };
 
   const openUpgradePaywall = async () => {
-    try { await RevenueCatUI.presentPaywall({ displayCloseButton: true }); await loadData(); } catch (e) {}
+    try { await RevenueCatUI.presentPaywall({ displayCloseButton: true }); await loadData(); } catch (e) { }
   };
 
   const handleSupport = async () => {
@@ -119,13 +98,13 @@ export default function ProfileScreen() {
 
       <SafeAreaView className="flex-1">
         <ScrollView contentContainerStyle={{ paddingBottom: 120 }} showsVerticalScrollIndicator={false}>
-          
+
           <View className="items-center mt-10 mb-8 px-6">
             <View className="relative mb-4">
               <View className="w-28 h-28 rounded-full border-4 border-[#FFFBF7] bg-white shadow-xl items-center justify-center">
                 <User size={56} color="#A8A29E" />
               </View>
-              
+
               <View className={`absolute -bottom-3 self-center px-4 py-1.5 rounded-full border border-white flex-row items-center shadow-md ${isSubscribed ? 'bg-[#AF9883]' : 'bg-gray-800'}`}>
                 {isSubscribed && <InfinityIcon size={12} color="white" strokeWidth={3} className="mr-1" />}
                 <Text className="text-white text-[10px] font-bold uppercase tracking-widest">
@@ -133,34 +112,17 @@ export default function ProfileScreen() {
                 </Text>
               </View>
             </View>
-            
+
             <Text className="text-gray-900 text-xl font-bold mt-2 font-mono">
-               {userId ? `ID: ${userId.substring(0, 8)}...` : "..."}
+              {userId ? `ID: ${userId.substring(0, 8)}...` : "..."}
             </Text>
-            
+
             <Text className="text-gray-500 text-sm mt-1 font-medium tracking-widest uppercase">
               {isSubscribed ? t('profile.member_pro') : t('profile.member_free')}
             </Text>
           </View>
 
-           <View className="mx-6 mb-8 bg-[#FFFBF7] rounded-3xl p-4 border border-[#F2EBE6] shadow-sm">
-             <View className="items-center mb-3 border-b border-gray-200/60 pb-3">
-                <Text className="text-gray-400 text-[10px] uppercase tracking-widest mb-1">{t('profile.total_balance')}</Text>
-                <Text className="text-4xl font-extrabold text-gray-900">{credits.total}</Text>
-              </View>
 
-              <View className="flex-row">
-                <View className="flex-1 items-center border-r border-gray-200/60">
-                  <Text className="text-xl font-bold text-gray-800">{credits.sub}</Text>
-                  <Text className="text-[#AF9883] text-[10px] font-bold uppercase tracking-wider mt-1">{t('profile.plan_premium')}</Text>
-                </View>
-
-                <View className="flex-1 items-center">
-                  <Text className="text-xl font-bold text-gray-800">{credits.pack}</Text>
-                  <Text className="text-[#78716c] text-[10px] font-bold uppercase tracking-wider mt-1">{t('profile.plan_standard')}</Text>
-                </View>
-              </View>
-          </View>
 
           <MenuSection title={t('profile.manage_sub')} items={subscriptionItems} />
           <MenuSection title={t('profile.legal_help')} items={legalItems} />
@@ -184,7 +146,7 @@ function MenuSection({ title, items }: { title: string, items: any[] }) {
       <Text className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-3 ml-2">{title}</Text>
       <View className="bg-[#FFFBF7] rounded-3xl overflow-hidden border border-[#F2EBE6] shadow-sm">
         {items.map((item, index) => (
-          <TouchableOpacity 
+          <TouchableOpacity
             key={index}
             onPress={item.action}
             className={`flex-row items-center justify-between p-4 active:bg-[#F2EBE6] ${index !== items.length - 1 ? 'border-b border-gray-100/50' : ''}`}
@@ -198,8 +160,8 @@ function MenuSection({ title, items }: { title: string, items: any[] }) {
                 <item.icon size={20} color={item.iconColor} />
               </View>
               <View>
-                  <Text className="font-semibold text-base text-gray-900">{item.label}</Text>
-                  {item.subtitle && <Text className="text-gray-500 text-xs mt-0.5">{item.subtitle}</Text>}
+                <Text className="font-semibold text-base text-gray-900">{item.label}</Text>
+                {item.subtitle && <Text className="text-gray-500 text-xs mt-0.5">{item.subtitle}</Text>}
               </View>
             </View>
             <ChevronRight size={18} color="#A8A29E" />

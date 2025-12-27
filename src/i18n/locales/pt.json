@@ -10,13 +10,26 @@
     "nav_shop": "Loja",
     "nav_profile": "Perfil",
     "alert_home_title": "Início",
-    "alert_home_msg": "Você já está na tela inicial"
+    "alert_home_msg": "Você já está na tela inicial",
+    "subtitle_instruction": "Selecione uma categoria para ajudar nossa IA a fornecer um resultado preciso"
   },
   "tools": {
-    "interiordesign": { "title": "Design de Interiores", "subtitle": "Redesenhe seu espaço" },
-    "exteriordesign": { "title": "Design Exterior", "subtitle": "Renove sua fachada" },
-    "gardendesign": { "title": "Design de Jardins", "subtitle": "Crie sua paisagem perfeita" },
-    "styletransfer": { "title": "Transferência de Estilo", "subtitle": "Aplique um estilo de uma foto" },
+    "interiordesign": {
+      "title": "Design de Interiores",
+      "subtitle": "Redesenhe seu espaço"
+    },
+    "exteriordesign": {
+      "title": "Design Exterior",
+      "subtitle": "Renove sua fachada"
+    },
+    "gardendesign": {
+      "title": "Design de Jardins",
+      "subtitle": "Crie sua paisagem perfeita"
+    },
+    "styletransfer": {
+      "title": "Transferência de Estilo",
+      "subtitle": "Aplique um estilo de uma foto"
+    },
     "start_btn": "Começar"
   },
   "common": {

@@ -8,7 +8,7 @@ import i18n from '../i18n';
 export const deleteAccount = async () => {
   try {
     const appUserID = await Purchases.getAppUserID();
-    
+
     // 1. Borrar datos en Supabase
     const { error } = await supabase.rpc('delete_user_account', {
       target_user_id: appUserID
@@ -18,19 +18,19 @@ export const deleteAccount = async () => {
 
     // 2. Resetear RevenueCat (Crea un nuevo ID anónimo limpio)
     if (!Purchases.isAnonymous) {
-        await Purchases.logOut();
-    } 
+      await Purchases.logOut();
+    }
     // await Purchases.reset(); 
 
     Alert.alert(
-      i18n.t('profile.account_deleted_title'), 
+      i18n.t('profile.account_deleted_title'),
       i18n.t('profile.account_deleted_msg')
     );
-    
+
     // Limpieza: Borramos las marcas de este usuario para permitir un futuro registro limpio
     await AsyncStorage.removeItem(`INIT_${appUserID}`);
     await AsyncStorage.removeItem('IS_USER_INITIALIZED');
-    
+
   } catch (e: any) {
     console.error("Error deleting account:", e);
     Alert.alert(i18n.t('common.error'), i18n.t('profile.delete_error'));
@@ -48,9 +48,9 @@ export const initializeUser = async () => {
     // Esto permite que si el ID cambia (Paywall/Restore), el código siga ejecutándose.
     const initKey = `INIT_${appUserID}`;
     const isInitialized = await AsyncStorage.getItem(initKey);
-    
+
     if (isInitialized === 'true') {
-      return; 
+      return;
     }
 
     // 3. LLAMADA A LA FUNCIÓN SEGURA (RPC)
@@ -67,22 +67,16 @@ export const initializeUser = async () => {
     }
 
     // 4. Gestionar el resultado
-    // La función SQL devuelve { success: true } si fue creado y recibió regalo.
+    // La función SQL devuelve { success: true } si fue creado.
     if (data && data.success) {
-      console.log("¡Usuario nuevo creado exitosamente!");
-      
-      // Mensaje de bienvenida
-      Alert.alert(
-        i18n.t('common.welcome_title'), 
-        i18n.t('common.welcome_gift_msg')
-      );
+      console.log("¡Usuario nuevo registrado exitosamente!");
     } else {
       console.log("El usuario ya existía y está sincronizado.");
     }
 
     // 5. Guardar marca local VINCULADA al ID actual
     await AsyncStorage.setItem(initKey, 'true');
-    
+
     // Mantenemos la marca global por compatibilidad, pero ya no bloquea la lógica crítica
     await AsyncStorage.setItem('IS_USER_INITIALIZED', 'true');
 

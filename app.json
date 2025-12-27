@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Love Your Home",
-    "slug": "LoveYourHome",
+    "name": "iScan",
+    "slug": "iscan",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "loveyourhome",
+    "scheme": "iscan",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "splash": {
@@ -16,7 +16,7 @@
     "ios": {
       "buildNumber": "1",
       "supportsTablet": false,
-      "bundleIdentifier": "com.loveyourhome.app",
+      "bundleIdentifier": "com.iscan.app",
       "userInterfaceStyle": "light",
       "infoPlist": {
         "CFBundleAllowMixedLocalizations": true,
@@ -25,8 +25,8 @@
           "es",
           "pt"
         ],
-        "NSPhotoLibraryUsageDescription": "Love Your Home needs access to your photos so you can select an image of your room to verify its style and generate new interior designs..",
-        "NSCameraUsageDescription": "Love Your Home needs access to your camera to let you take photos of your room to verify its style and generate new interior designs.",
+        "NSPhotoLibraryUsageDescription": "iScan needs access to your photos so you can select an image to identify.",
+        "NSCameraUsageDescription": "iScan needs access to your camera to let you take photos to identify.",
         "ITSAppUsesNonExemptEncryption": false
       }
     },
@@ -37,7 +37,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.loveyourhome.app",
+      "package": "com.iscan.app",
       "versionCode": 1,
       "permissions": [
         "android.permission.READ_EXTERNAL_STORAGE",
@@ -70,16 +70,16 @@
       [
         "expo-media-library",
         {
-          "photosPermission": "Allow Love Your Home to access your photos to save your edits.",
-          "savePhotosPermission": "Allow Love Your home to save your generated images to your gallery.",
+          "photosPermission": "Allow iScan to access your photos to save your edits.",
+          "savePhotosPermission": "Allow iScan to save your generated images to your gallery.",
           "isAccessMediaLocationEnabled": false
         }
       ],
       [
         "expo-image-picker",
         {
-          "photosPermission": "Love Your Home needs access to your photos so you can choose which one to edit.",
-          "cameraPermission": "Love Your Home needs access to the camera to take a picture to edit."
+          "photosPermission": "iScan needs access to your photos so you can choose which one to edit.",
+          "cameraPermission": "iScan needs access to the camera to take a picture to edit."
         }
       ],
       "expo-localization",

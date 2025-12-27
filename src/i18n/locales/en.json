@@ -1,23 +1,59 @@
 {
   "home": {
-    "subtitle": "Your Dream Home",
-    "tools_header": "DESIGN TOOLS",
+    "subtitle": "AI Powered Identifier",
+    "tools_header": "IDENTIFIERS",
     "swipe": "Swipe ->",
-    "gallery_header": "YOUR DESIGNS",
+    "gallery_header": "YOUR SCANS",
     "see_all": "See all",
     "example_tag": "Example",
     "empty_gallery": "Your future designs will appear here.",
     "nav_shop": "Shop",
     "nav_profile": "Profile",
+    "nav_gallery": "Gallery",
     "alert_home_title": "Home",
-    "alert_home_msg": "You are already on the home screen"
+    "alert_home_msg": "You are already on the home screen",
+    "gallery_empty": "Your discoveries will appear here.",
+    "title_question": "What do you want to discover today?",
+    "subtitle_instruction": "Select a category to help our AI give you a precise result",
+    "auto_detect": "Auto-detect",
+    "smart_scan": "AI smart scan",
+    "photos": "Scans",
+    "gallery_subtitle": "Your saved scans and discoveries"
   },
   "tools": {
-    "interiordesign": { "title": "Interior Design", "subtitle": "Redesign your space" },
-    "exteriordesign": { "title": "Exterior Design", "subtitle": "Renovate your facade" },
-    "gardendesign": { "title": "Garden Design", "subtitle": "Create your perfect landscape" },
-    "styletransfer": { "title": "Style Transfer", "subtitle": "Apply a style from a photo" },
-    "start_btn": "Start"
+    "plant": {
+      "title": "Plant Identifier",
+      "subtitle": "Identify plants & flowers"
+    },
+    "coin": {
+      "title": "Coins",
+      "subtitle": "Value & History"
+    },
+    "fish": {
+      "title": "Fish Identifier",
+      "subtitle": "Identify fish species"
+    },
+    "cat": {
+      "title": "Cat Identifier",
+      "subtitle": "Identify cat & breed"
+    },
+    "dog": {
+      "title": "Dog Identifier",
+      "subtitle": "Identify dog & breed"
+    },
+    "rock": {
+      "title": "Rock Identifier",
+      "subtitle": "Identify rocks & minerals"
+    },
+    "custom": {
+      "title": "Custom Identifier",
+      "subtitle": "Identify anything else"
+    },
+    "insect": {
+      "title": "Insect Identifier",
+      "subtitle": "Identify insects & bugs"
+    },
+    "start_btn": "Start Scanning"
   },
   "common": {
     "permissions_missing": "Missing permissions",
@@ -33,7 +69,7 @@
     "permission_denied": "Permission denied",
     "saved": "Saved",
     "ok": "OK",
-    "saved_msg_album": "Photo saved to 'LoveYourHome' album.",
+    "saved_msg_album": "Photo saved to 'iScan' album.",
     "saved_msg": "Image saved.",
     "share_error": "Could not share.",
     "ia_generated": "AI GENERATED",
@@ -49,8 +85,8 @@
     "select_image": "Select Image",
     "choose_source": "Choose source",
     "insufficient_title": "Insufficient Credits",
-    "welcome_title": "Welcome to Love Your Home!",
-    "welcome_gift_msg": "As a welcome gift, we've added 5 free credits to your account. Enjoy exploring Love Your Home!",
+    "welcome_title": "Welcome to iScan!",
+    "welcome_gift_msg": "As a welcome gift, we've added 5 free credits to your account. Enjoy exploring iScan!",
     "insufficient_msg": "You don't have enough credits to generate this image.",
     "go_store": "Go to Store"
   },
@@ -62,67 +98,21 @@
     "choose_style": "Choose a style",
     "generate_btn": "Generate with AI"
   },
-  "styletransfer_tool": {
-    "result_title": "Style Applied!",
-    "try_another": "Try another",
-    "step_1": "1. Your Space",
-    "step_2": "2. Style Reference",
-    "user_photo": "Your Space",
-    "outfit_photo": "Style Ref",
-    "btn_processing": "Applying style...",
-    "btn_ready": "Transfer Style",
-    "btn_not_ready": "Upload both photos"
-  },
-  "wizard": {
-    "step_room_title": "Choose room type",
-    "step_style_title": "Choose visual style",
-    "step_house_title": "Choose house type",
-    "step_facade_title": "Choose facade style"
-  },
-  "rooms": {
-    "living": "Living Room",
-    "bedroom": "Bedroom",
-    "kitchen": "Kitchen",
-    "bathroom": "Bathroom",
-    "office": "Office"
-  },
-  "houses": {
-    "modern_home": "Modern Home",
-    "villa": "Villa",
-    "cottage": "Cottage",
-    "bungalow": "Bungalow",
-    "mansion": "Mansion"
-  },
-  "styles": {
-    "modern": "Modern",
-    "nordic": "Nordic",
-    "mediterranean": "Mediterranean",
-    "scandinavian": "Scandinavian",
-    "american": "American",
-    "farmhouse": "Farmhouse",
-    "boho": "Bohemian",
-    "luxury": "Luxury",
-    "minimalist": "Minimalist",
-    "zen": "Zen Garden",
-    "tropical": "Tropical",
-    "english": "English Garden"
-  },
-  "feature_descriptions": {
-    "interiordesign": "Transform any room in your house with a new style.",
-    "exteriordesign": "Give your home's facade a complete makeover.",
-    "gardendesign": "Design the garden of your dreams in seconds.",
-    "styletransfer": "Apply the style of any photo to your own room."
-  },
+  "wizard": {},
+  "rooms": {},
+  "houses": {},
+  "styles": {},
+  "styletransfer_tool": {},
   "legal": {
     "terms_title": "Terms of Service",
     "privacy_title": "Privacy Policy",
     "last_updated": "Last Updated: December 21, 2025",
     "data_secure": "Your Data is Secure",
     "company_name": "ADSEGOM LTD",
-    "app_name": "Love Your Home",
+    "app_name": "iScan AI",
     "contact_email": "info@rizzflows.com",
     "terms": {
-      "intro": "Welcome to Love Your Home, a mobile application operated by ADSEGOM LTD ('Company', 'we', 'us', 'our'). These Terms of Service (the 'Legal Terms') govern your access to and use of the App. By using the Services, you agree to be bound by these Legal Terms.",
+      "intro": "Welcome to iScan, a mobile application operated by ADSEGOM LTD ('Company', 'we', 'us', 'our'). These Terms of Service (the 'Legal Terms') govern your access to and use of the App. By using the Services, you agree to be bound by these Legal Terms.",
       "section_1_title": "1. Agreement to Terms and Eligibility",
       "section_1_text": "The App is intended for users who are at least 18 years old. Persons under the age of 18 are not permitted to use or register for the Services.",
       "user_representations": "User Representations:",
@@ -133,7 +123,7 @@
         "You will not use the Services for any illegal or unauthorized purpose."
       ],
       "section_2_title": "2. Description of Our Services and AI Disclaimer",
-      "section_2_text": "Love Your Home is an AI-powered design tool designed to generate interior design visualizations, exterior renovations, and garden concepts. The App allows users to upload photos to receive AI-generated content.",
+      "section_2_text": "iScan is an AI-powered identifier tool designed to identify plants, animals, objects and more. The App allows users to upload photos to receive AI-generated identification.",
       "ai_disclaimer_title": "IMPORTANT AI DISCLAIMER:",
       "ai_disclaimer_text": "The content generated is powered by Artificial Intelligence. The AI may make mistakes or 'hallucinate'. We do not guarantee accuracy. Designs are provided for visualization purposes only and should not be used as technical construction plans. You are responsible for reviewing generated images.",
       "section_3_title": "3. Purchases and Subscriptions",
@@ -175,12 +165,12 @@
       "section_17_text": "These Legal Terms constitute the entire agreement. If any provision is determined to be unlawful, that provision is deemed severable.",
       "section_18_title": "18. Contact Us"
     },
-   "privacy": {
-      "intro": "This Privacy Policy explains how ADSEGOM LTD collects, uses, and discloses information about you when you use Love Your Home.",
+    "privacy": {
+      "intro": "This Privacy Policy explains how ADSEGOM LTD collects, uses, and discloses information about you when you use iScan.",
       "section_1_title": "1. Information We Collect",
       "section_1_a": "a. Information You Provide",
       "section_1_a_list": [
-        "User Content: Photos of rooms or spaces you upload for AI processing."
+        "User Content: Photos of objects or animals you upload for AI identification."
       ],
       "section_1_b": "b. Information Collected Automatically",
       "section_1_b_list": [
@@ -191,7 +181,7 @@
       "section_2_title": "2. How We Use Your Information",
       "section_2_list": [
         "Provide and improve the App.",
-        "Process AI Requests: To generate interior and exterior design styles as requested.",
+        "Process AI Requests: To identify objects, plants or animals as requested.",
         "Image Usage: We use the data in your uploaded photos solely to apply the AI design effects you request. We do not use this data for authentication or tracking.",
         "Data is shared with AI providers only for the duration of the generation process.",
         "Manage accounts and subscriptions.",
@@ -216,7 +206,6 @@
       "section_8_text": "We may update this policy. We will notify you of changes.",
       "section_9_title": "9. Contact Us"
     }
-
   },
   "profile": {
     "status_premium": "PREMIUM",
@@ -229,7 +218,7 @@
     "plan_premium": "Premium",
     "plan_standard": "Standard",
     "credits_label": "credits",
-    "generated": "Designs",
+    "generated": "Scans",
     "manage_sub": "Manage Subscription",
     "manage_sub_desc": "Billing and plans",
     "upgrade": "Upgrade Plan",
@@ -240,7 +229,7 @@
     "support": "Help & Support",
     "subject": "App Support",
     "delete_account": "Delete Account",
-    "delete_confirm": "Are you sure? You will lose all your credits and purchase history. This action cannot be undone.",
+    "delete_confirm": "Are you sure? You will lose all your history. This action cannot be undone.",
     "account_deleted_title": "Account Deleted",
     "account_deleted_msg": "Your account data has been successfully removed.",
     "delete_error": "Could not delete account. Please try again.",
@@ -262,8 +251,8 @@
     "no_image_returned": "The cloud did not return any image."
   },
   "quick_actions": {
-    "new_design_title": "New Design",
-    "new_design_subtitle": "Create an interior",
+    "new_design_title": "Identify",
+    "new_design_subtitle": "Scan something",
     "store_title": "Store",
     "store_subtitle": "Get credits"
   },
@@ -294,24 +283,24 @@
     "restore_error": "Could not restore purchases. Please try again later."
   },
   "onboarding": {
-    "slide1_title": "Redesign your",
-    "slide1_title_accent": "Dream Space",
-    "slide1_text": "Upload a photo and let magic happen. See real change instantly.",
-    "badge_before": "BEFORE",
-    "badge_after": "AFTER",
-    "slide2_title": "Define your",
-    "slide2_title_accent": "Style",
-    "slide2_text": "Explore styles and find your inspiration.",
-    "style_nordic": "Nordic",
-    "style_american": "American",
-    "style_modern": "Modern",
-    "style_minimalist": "Minimalist",
-    "slide3_title": "Your Exclusive",
-    "slide3_title_accent": "Gift!",
-    "slide3_text": "Start your transformation today with complimentary credits.",
-    "gift_title": "3 Free Credits",
-    "gift_subtitle": "Ready to use now",
+    "slide1_title": "Identify",
+    "slide1_title_accent": "Anything",
+    "slide1_text": "Take a photo to identify plants, animals, objects, and more.",
+    "badge_before": "SCAN",
+    "badge_after": "RESULT",
+    "slide2_title": "Explore the",
+    "slide2_title_accent": "World",
+    "slide2_text": "Discover nature and objects around you in seconds.",
+    "style_nordic": "Plants",
+    "style_american": "Animals",
+    "style_modern": "Rocks",
+    "style_minimalist": "Insects",
+    "slide3_title": "Unlimited",
+    "slide3_title_accent": "Scanning",
+    "slide3_text": "Get unlimited identifications with our Pro plan.",
+    "gift_title": "Unlimited Access",
+    "gift_subtitle": "Go Pro",
     "btn_next": "Continue",
-    "btn_claim": "Claim & Start"
+    "btn_claim": "Get Started"
   }
 }
