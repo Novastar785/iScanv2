@@ -23,7 +23,10 @@
         "CFBundleLocalizations": [
           "en",
           "es",
-          "pt"
+          "pt",
+          "de",
+          "fr",
+          "it"
         ],
         "NSPhotoLibraryUsageDescription": "iScan needs access to your photos so you can select an image to identify.",
         "NSCameraUsageDescription": "iScan needs access to your camera to let you take photos to identify.",
