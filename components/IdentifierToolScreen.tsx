@@ -9,6 +9,8 @@ import RevenueCatUI from 'react-native-purchases-ui';
 import { identifyImage } from '../src/services/identificationService';
 import ResultModal from './ResultModal';
 import { useTranslation } from 'react-i18next';
+import * as StoreReview from 'expo-store-review';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Haptics from 'expo-haptics';
 
 interface IdentifierToolScreenProps {
@@ -86,6 +88,16 @@ export default function IdentifierToolScreen({ featureId, title, subtitle, backg
             const data = await identifyImage(featureId, selectedImage, i18n.language);
             setResult(data);
             setShowResult(true);
+
+            // --- APP REVIEW LOGIC ---
+            // Request review only on the FIRST successful scan to avoid spamming.
+            const hasReviewed = await AsyncStorage.getItem('HAS_REQUESTED_REVIEW');
+            if (!hasReviewed && await StoreReview.hasAction()) {
+                setTimeout(async () => {
+                    await StoreReview.requestReview();
+                    await AsyncStorage.setItem('HAS_REQUESTED_REVIEW', 'true');
+                }, 1000); // Small delay to let the modal open first
+            }
         } catch (e: any) {
             // Display specific error from AI (e.g. "Not a plant") or fallback to generic
             Alert.alert(t('common.error'), e.message || t('common.error_generation'));
