@@ -94,10 +94,8 @@
       "reactCompiler": true
     },
     "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "429b89d1-81b5-47ff-ab62-02859212925a"
-      }
-    }
+      "router": {}
+    },
+    "owner": "novastar785"
   }
 }
