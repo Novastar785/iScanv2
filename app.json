@@ -16,7 +16,7 @@
     "ios": {
       "buildNumber": "1",
       "supportsTablet": false,
-      "bundleIdentifier": "com.iscan.app",
+      "bundleIdentifier": "com.adsegom.iscan",
       "userInterfaceStyle": "light",
       "infoPlist": {
         "CFBundleAllowMixedLocalizations": true,
@@ -40,7 +40,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.iscan.app",
+      "package": "com.adsegom.iscan",
       "versionCode": 1,
       "permissions": [
         "android.permission.READ_EXTERNAL_STORAGE",
@@ -94,7 +94,10 @@
       "reactCompiler": true
     },
     "extra": {
-      "router": {}
+      "router": {},
+      "eas": {
+        "projectId": "82620b84-dbff-4702-8dff-37b02a3822c8"
+      }
     },
     "owner": "novastar785"
   }
