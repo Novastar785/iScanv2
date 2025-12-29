@@ -1,0 +1,34 @@
+[33ma749b24[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: Branch: renamed refs/heads/main to refs/heads/main
+[33ma749b24[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{2}: reset: moving to a749b2444fea07d54ce9d140e7e7d6c9aef02d69
+[33m70fb575[m HEAD@{3}: Branch: renamed refs/heads/main to refs/heads/main
+[33m70fb575[m HEAD@{5}: commit: first commit
+[33ma749b24[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{6}: commit: Fix en pantalla garden design
+[33m71fa4d9[m HEAD@{7}: commit: Imagenes locales en Garden y style transfer
+[33m582cf7e[m HEAD@{8}: commit: Imagenes locales en interior, exterior y wizard
+[33m9c12846[m HEAD@{9}: commit: Edge funtion update a 5 creditos
+[33m1d1febb[m HEAD@{10}: commit: Fix Bug visuales Light theme
+[33ma796d9f[m HEAD@{11}: commit: Fix Bug visuales
+[33mcbb721d[m HEAD@{12}: commit: Legal fixes
+[33m1f80aa2[m HEAD@{13}: commit: Fix image compare
+[33m3eaae10[m HEAD@{14}: commit: ultimos ajustes antes de compilar
+[33m8f04fab[m HEAD@{15}: commit: linking a nueva base de datos
+[33m2f70c18[m HEAD@{16}: commit: actualizacion de imagenes
+[33mb99ae1a[m HEAD@{17}: commit: Funciones de accesibilidad mas
+[33m2c6d266[m HEAD@{18}: commit: Funciones de accesibilidad
+[33m7138c81[m HEAD@{19}: commit: traduccion de onboarding fix de flickering
+[33m7e16362[m HEAD@{20}: commit: Creacion Onboarding
+[33m41b5e28[m HEAD@{21}: commit: Correccion traducciones
+[33mb2f5c5d[m HEAD@{22}: commit: Report content enabled
+[33mc4926a7[m HEAD@{23}: commit: Implementacion de Slider Before and After
+[33mc7e4d01[m HEAD@{24}: commit: update user init
+[33m0cef196[m HEAD@{25}: commit: update
+[33m99f3521[m HEAD@{26}: commit: Modulos Light falta garden
+[33m197acd3[m HEAD@{27}: commit: Cambio botones en los cards
+[33m79c5bb1[m HEAD@{28}: commit: Cambio a tema blanco
+[33m7723fad[m HEAD@{29}: commit: migracios a nueva base de datos
+[33m5373773[m HEAD@{30}: commit: Limpieza 2da pasada de codigo
+[33m65cb39a[m HEAD@{31}: commit: Limpieza inicial de codigo
+[33m0fb3633[m HEAD@{32}: commit: Nuevos features, componentes, y servicio agregados
+[33mcc46ea0[m HEAD@{33}: commit: Style Transfer done
+[33m0db1cb8[m HEAD@{34}: Branch: renamed refs/heads/master to refs/heads/main
+[33m0db1cb8[m HEAD@{36}: commit (initial): Primer commit: Inicio del proyecto

@@ -56,6 +56,7 @@ export default function Layout() {
   const [appIsReady, setAppIsReady] = useState(false);
   const [splashAnimationFinished, setSplashAnimationFinished] = useState(false);
   const [isFirstLaunch, setIsFirstLaunch] = useState<boolean>(false);
+  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
   const animationRef = useRef<LottieView>(null);
   const router = useRouter();
 
@@ -103,9 +104,22 @@ export default function Layout() {
         const hasSeenOnboarding = await AsyncStorage.getItem('HAS_SEEN_ONBOARDING');
         setIsFirstLaunch(hasSeenOnboarding !== 'true');
 
-
         if (REVENUECAT_API_KEY) {
           await Purchases.configure({ apiKey: REVENUECAT_API_KEY });
+
+          // Verificar suscripción
+          try {
+            // 1. Obtener info del usuario
+            const customerInfo = await Purchases.getCustomerInfo();
+
+            // 2. Verificar específicamente el entitlement "iScan Pro"
+            const isPremium = typeof customerInfo.entitlements.active['iScan Pro'] !== "undefined";
+            setIsSubscribed(isPremium);
+            console.log("Subscription Status (iScan Pro):", isPremium);
+          } catch (err) {
+            console.log("Error checking subscription:", err);
+            // Default isSubscribed = false
+          }
         }
 
         await initializeUser();
@@ -128,14 +142,19 @@ export default function Layout() {
       } else {
         animationRef.current?.play();
       }
-    }
-  }, [appIsReady]);
 
-  useEffect(() => {
-    if (appIsReady && isFirstLaunch) {
-      router.replace('/onboarding');
+
+      // --- LOGICA DE NAVEGACION (Protección de Paywall) ---
+      if (!isSubscribed) {
+        // Usuario NO suscrito: SIEMPRE requiere ver Onboarding
+        // El final del onboarding redirige al Paywall
+        router.replace('/onboarding');
+      } else {
+        // Usuario Suscrito: Acceso permitido
+        router.replace('/(tabs)');
+      }
     }
-  }, [appIsReady, isFirstLaunch]);
+  }, [appIsReady, isSubscribed]);
 
   return (
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: '#3e2723' }}>

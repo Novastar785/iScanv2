@@ -4,13 +4,16 @@ import RevenueCatUI from 'react-native-purchases-ui';
 import { CustomerInfo } from 'react-native-purchases';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Ionicons } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons';
+
+import { useTranslation } from 'react-i18next';
 
 // 1. IMPORTANTE: Importamos la función de sincronización
-import { initializeUser } from '../src/services/user'; 
+import { initializeUser } from '../src/services/user';
 
 export default function PaywallScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const handleFinish = async () => {
     try {
@@ -28,10 +31,10 @@ export default function PaywallScreen() {
         // 2. Convertimos a async para esperar la sincronización
         onPurchaseCompleted={async ({ customerInfo }: { customerInfo: CustomerInfo }) => {
           console.log("Compra completada:", customerInfo);
-          
+
           // 3. Sincronizamos por si RevenueCat cambió el ID (CRÍTICO)
-          await initializeUser(); 
-          
+          await initializeUser();
+
           handleFinish();
         }}
         // 4. Lo mismo para la restauración
@@ -41,25 +44,14 @@ export default function PaywallScreen() {
           // 5. Sincronizamos ID recuperado
           await initializeUser();
 
-          Alert.alert("Restaurado", "Tus compras se han restaurado correctamente.");
+          Alert.alert(t('store.restore_title'), t('store.restore_msg'));
           handleFinish();
         }}
-        onDismiss={() => {
-          handleFinish();
-        }}
+        // onDismiss removed as there is no close button
         options={{
-          displayCloseButton: true, 
+          displayCloseButton: false, // User cannot close this paywall
         }}
       />
-
-      {/* --- BOTÓN DE CERRAR MANUAL (TU CÓDIGO INTACTO) --- */}
-      <TouchableOpacity 
-        style={styles.closeButton} 
-        onPress={handleFinish}
-        activeOpacity={0.8}
-      >
-        <Ionicons name="close-circle" size={32} color="#fff" style={styles.shadow} />
-      </TouchableOpacity>
     </View>
   );
 }
@@ -67,23 +59,8 @@ export default function PaywallScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff', 
+    backgroundColor: '#fff',
     position: 'relative',
   },
-  closeButton: {
-    position: 'absolute',
-    top: Platform.OS === 'ios' ? 50 : 30, 
-    left: 20, 
-    zIndex: 999,
-    padding: 8,
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    borderRadius: 20,
-  },
-  shadow: {
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.5,
-    shadowRadius: 2,
-    elevation: 5,
-  }
+  // Removed closeButton and shadow styles as they are no longer needed
 });

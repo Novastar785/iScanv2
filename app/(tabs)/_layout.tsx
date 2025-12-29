@@ -1,4 +1,5 @@
 import { BlurView } from 'expo-blur';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Tabs, usePathname, useRouter } from 'expo-router';
 import { Home, ShoppingBag, User, Image } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';

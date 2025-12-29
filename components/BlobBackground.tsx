@@ -112,24 +112,23 @@ export default function BlobBackground() {
 
     return (
         <View className="absolute inset-0 bg-background-dark overflow-hidden pointer-events-none">
-            {/* Blob 1: Top Left */}
+            {/* Blob 1: Top Left - Amber */}
             <Animated.View
                 style={[
                     {
                         position: 'absolute',
-                        top: -width * 0.2,
-                        left: -width * 0.2,
-                        width: width,
-                        height: width,
-                        // borderRadius: width / 2, // No longer needed for shape, but keeps container clean
+                        top: -width * 0.2, // Move up
+                        left: -width * 0.2, // Move left
+                        width: width * 1.0,
+                        height: width * 1.0,
                     },
                     animatedStyle1
                 ]}
             >
-                <GradientBlob color="#d97706" id="1" />
+                <GradientBlob color="#f59e0b" id="1" />
             </Animated.View>
 
-            {/* Blob 2: Bottom Right */}
+            {/* Blob 2: Bottom Right - Rose/Red */}
             <Animated.View
                 style={[
                     {
@@ -142,10 +141,10 @@ export default function BlobBackground() {
                     animatedStyle2
                 ]}
             >
-                <GradientBlob color="#5d4037" id="2" />
+                <GradientBlob color="#e11d48" id="2" />
             </Animated.View>
 
-            {/* Blob 3: Center */}
+            {/* Blob 3: Center/Bottom - Violet */}
             <Animated.View
                 style={[
                     {
@@ -158,14 +157,14 @@ export default function BlobBackground() {
                     animatedStyle3
                 ]}
             >
-                <GradientBlob color="#f59e0b" id="3" />
+                <GradientBlob color="#7c3aed" id="3" />
             </Animated.View>
 
-            {/* Glass/Blur overlay to diffuse everything even further */}
+            {/* Glass/Blur overlay */}
             <BlurView intensity={30} tint="dark" className="absolute inset-0" style={{ opacity: 1 }} />
 
-            {/* Caustics/Noise overlay simulation */}
-            <View className="absolute inset-0 bg-black/10" />
+            {/* Texture/Noise overlay */}
+            <View className="absolute inset-0 bg-black/20" />
         </View>
     );
 }

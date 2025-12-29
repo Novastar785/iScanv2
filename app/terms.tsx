@@ -19,11 +19,11 @@ export default function TermsScreen() {
         className="absolute inset-0"
       />
       <StatusBar barStyle="dark-content" />
-      
+
       <SafeAreaView edges={['top']} className="px-6 pb-4 z-10">
         <View className="flex-row items-center gap-4">
-          <TouchableOpacity 
-            onPress={() => router.back()} 
+          <TouchableOpacity
+            onPress={() => router.back()}
             className="w-10 h-10 bg-white rounded-full items-center justify-center border border-gray-200 shadow-sm"
             // --- ACCESIBILIDAD AGREGADA ---
             accessibilityRole="button"
@@ -37,7 +37,7 @@ export default function TermsScreen() {
       </SafeAreaView>
 
       <ScrollView className="flex-1 px-6 pt-6" contentContainerStyle={{ paddingBottom: 100 }} showsVerticalScrollIndicator={false}>
-        
+
         <View className="items-center mb-8">
           <View className="w-16 h-16 bg-indigo-100 rounded-full items-center justify-center mb-4 border border-indigo-200">
             <FileText size={32} color="#4f46e5" />
@@ -47,10 +47,10 @@ export default function TermsScreen() {
 
         <View className="gap-6">
           <Text className="text-gray-600 leading-6 text-base">
-            <Trans 
-              i18nKey="legal.terms.intro" 
+            <Trans
+              i18nKey="legal.terms.intro"
               values={{ appName: t('legal.app_name'), companyName: t('legal.company_name') }}
-              components={{ bold: <Text className="font-bold text-gray-900" /> }} 
+              components={{ bold: <Text className="font-bold text-gray-900" /> }}
             />
           </Text>
 
@@ -73,7 +73,7 @@ export default function TermsScreen() {
               </Text>
             </View>
           </Section>
-          
+
           <Section title={t('legal.terms.section_3_title')}>
             {t('legal.terms.section_3_payments')}
             {'\n\n'}
@@ -141,8 +141,8 @@ export default function TermsScreen() {
           </Section>
 
           <Section title={t('legal.terms.section_18_title')}>
-            <Text className="font-bold text-gray-900">Email:</Text> {t('legal.contact_email')}
-            {'\n'}<Text className="font-bold text-gray-900">Company:</Text> {t('legal.company_name')}
+            <Text className="font-bold text-gray-900">{t('legal.label_email')}</Text> {t('legal.contact_email')}
+            {'\n'}<Text className="font-bold text-gray-900">{t('legal.label_company')}</Text> {t('legal.company_name')}
           </Section>
 
         </View>

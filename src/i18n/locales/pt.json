@@ -1,141 +1,118 @@
 {
   "home": {
-    "subtitle": "Sua Casa dos Sonhos",
-    "tools_header": "FERRAMENTAS DE DESIGN",
+    "subtitle": "Identificador com IA",
+    "tools_header": "IDENTIFICADORES",
     "swipe": "Deslize ->",
-    "gallery_header": "SEUS PROJETOS!",
+    "gallery_header": "SEUS ESCANEAMENTOS",
     "see_all": "Ver tudo",
     "example_tag": "Exemplo",
-    "empty_gallery": "Seus futuros projetos aparecerão aqui.",
+    "empty_gallery": "Seus futuros escaneamentos aparecerão aqui.",
     "nav_shop": "Loja",
     "nav_profile": "Perfil",
+    "nav_gallery": "Galeria",
     "alert_home_title": "Início",
     "alert_home_msg": "Você já está na tela inicial",
-    "subtitle_instruction": "Selecione uma categoria para ajudar nossa IA a fornecer um resultado preciso"
+    "gallery_empty": "Suas descobertas aparecerão aqui.",
+    "title_question": "O que você quer descobrir hoje?",
+    "subtitle_instruction": "Selecione uma categoria para ajudar nossa IA a fornecer um resultado preciso",
+    "auto_detect": "Detecção Automática",
+    "smart_scan": "Escaneamento Inteligente IA",
+    "photos": "Escaneamentos",
+    "gallery_subtitle": "Seus escaneamentos e descobertas salvos"
   },
   "tools": {
-    "interiordesign": {
-      "title": "Design de Interiores",
-      "subtitle": "Redesenhe seu espaço"
+    "plant": {
+      "title": "Identificador de Plantas",
+      "subtitle": "Identificar plantas e flores"
     },
-    "exteriordesign": {
-      "title": "Design Exterior",
-      "subtitle": "Renove sua fachada"
+    "coin": {
+      "title": "Moedas",
+      "subtitle": "Valor e História"
     },
-    "gardendesign": {
-      "title": "Design de Jardins",
-      "subtitle": "Crie sua paisagem perfeita"
+    "fish": {
+      "title": "Identificador de Peixes",
+      "subtitle": "Identificar espécies de peixes"
     },
-    "styletransfer": {
-      "title": "Transferência de Estilo",
-      "subtitle": "Aplique um estilo de uma foto"
+    "cat": {
+      "title": "Identificador de Gatos",
+      "subtitle": "Identificar gatos e raças"
     },
-    "start_btn": "Começar"
+    "dog": {
+      "title": "Identificador de Cães",
+      "subtitle": "Identificar cães e raças"
+    },
+    "rock": {
+      "title": "Identificador de Rochas",
+      "subtitle": "Identificar rochas e minerais"
+    },
+    "custom": {
+      "title": "Personalizado",
+      "subtitle": "Identificar qualquer outra coisa"
+    },
+    "insect": {
+      "title": "Identificador de Insetos",
+      "subtitle": "Identificar insetos"
+    },
+    "start_btn": "Iniciar Escaneamento"
   },
   "common": {
-    "permissions_missing": "Faltam permissões",
+    "permissions_missing": "Permissões ausentes",
     "permissions_access": "Precisamos de acesso para continuar.",
     "error": "Erro",
-    "info": "Informação",
+    "delete": "Excluir",
+    "info": "Info",
+    "next": "Próximo",
+    "error_save": "Não foi possível salvar no álbum.",
     "error_generation": "O modelo não conseguiu gerar a imagem. Tente novamente.",
     "error_technical": "Houve um problema técnico.",
     "error_connection": "Falha na conexão.",
-    "next": "Próximo",
-    "error_save": "Não foi possível salvar no álbum.",
     "permission_denied": "Permissão negada",
     "saved": "Salvo",
-    "saved_msg_album": "Foto salva no álbum 'LoveYourHome'.",
+    "ok": "OK",
+    "saved_msg_album": "Foto salva no álbum 'iScan'.",
     "saved_msg": "Imagem salva.",
     "share_error": "Não foi possível compartilhar.",
     "ia_generated": "GERADO POR IA",
     "share": "Compartilhar",
     "save": "Salvar",
-    "ok": "OK",
-    "delete": "Excluir",
     "cancel": "Cancelar",
     "popular": "POPULAR",
     "camera": "Câmera",
     "gallery": "Galeria",
     "processing": "Processando...",
-    "generating": "Gerando mágica...",
+    "generating": "Gerando magia...",
     "upload_photo": "Enviar Foto",
     "select_image": "Selecionar Imagem",
-    "choose_source": "Escolha a origem",
+    "choose_source": "Escolher fonte",
     "insufficient_title": "Créditos Insuficientes",
-    "welcome_title": "Bem-vindo ao Love Your Home!",
-    "welcome_gift_msg": "Como presente de boas-vindas, adicionamos 5 créditos grátis à sua conta. Aproveite para explorar o Love Your Home!",
-    "insufficient_msg": "Você não tem créditos suficientes para gerar este projeto.",
+    "welcome_title": "Bem-vindo ao iScan!",
+    "welcome_gift_msg": "Como presente de boas-vindas, adicionamos 5 créditos grátis à sua conta. Aproveite para explorar o iScan!",
+    "insufficient_msg": "Você não tem créditos suficientes para gerar esta imagem.",
     "go_store": "Ir para a Loja"
   },
   "generic_tool": {
-    "result_title": "Seu Novo Projeto!",
+    "result_title": "Seu Novo Design!",
     "try_again": "Tentar novamente",
     "photo_selected": "Foto selecionada",
     "ready_process": "Pronto para processar.",
     "choose_style": "Escolha um estilo",
     "generate_btn": "Gerar com IA"
   },
-  "styletransfer_tool": {
-    "result_title": "Estilo Aplicado!",
-    "try_another": "Tentar outro",
-    "step_1": "1. Seu Espaço",
-    "step_2": "2. Referência de Estilo",
-    "user_photo": "Seu Espaço",
-    "outfit_photo": "Referência",
-    "btn_processing": "Aplicando estilo...",
-    "btn_ready": "Transferir Estilo",
-    "btn_not_ready": "Envie ambas as fotos"
-  },
-  "wizard": {
-    "step_room_title": "Escolha o tipo de cômodo",
-    "step_style_title": "Escolha o estilo visual",
-    "step_house_title": "Escolha o tipo de casa",
-    "step_facade_title": "Escolha o estilo da fachada"
-  },
-  "rooms": {
-    "living": "Sala de Estar",
-    "bedroom": "Quarto",
-    "kitchen": "Cozinha",
-    "bathroom": "Banheiro",
-    "office": "Escritório"
-  },
-  "houses": {
-    "modern_home": "Casa Moderna",
-    "villa": "Villa",
-    "cottage": "Chalé",
-    "bungalow": "Bangalô",
-    "mansion": "Mansão"
-  },
-  "styles": {
-    "modern": "Moderno",
-    "nordic": "Nórdico",
-    "mediterranean": "Mediterrâneo",
-    "scandinavian": "Escandinavo",
-    "farmhouse": "Casa de Campo",
-    "boho": "Boêmio",
-    "american": "American",
-    "luxury": "Luxo",
-    "minimalist": "Minimalista",
-    "zen": "Jardim Zen",
-    "tropical": "Tropical",
-    "english": "Jardim Inglês"
-  },
-  "feature_descriptions": {
-    "interiordesign": "Transforme qualquer cômodo da sua casa com um novo estilo.",
-    "exteriordesign": "Dê uma repaginada completa na fachada da sua casa.",
-    "gardendesign": "Projete o jardim dos seus sonhos em segundos.",
-    "styletransfer": "Aplique o estilo de qualquer foto da internet ao seu próprio cômodo."
-  },
+  "wizard": {},
+  "rooms": {},
+  "houses": {},
+  "styles": {},
+  "styletransfer_tool": {},
   "legal": {
     "terms_title": "Termos de Serviço",
     "privacy_title": "Política de Privacidade",
     "last_updated": "Última atualização: 21 de Dezembro de 2025",
     "data_secure": "Seus dados estão seguros",
     "company_name": "ADSEGOM LTD",
-    "app_name": "Love Your Home",
+    "app_name": "iScan AI",
     "contact_email": "info@rizzflows.com",
     "terms": {
-      "intro": "Bem-vindo ao Love Your Home, um aplicativo móvel operado pela ADSEGOM LTD ('Empresa', 'nós', 'nosso'). Estes Termos de Serviço (os 'Termos Legais') regem seu acesso e uso do Aplicativo. Ao usar os Serviços, você concorda em ficar vinculado a estes Termos Legais.",
+      "intro": "Bem-vindo ao iScan, um aplicativo móvel operado pela ADSEGOM LTD ('Empresa', 'nós', 'nosso'). Estes Termos de Serviço (os 'Termos Legais') regem seu acesso e uso do Aplicativo. Ao usar os Serviços, você concorda em ficar vinculado a estes Termos Legais.",
       "section_1_title": "1. Acordo sobre os Termos e Elegibilidade",
       "section_1_text": "O Aplicativo destina-se a usuários com pelo menos 18 anos de idade. Pessoas menores de 18 anos não têm permissão para usar ou se registrar nos Serviços.",
       "user_representations": "Declarações do Usuário:",
@@ -146,12 +123,12 @@
         "Você não usará os Serviços para qualquer finalidade ilegal ou não autorizada."
       ],
       "section_2_title": "2. Descrição dos Nossos Serviços e Aviso de IA",
-      "section_2_text": "Love Your Home é uma ferramenta de design alimentada por IA projetada para gerar visualizações de design de interiores, renovações exteriores e conceitos de jardins. O Aplicativo permite que os usuários enviem fotos para receber conteúdo gerado por IA.",
+      "section_2_text": "iScan é uma ferramenta de identificação alimentada por IA projetada para identificar plantas, animais e objetos. O Aplicativo permite que os usuários enviem fotos para receber identificação gerada por IA.",
       "ai_disclaimer_title": "AVISO IMPORTANTE DE IA:",
-      "ai_disclaimer_text": "O conteúdo gerado é alimentado por Inteligência Artificial. A IA pode cometer erros ou 'alucinar'. Não garantimos a precisão. Os projetos são fornecidos apenas para fins de visualização e não devem ser usados como planos técnicos de construção. Você é responsável por revisar as imagens geradas.",
+      "ai_disclaimer_text": "O conteúdo gerado é alimentado por Inteligência Artificial. A IA pode cometer erros. Não garantimos a precisão. As identificações são fornecidas apenas para fins informativos e não devem ser consideradas aconselhamento profissional (médico, veterinário ou botânico). Você é responsável por verificar informações importantes.",
       "section_3_title": "3. Compras e Assinaturas",
       "section_3_payments": "Pagamentos: Você concorda em fornecer informações de compra atuais, completas e precisas. As transações são processadas pela respectiva loja de aplicativos.",
-      "section_3_subs": "Assinaturas: As assinaturas são renovadas automaticamente, a menos que sejam canceladas pelo menos 24 horas antes do final do período atual.",
+      "section_3_subs": "Assinaturas: O pagamento será cobrado na sua Conta da Apple na confirmação da compra. As assinaturas são renovadas automaticamente, a menos que a renovação automática seja desativada pelo menos 24 horas antes do final do período atual. A renovação será cobrada em sua conta 24 horas antes do final do período atual. Você pode gerenciar e cancelar suas assinaturas nas Configurações da Conta na App Store após a compra.",
       "section_3_refunds": "Cancelamento e Reembolsos: Todas as compras não são reembolsáveis. As solicitações de reembolso devem ser feitas através da Apple ou Google.",
       "section_4_title": "4. Direitos de Propriedade Intelectual",
       "section_4_text": "Detemos todos os direitos de propriedade intelectual dos nossos Serviços. Concedemos a você um direito revogável, não exclusivo e limitado para instalar e usar o Aplicativo.",
@@ -179,7 +156,7 @@
       "section_13_title": "13. Política de Privacidade e Dados do Usuário",
       "section_13_text": "Preocupamo-nos com a privacidade e segurança dos dados. Revise nossa Política de Privacidade, que está incorporada a estes Termos Legais.",
       "section_14_title": "14. Comunicações Eletrônicas",
-      "section_14_text": "Você consente em receber comunicações eletrônicas e concorda que todos os acordos, avisos, divulgações e outras comunicações que fornecemos a você eletronicamente satisfazem qualquer requisito legal.",
+      "section_14_text": "Você consente em receber comunicações eletrônicas e concorda que todos os acordos, avisos, divulgaciones e outras comunicações que fornecemos a você eletronicamente satisfazem qualquer requisito legal.",
       "section_15_title": "15. Lei Aplicável",
       "section_15_text": "Estes Termos Legais são regidos pelas leis do Estado de Delaware (Estados Unidos).",
       "section_16_title": "16. Resolução de Disputas",
@@ -189,11 +166,11 @@
       "section_18_title": "18. Contate-nos"
     },
     "privacy": {
-      "intro": "Esta Política de Privacidade explica como a ADSEGOM LTD coleta, usa e divulga informações sobre você quando você usa o Love Your Home.",
+      "intro": "Esta Política de Privacidade explica como a ADSEGOM LTD coleta, usa e divulga informações sobre você quando você usa o iScan.",
       "section_1_title": "1. Informações que Coletamos",
       "section_1_a": "a. Informações que Você Fornece",
       "section_1_a_list": [
-        "Conteúdo do Usuário: Fotos de cômodos ou espaços que você envia para processamento de IA."
+        "Conteúdo do Usuário: Fotos de objetos ou animais que você envia para identificação por IA."
       ],
       "section_1_b": "b. Informações Coletadas Automaticamente",
       "section_1_b_list": [
@@ -204,8 +181,8 @@
       "section_2_title": "2. Como Usamos Suas Informações",
       "section_2_list": [
         "Fornecer e melhorar o Aplicativo.",
-        "Processar Solicitações de IA: Para gerar estilos de design de interiores e exteriores conforme solicitado.",
-        "Uso de Imagens: Usamos os dados em suas fotos enviadas exclusivamente para aplicar os efeitos de design de IA que você solicita. Não usamos esses dados para autenticação ou rastreamento.",
+        "Processar Solicitações de IA: Para identificar objetos, plantas ou animais conforme solicitado.",
+        "Uso de Imagens: Usamos os dados em suas fotos enviadas exclusivamente para realizar a análise de identificação por IA que você solicita. Não usamos esses dados para autenticação ou rastreamento.",
         "Os dados são compartilhados com provedores de IA apenas durante o processo de geração.",
         "Gerenciar contas e assinaturas.",
         "Responder a solicitações de suporte."
@@ -241,58 +218,58 @@
     "plan_premium": "Premium",
     "plan_standard": "Padrão",
     "credits_label": "créditos",
-    "generated": "Projetos",
+    "generated": "Escaneamentos",
     "manage_sub": "Gerenciar Assinatura",
     "manage_sub_desc": "Faturamento e planos",
-    "upgrade": "Melhorar Plano (Upgrade)",
+    "upgrade": "Melhorar Plano",
     "upgrade_desc": "Desbloquear recursos PRO",
     "legal_help": "Legal e Ajuda",
     "privacy": "Política de Privacidade",
     "terms": "Termos de Serviço",
     "support": "Ajuda e Suporte",
-    "delete_account": "Excluir Conta",
-    "delete_confirm": "Tem certeza? Você perderá todos os seus créditos. Esta ação não pode ser desfeita.",
-    "account_deleted_title": "Conta Excluída",
-    "account_deleted_msg": "Dados removidos.",
-    "delete_error": "Erro ao excluir. Tente novamente.",
     "subject": "Suporte App",
-    "error_mail": "Não foi possível abrir o e-mail."
+    "delete_account": "Excluir Conta",
+    "delete_confirm": "Tem certeza? Você perderá todo o seu histórico. Esta ação não pode ser desfeita.",
+    "account_deleted_title": "Conta Excluída",
+    "account_deleted_msg": "Seus dados de conta foram removidos com sucesso.",
+    "delete_error": "Erro ao excluir conta. Tente novamente.",
+    "error_mail": "Não foi possível abrir o app de e-mail."
   },
   "report": {
     "button": "Denunciar",
-    "title": "Denunciar",
-    "msg": "Se inapropriado, denuncie.",
-    "reason_nsfw": "Inapropriado",
+    "title": "Denunciar Conteúdo",
+    "msg": "Se esta imagem for inapropriada, denuncie.",
+    "reason_nsfw": "NSFW",
     "reason_offensive": "Ofensivo",
     "reason_other": "Outro",
-    "success_title": "Enviado",
-    "success_msg": "Obrigado.",
-    "block_msg": "Oculto."
+    "success_title": "Denúncia Enviada",
+    "success_msg": "Obrigado pela sua denúncia.",
+    "block_msg": "Conteúdo oculto."
   },
   "errors": {
-    "user_id_missing": "ID não encontrado.",
-    "no_image_returned": "Nenhuma imagem retornada."
+    "user_id_missing": "ID de usuário não encontrado.",
+    "no_image_returned": "A nuvem não retornou nenhuma imagem."
   },
   "quick_actions": {
-    "new_design_title": "Novo Design",
-    "new_design_subtitle": "Crie um interior",
+    "new_design_title": "Identificar",
+    "new_design_subtitle": "Escanear algo",
     "store_title": "Loja",
     "store_subtitle": "Obter créditos"
   },
   "a11y": {
     "onboarding_next": "Ir para a próxima tela",
     "onboarding_claim": "Resgatar oferta",
-    "save_image": "Salvar imagem na galeria",
-    "report_content": "Denunciar conteúdo",
     "tab_home": "Aba Início",
     "tab_store": "Aba Loja",
     "tab_profile": "Aba Perfil",
-    "upload_photo_hint": "Custa {{cost}} créditos. Abre a câmera ou galeria.",
     "credits_balance": "Saldo de créditos: {{count}}",
     "credits_hint": "Toque para comprar mais créditos",
     "open_tool": "Abrir ferramenta {{title}}",
+    "upload_photo_hint": "Custa {{cost}} créditos. Abre a câmera ou galeria.",
     "gallery_image_index": "Imagem da galeria número {{index}}",
     "gallery_image_hint": "Toque para ver em tela cheia",
+    "save_image": "Salvar imagem na galeria",
+    "report_content": "Denunciar conteúdo",
     "close_preview": "Fechar visualização",
     "go_back": "Voltar",
     "select_image_for": "Selecionar imagem para {{label}}",
@@ -300,30 +277,49 @@
   },
   "store": {
     "success_title": "Sucesso!",
-    "success_msg": "Compra realizada.",
+    "success_msg": "Sua compra foi bem-sucedida.",
     "restore_title": "Restaurado",
-    "restore_msg": "Compras restauradas.",
-    "restore_error": "Erro ao restaurar."
+    "restore_msg": "Suas compras foram restauradas.",
+    "restore_error": "Não foi possível restaurar compras. Tente novamente mais tarde."
   },
   "onboarding": {
-    "slide1_title": "Redesenhe seu",
-    "slide1_title_accent": "Espaço Ideal",
-    "slide1_text": "Envie uma foto e deixe a mágica acontecer. Veja a mudança real instantaneamente.",
-    "badge_before": "ANTES",
-    "badge_after": "DEPOIS",
-    "slide2_title": "Defina seu",
-    "slide2_title_accent": "Estilo",
-    "slide2_text": "Explore estilos e encontre sua inspiração.",
-    "style_nordic": "Nórdico",
-    "style_american": "Americano",
-    "style_modern": "Moderno",
-    "style_minimalist": "Minimalista",
-    "slide3_title": "Seu Presente",
-    "slide3_title_accent": "Exclusivo!",
-    "slide3_text": "Comece sua transformação hoje com créditos de cortesia.",
-    "gift_title": "3 Créditos Grátis",
-    "gift_subtitle": "Prontos para usar agora",
+    "slide1_title": "Identifique",
+    "slide1_title_accent": "Tudo",
+    "slide1_text": "Tire uma foto para identificar plantas, animais, objetos e muito mais.",
+    "badge_before": "SCAN",
+    "badge_after": "RESULTADO",
+    "slide2_title": "Explore o",
+    "slide2_title_accent": "Mundo",
+    "slide2_text": "Descubra a natureza e objetos ao seu redor em segundos.",
+    "style_nordic": "Plantas",
+    "style_american": "Animais",
+    "style_modern": "Rochas",
+    "style_minimalist": "Insetos",
+    "slide3_title": "Escaneamento",
+    "slide3_title_accent": "Ilimitado",
+    "slide3_text": "Obtenha identificações ilimitadas com nosso plano Pro.",
+    "gift_title": "Acesso Ilimitado",
+    "gift_subtitle": "Seja Pro",
     "btn_next": "Continuar",
-    "btn_claim": "Resgatar e Começar"
+    "btn_claim": "Começar"
+  },
+  "result_modal": {
+    "swipe_hint": "Deslize para ajustar",
+    "healthy": "Planta Saudável",
+    "unhealthy": "Problemas Detectados",
+    "diagnosis": "Diagnóstico",
+    "recommendations": "Recomendações",
+    "average_price": "Preço Médio",
+    "rating": "Avaliação",
+    "visual_matches": "Correspondências Visuais",
+    "where_to_buy": "Onde Comprar",
+    "visit_store": "Visitar Loja",
+    "save_scan": "Salvar Escaneamento",
+    "share_fail": "Compartilhamento indisponível",
+    "save_fail": "Não foi possível salvar a imagem.",
+    "save_success": "Imagem salva na 'Coleção iScan'.",
+    "permission_needed": "Permissão necessária",
+    "permission_msg": "Por favor, permita o acesso para salvar fotos.",
+    "iscan_analysis": "ANÁLISE ISCAN"
   }
 }

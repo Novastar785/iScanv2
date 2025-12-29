@@ -5,9 +5,9 @@
     "swipe": "Desliza ->",
     "see_all": "Ver todo",
     "example_tag": "Ejemplo",
-    "empty_gallery": "Tus futuros diseños aparecerán aquí.",
+    "empty_gallery": "Tus futuros escaneos aparecerán aquí.",
     "nav_shop": "Tienda",
-    "gallery_header": "TUS DISEÑOS!",
+    "gallery_header": "TUS ESCANEOS!",
     "nav_gallery": "Galería",
     "nav_profile": "Perfil",
     "alert_home_title": "Inicio",
@@ -19,6 +19,9 @@
     "smart_scan": "Escaneo inteligente IA",
     "photos": "Escaneos",
     "gallery_subtitle": "Tus escaneos y descubrimientos guardados"
+  },
+  "gallery": {
+    "example_badge": "EJEMPLO"
   },
   "tools": {
     "plant": {
@@ -111,6 +114,8 @@
     "company_name": "ADSEGOM LTD",
     "app_name": "iScan AI",
     "contact_email": "info@rizzflows.com",
+    "label_email": "Correo:",
+    "label_company": "Compañía:",
     "terms": {
       "intro": "Bienvenido a iScan, una aplicación móvil operada por ADSEGOM LTD ('Compañía', 'nosotros', 'nuestro'). Estos Términos de Servicio (los 'Términos Legales') rigen su acceso y uso de la Aplicación. Al utilizar los Servicios, usted acepta estar sujeto a estos Términos Legales.",
       "section_1_title": "1. Acuerdo de Términos y Elegibilidad",
@@ -125,10 +130,10 @@
       "section_2_title": "2. Descripción de Nuestros Servicios y Aviso de IA",
       "section_2_text": "iScan es una herramienta de identificación impulsada por IA diseñada para identificar plantas, animales y objetos. La Aplicación permite a los usuarios subir fotos para recibir contenido generado por IA.",
       "ai_disclaimer_title": "AVISO IMPORTANTE DE IA:",
-      "ai_disclaimer_text": "El contenido generado es impulsado por Inteligencia Artificial. La IA puede cometer errores o 'alucinar'. No garantizamos la exactitud. Las identificaciones se proporcionan solo con fines informativos.",
+      "ai_disclaimer_text": "El contenido generado es impulsado por Inteligencia Artificial. La IA puede cometer errores. No garantizamos la exactitud. Las identificaciones se proporcionan solo con fines informativos y no deben considerarse asesoramiento profesional (médico, veterinario o botánico). Usted es responsable de verificar la información importante.",
       "section_3_title": "3. Compras y Suscripciones",
       "section_3_payments": "Pagos: Usted acepta proporcionar información de compra actual, completa y precisa. Las transacciones son procesadas por la respectiva tienda de aplicaciones.",
-      "section_3_subs": "Suscripciones: Las suscripciones se renuevan automáticamente a menos que se cancelen al menos 24 horas antes del final del período actual.",
+      "section_3_subs": "Suscripciones: El pago se cargará a su Cuenta de Apple en la confirmación de la compra. Las suscripciones se renuevan automáticamente a menos que la renovación automática se desactive al menos 24 horas antes del final del período actual. Se cobrará la renovación a su cuenta dentro de las 24 horas anteriores al final del período actual. Puede administrar y cancelar sus suscripciones en la Configuración de su cuenta en la App Store después de la compra.",
       "section_3_refunds": "Cancelación y Reembolsos: Todas las compras no son reembolsables. Las solicitudes de reembolso deben realizarse a través de Apple o Google.",
       "section_4_title": "4. Derechos de Propiedad Intelectual",
       "section_4_text": "Poseemos todos los derechos de propiedad intelectual de nuestros Servicios. Le otorgamos un derecho revocable, no exclusivo y limitado para instalar y usar la Aplicación.",
@@ -182,7 +187,7 @@
       "section_2_list": [
         "Proporcionar y mejorar la Aplicación.",
         "Procesar Solicitudes de IA: Para identificar objetos, plantas o animales según lo solicitado.",
-        "Uso de Imágenes: Usamos los datos en sus fotos subidas únicamente para aplicar los efectos de IA que solicite. No usamos estos datos para autenticación o seguimiento.",
+        "Uso de Imágenes: Usamos los datos en sus fotos subidas únicamente para realizar el análisis de identificación por IA que solicite. No usamos estos datos para autenticación o seguimiento.",
         "Los datos se comparten con proveedores de IA solo durante la duración del proceso de generación.",
         "Gestionar cuentas y suscripciones.",
         "Responder a solicitudes de soporte."
@@ -233,7 +238,9 @@
     "account_deleted_msg": "Tus datos han sido eliminados.",
     "delete_error": "No se pudo eliminar. Intente de nuevo.",
     "subject": "Soporte App",
-    "error_mail": "No se pudo abrir el correo."
+    "error_mail": "No se pudo abrir el correo.",
+    "user_id": "ID Usuario",
+    "app_version": "iScan AI v1.0.0"
   },
   "report": {
     "button": "Reportar",
@@ -283,6 +290,7 @@
     "generate_design": "Generar diseño"
   },
   "onboarding": {
+    "welcome_title": "Bienvenido a iScan",
     "slide1_title": "Identifica",
     "slide1_title_accent": "Cualquier Cosa",
     "slide1_text": "Toma una foto para identificar plantas, animales, objetos y más.",
@@ -295,12 +303,31 @@
     "style_modern": "Rocas",
     "style_american": "Animales",
     "style_minimalist": "Insectos",
-    "slide3_title": "Escaneo",
-    "slide3_title_accent": "Ilimitado",
-    "slide3_text": "Obtén identificaciones ilimitadas con nuestro plan Pro.",
+    "slide3_title": "Guarda tus",
+    "slide3_title_accent": "Scans Favoritos",
+    "slide3_text": "Para nunca olvidar nada.",
     "gift_title": "Acceso Ilimitado",
     "gift_subtitle": "Hazte Pro",
     "btn_next": "Continuar",
     "btn_claim": "Empezar"
+  },
+  "result_modal": {
+    "swipe_hint": "Desliza para ajustar",
+    "healthy": "Planta Saludable",
+    "unhealthy": "Problemas Detectados",
+    "diagnosis": "Diagnóstico",
+    "recommendations": "Recomendaciones",
+    "average_price": "Precio Promedio",
+    "rating": "Calificación",
+    "visual_matches": "Coincidencias Visuales",
+    "where_to_buy": "Dónde Comprar",
+    "visit_store": "Visitar Tienda",
+    "save_scan": "Guardar Escaneo",
+    "share_fail": "No se puede compartir",
+    "save_fail": "No se pudo guardar la imagen.",
+    "save_success": "Imagen guardada en 'Colección iScan'.",
+    "permission_needed": "Permiso necesario",
+    "permission_msg": "Por favor permite el acceso para guardar fotos.",
+    "iscan_analysis": "ANÁLISIS ISCAN"
   }
 }

@@ -15,9 +15,10 @@ const compressForAnalysis = async (uri: string): Promise<string> => {
     }
 };
 
-export async function identifyImage(featureId: string, imageUri: string): Promise<any> {
+
+export async function identifyImage(featureId: string, imageUri: string, language: string = 'en'): Promise<any> {
     try {
-        console.log(`🔍 Identifying ${featureId}...`);
+        console.log(`🔍 Identifying ${featureId}... Language: ${language}`);
 
         // --- MOCK DATA DISABLED FOR REAL AI TESTING ---
         // To re-enable mock data for UI testing, uncomment the blocks below.
@@ -38,7 +39,8 @@ export async function identifyImage(featureId: string, imageUri: string): Promis
         const { data, error } = await supabase.functions.invoke('iscan_identify_image', {
             body: {
                 imageBase64: base64,
-                featureId: featureId
+                featureId: featureId,
+                language: language // Pass language to AI
             }
         });
 

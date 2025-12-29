@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { X, Share2, Save, ShoppingCart, DollarSign, Star, ExternalLink, Image as ImageIcon, ChevronUp, Bug, Dna, Calendar, Network, Info, ShieldCheck, AlertTriangle, Droplets, Sun, Sprout, Layers, HeartPulse, CheckCircle2, Diamond, Hammer, FlaskConical, Gavel, Waves, Utensils, Ruler, Globe, Smile, Dumbbell, Weight, PawPrint, Landmark, Coins } from 'lucide-react-native';
-import React, { useState, useEffect } from 'react';
-import { Modal, ScrollView, Text, TouchableOpacity, View, StyleSheet, Dimensions, Image, Linking, Share, Alert, ActivityIndicator, StatusBar, Platform } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { Modal, ScrollView, Text, TouchableOpacity, View, StyleSheet, Dimensions, Image, Linking, Share, Alert, ActivityIndicator, StatusBar, Platform, ImageSourcePropType } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as MediaLibrary from 'expo-media-library';
 import { useTranslation } from 'react-i18next';
@@ -16,8 +16,10 @@ import Animated, {
     useDerivedValue
 } from 'react-native-reanimated';
 import { GestureDetector, Gesture, GestureHandlerRootView } from 'react-native-gesture-handler';
+import ViewShot, { captureRef } from 'react-native-view-shot';
+import * as Sharing from 'expo-sharing';
 
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
+const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 
 interface ShoppingLink {
     source: string;
@@ -61,6 +63,7 @@ interface ResultModalProps {
     onClose: () => void;
     result: ResultData | null;
     imageUri: string | null;
+    featureImage?: ImageSourcePropType; // NEW PROP
 }
 
 // --- SELF-FILTERING IMAGE CARD ---
@@ -135,9 +138,11 @@ const renderIcon = (name: string, color: string) => {
     }
 };
 
-export default function ResultModal({ visible, onClose, result, imageUri }: ResultModalProps) {
+export default function ResultModal({ visible, onClose, result, imageUri, featureImage }: ResultModalProps) {
+    const { t } = useTranslation();
     const insets = useSafeAreaInsets();
     const [isSaving, setIsSaving] = useState(false);
+    const viewShotRef = useRef<ViewShot>(null);
 
     // Bounds for Top Position (Y offset)
     const Y_MIN = SCREEN_HEIGHT * 0.1; // Max Height
@@ -206,11 +211,29 @@ export default function ResultModal({ visible, onClose, result, imageUri }: Resu
         try { await Linking.openURL(url); } catch (e) { console.error("Failed to open link:", e); }
     };
 
+    // Shared Capture Logic
+    const captureViewShot = async () => {
+        if (viewShotRef.current && (viewShotRef.current as any).capture) {
+            return await (viewShotRef.current as any).capture();
+        }
+        return null;
+    };
+
     const handleShare = async () => {
         if (!result) return;
         try {
-            const message = `${result.title}\n\n${result.description}\n\nScanned with iScan AI`;
-            await Share.share({ message, title: result.title });
+            const uri = await captureViewShot();
+            if (uri) {
+                if (await Sharing.isAvailableAsync()) {
+                    await Sharing.shareAsync(uri);
+                } else {
+                    Alert.alert(t('common.share'), t('result_modal.share_fail'));
+                }
+            } else {
+                // Fallback to text share if image generation fails
+                const message = `${result.title}\n\n${result.description}\n\n${t('result_modal.scan_with_iscan', { defaultValue: 'Scanned with iScan AI' })}`;
+                await Share.share({ message, title: result.title });
+            }
         } catch (error) { console.log("Error sharing:", error); }
     };
 
@@ -220,19 +243,26 @@ export default function ResultModal({ visible, onClose, result, imageUri }: Resu
         try {
             const { status } = await MediaLibrary.requestPermissionsAsync();
             if (status !== 'granted') {
-                Alert.alert("Permission needed", "Please allow access to save photos.");
+                Alert.alert(t('result_modal.permission_needed'), t('result_modal.permission_msg'));
                 return;
             }
-            const asset = await MediaLibrary.createAssetAsync(imageUri);
-            const album = await MediaLibrary.getAlbumAsync('iScan AI');
+
+            const uri = await captureViewShot();
+            if (!uri) throw new Error("Failed to generate image");
+
+            const asset = await MediaLibrary.createAssetAsync(uri);
+            const albumName = 'iScan';
+            const album = await MediaLibrary.getAlbumAsync(albumName);
+
             if (album) {
                 await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
             } else {
-                await MediaLibrary.createAlbumAsync('iScan AI', asset, false);
+                await MediaLibrary.createAlbumAsync(albumName, asset, false);
             }
-            Alert.alert("Saved!", "Image saved to your gallery.");
+            Alert.alert(t('common.saved'), t('result_modal.save_success'));
         } catch (error) {
-            Alert.alert("Error", "Could not save image.");
+            console.log(error);
+            Alert.alert(t('common.error'), t('result_modal.save_fail'));
         } finally {
             setIsSaving(false);
         }
@@ -279,7 +309,7 @@ export default function ResultModal({ visible, onClose, result, imageUri }: Resu
                             <View style={styles.sheetHeader} collapsable={false}>
                                 <View style={styles.dragHandle} />
                                 <Animated.View style={[styles.swipeHintContainer, hintStyle]}>
-                                    <Text style={styles.swipeHintText}>Swipe to adjust view</Text>
+                                    <Text style={styles.swipeHintText}>{t('result_modal.swipe_hint')}</Text>
                                     <ChevronUp size={16} color="#9ca3af" />
                                 </Animated.View>
                                 <View style={styles.titleRow}>
@@ -336,17 +366,17 @@ export default function ResultModal({ visible, onClose, result, imageUri }: Resu
                                             styles.healthTitle,
                                             { color: result.health_assessment.is_healthy ? '#16a34a' : '#dc2626' }
                                         ]}>
-                                            {result.health_assessment.is_healthy ? 'Healthy Plant' : 'Health Issues Detected'}
+                                            {result.health_assessment.is_healthy ? t('result_modal.healthy') : t('result_modal.unhealthy')}
                                         </Text>
                                     </View>
 
                                     <View style={styles.healthContent}>
-                                        <Text style={styles.healthDiagnosisHeader}>Diagnosis</Text>
+                                        <Text style={styles.healthDiagnosisHeader}>{t('result_modal.diagnosis')}</Text>
                                         <Text style={styles.descriptionText}>{result.health_assessment.diagnosis}</Text>
 
                                         {result.health_assessment.recommendations && (
                                             <>
-                                                <Text style={styles.healthDiagnosisHeader}>Recommendations</Text>
+                                                <Text style={styles.healthDiagnosisHeader}>{t('result_modal.recommendations')}</Text>
                                                 <Text style={styles.descriptionText}>{result.health_assessment.recommendations}</Text>
                                             </>
                                         )}
@@ -360,13 +390,13 @@ export default function ResultModal({ visible, onClose, result, imageUri }: Resu
                                     {result.average_price && (
                                         <View style={[styles.badge, styles.badgeGreen]}>
                                             <View style={styles.badgeIconBg}><DollarSign size={14} color="#15803d" /></View>
-                                            <View><Text style={styles.badgeLabelGreen}>Average Price</Text><Text style={styles.badgeValue}>{result.average_price}</Text></View>
+                                            <View><Text style={styles.badgeLabelGreen}>{t('result_modal.average_price')}</Text><Text style={styles.badgeValue}>{result.average_price}</Text></View>
                                         </View>
                                     )}
                                     {result.rating && (
                                         <View style={[styles.badge, styles.badgeYellow]}>
                                             <View style={styles.badgeIconBg}><Star size={14} color="#ca8a04" fill="#ca8a04" /></View>
-                                            <View><Text style={styles.badgeLabelYellow}>Rating</Text><Text style={styles.badgeValue}>{result.rating}/5.0</Text></View>
+                                            <View><Text style={styles.badgeLabelYellow}>{t('result_modal.rating')}</Text><Text style={styles.badgeValue}>{result.rating}/5.0</Text></View>
                                         </View>
                                     )}
                                 </View>
@@ -375,7 +405,7 @@ export default function ResultModal({ visible, onClose, result, imageUri }: Resu
                             {/* --- 4. VISUAL MATCHES (Auto-Filter Broken Images) --- */}
                             {result.web_images && result.web_images.length > 0 && (
                                 <View style={styles.sectionContainer}>
-                                    <Text style={styles.sectionTitle}>Visual Matches</Text>
+                                    <Text style={styles.sectionTitle}>{t('result_modal.visual_matches')}</Text>
                                     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalScroll}>
                                         {result.web_images.map((link, index) => (
                                             <VisualMatchCard key={index} item={link} onPress={handleLinkPress} />
@@ -389,11 +419,11 @@ export default function ResultModal({ visible, onClose, result, imageUri }: Resu
 
                             {result.isProduct && result.shopping_links && result.shopping_links.length > 0 && (
                                 <View style={styles.sectionContainer}>
-                                    <Text style={styles.sectionTitle}>Where to Buy</Text>
+                                    <Text style={styles.sectionTitle}>{t('result_modal.where_to_buy')}</Text>
                                     <View style={{ gap: 12 }}>
                                         {result.shopping_links.map((link, index) => (
                                             <TouchableOpacity key={index} onPress={() => handleLinkPress(link.url)} style={styles.shoppingLinkCard}>
-                                                <View style={{ flex: 1 }}><Text style={styles.shoppingSource}>{link.source}</Text><Text style={styles.visitStoreText}>Visit Store</Text></View>
+                                                <View style={{ flex: 1 }}><Text style={styles.shoppingSource}>{link.source}</Text><Text style={styles.visitStoreText}>{t('result_modal.visit_store')}</Text></View>
                                                 <ExternalLink size={18} color="#9ca3af" />
                                             </TouchableOpacity>
                                         ))}
@@ -411,7 +441,7 @@ export default function ResultModal({ visible, onClose, result, imageUri }: Resu
                             <View style={styles.bottomActions}>
                                 <TouchableOpacity onPress={handleSave} disabled={isSaving} style={styles.saveButton}>
                                     {isSaving ? <ActivityIndicator color="white" /> : <Save size={20} color="white" />}
-                                    <Text style={styles.saveButtonText}>Save Scan</Text>
+                                    <Text style={styles.saveButtonText}>{t('result_modal.save_scan')}</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={handleShare} style={styles.shareButton}>
                                     <Share2 size={24} color="#374151" />
@@ -419,6 +449,114 @@ export default function ResultModal({ visible, onClose, result, imageUri }: Resu
                             </View>
                         </ScrollView>
                     </Animated.View>
+
+                    {/* HIDDEN VIEWSHOT CAROUSEL - LIQUID GLASS REDESIGN */}
+                    {/* Positioned far off-screen to ensure it's never visible only used for capture */}
+                    <View style={{ position: 'absolute', left: -5000, top: 0, opacity: 0 }} pointerEvents="none">
+                        <ViewShot ref={viewShotRef} options={{ format: 'jpg', quality: 0.9 }}>
+                            {/* Dynamic Resolution based on Screen Aspect Ratio (High Quality) */}
+                            <View style={{
+                                width: 1080,
+                                height: 1080 * (SCREEN_HEIGHT / SCREEN_WIDTH),
+                                backgroundColor: '#000',
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                            }}>
+
+                                {/* 1. Background Feature Image (Tool Cover) - Blurred */}
+                                <Image
+                                    source={featureImage}
+                                    style={{ width: '100%', height: '100%', position: 'absolute', opacity: 0.8 }}
+                                    blurRadius={15} // Heavy Blur
+                                    resizeMode="cover"
+                                />
+
+                                {/* 2. Dark Overlay for Contrast */}
+                                <View style={{ position: 'absolute', width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.45)' }} />
+
+                                {/* 3. Main Content Container */}
+                                <View style={{ width: '100%', height: '100%', padding: 60, alignItems: 'center', justifyContent: 'space-between', zIndex: 10 }}>
+
+                                    {/* Top Branding/Title */}
+                                    <View style={{ width: '100%', alignItems: 'center', marginTop: 40, paddingHorizontal: 40 }}>
+                                        <Text style={{ fontSize: 32, fontWeight: '900', color: 'rgba(255,255,255,0.7)', letterSpacing: 4, marginBottom: 20 }}>{t('result_modal.iscan_analysis')}</Text>
+                                        <Text style={{ fontSize: 76, fontWeight: '900', color: '#fff', textAlign: 'center', lineHeight: 84, textShadowColor: 'rgba(0,0,0,0.5)', textShadowOffset: { width: 0, height: 4 }, textShadowRadius: 10 }} numberOfLines={2} adjustsFontSizeToFit>
+                                            {result.title}
+                                        </Text>
+                                    </View>
+
+                                    {/* 4. LIQUID GLASS CARD + IMAGE (The Core Request) */}
+                                    <View style={{
+                                        width: 860,
+                                        height: 1000,
+                                        borderRadius: 60,
+                                        overflow: 'hidden',
+                                        borderWidth: 4,
+                                        borderColor: 'rgba(255,255,255,0.4)', // Shiny border base
+                                        backgroundColor: 'rgba(255,255,255,0.1)', // Glass fill
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        // Shadow/Glow effect
+                                        shadowColor: "#ffffff",
+                                        shadowOffset: {
+                                            width: 0,
+                                            height: 0,
+                                        },
+                                        shadowOpacity: 0.2,
+                                        shadowRadius: 20,
+                                    }}>
+                                        {/* Inner shiny bezel */}
+                                        <View style={{
+                                            width: '100%', height: '100%',
+                                            borderWidth: 2, borderColor: 'rgba(255,255,255,0.1)',
+                                            borderRadius: 56, overflow: 'hidden',
+                                            position: 'relative', // Ensure absolute children are contained
+                                        }}>
+                                            {/* STRICTLY IMAGE ONLY - No other content allowed here */}
+                                            <Image
+                                                source={{ uri: imageUri || '' }}
+                                                style={{ width: '100%', height: '100%' }}
+                                                resizeMode="cover"
+                                            />
+
+                                            {/* Glossy overlay at top-right */}
+                                            <LinearGradient
+                                                colors={['rgba(255,255,255,0.4)', 'rgba(255,255,255,0)']}
+                                                start={{ x: 1, y: 0 }}
+                                                end={{ x: 0, y: 1 }}
+                                                style={{ position: 'absolute', top: 0, right: 0, width: 300, height: 300 }}
+                                            />
+                                        </View>
+                                    </View>
+
+                                    {/* 5. Info / Stats Grid at Bottom - Rectangular Cards Layout */}
+                                    <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 24, marginBottom: 40, paddingHorizontal: 20 }}>
+                                        {result.key_details && result.key_details.slice(0, 4).map((card, i) => (
+                                            <View key={i} style={{
+                                                backgroundColor: card.color,
+                                                borderRadius: 24,
+                                                paddingVertical: 24,
+                                                paddingHorizontal: 32,
+                                                width: '45%', // 2 per row approx
+                                                height: 200, // Fixed height for uniformity
+                                                justifyContent: 'space-between',
+                                                alignItems: 'flex-start', // Left align like modal
+                                            }}>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%', justifyContent: 'space-between', marginBottom: 16 }}>
+                                                    <Text style={{ color: 'rgba(0,0,0,0.5)', fontSize: 22, fontWeight: '700', textTransform: 'uppercase' }}>{card.label}</Text>
+                                                    {/* Render icon scaled up */}
+                                                    {React.cloneElement(renderIcon(card.icon, '#000'), { size: 32, opacity: 0.7 })}
+                                                </View>
+                                                <Text style={{ color: '#1f2937', fontSize: 32, fontWeight: '800', lineHeight: 38 }} numberOfLines={3} adjustsFontSizeToFit>{card.value}</Text>
+                                            </View>
+                                        ))}
+                                    </View>
+
+                                </View>
+                            </View>
+                        </ViewShot>
+                    </View>
+
                 </View>
             </GestureHandlerRootView>
         </Modal>

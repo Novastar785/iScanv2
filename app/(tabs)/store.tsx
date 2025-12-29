@@ -16,22 +16,22 @@ export default function StoreScreen() {
   // Callback de compra exitosa
   const handlePurchaseCompleted = async ({ customerInfo }: { customerInfo: CustomerInfo, storeTransaction: PurchasesStoreTransaction }) => {
     console.log("Compra exitosa:", customerInfo);
-    
+
     // 2. Sincronizamos usuario inmediatamente tras la compra
     // Esto asegura que si RevenueCat cambió la identidad (merge/restore implícito)
     // o simplemente es una compra nueva, los créditos lleguen al usuario correcto.
     await initializeUser();
-    
+
     // Alerta con redirección al presionar OK
     Alert.alert(
-      t('store.success_title'), 
+      t('store.success_title'),
       t('store.success_msg'),
       [
-        { 
-          text: "OK", 
+        {
+          text: t('common.ok'),
           onPress: () => {
             // "Sacamos" al usuario redirigiéndolo al index de las tabs
-            router.replace('/(tabs)'); 
+            router.replace('/(tabs)');
           }
         }
       ]
@@ -52,7 +52,7 @@ export default function StoreScreen() {
     <View style={{ flex: 1, backgroundColor: '#F5F5F4', paddingBottom: 120 }}>
       {/* Renderizado Condicional: Solo mostramos el Paywall si la pantalla tiene el foco */}
       {isFocused && (
-        <RevenueCatUI.Paywall 
+        <RevenueCatUI.Paywall
           onPurchaseCompleted={handlePurchaseCompleted}
           onRestoreCompleted={handleRestoreCompleted}
           options={{

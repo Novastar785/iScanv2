@@ -22,7 +22,7 @@ import Animated from 'react-native-reanimated';
 
 export default function IdentifierToolScreen({ featureId, title, subtitle, backgroundImage }: IdentifierToolScreenProps) {
     const router = useRouter();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [showResult, setShowResult] = useState(false);
@@ -36,7 +36,7 @@ export default function IdentifierToolScreen({ featureId, title, subtitle, backg
             if (useCamera) {
                 const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
                 if (permissionResult.granted === false) {
-                    Alert.alert("Permission to access camera is required!");
+                    Alert.alert(t('common.permissions_missing'), t('common.permissions_access'));
                     return;
                 }
                 result = await ImagePicker.launchCameraAsync({
@@ -47,7 +47,7 @@ export default function IdentifierToolScreen({ featureId, title, subtitle, backg
             } else {
                 const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
                 if (permissionResult.granted === false) {
-                    Alert.alert("Permission to access gallery is required!");
+                    Alert.alert(t('common.permissions_missing'), t('common.permissions_access'));
                     return;
                 }
                 result = await ImagePicker.launchImageLibraryAsync({
@@ -83,12 +83,12 @@ export default function IdentifierToolScreen({ featureId, title, subtitle, backg
                 return;
             }
 
-            const data = await identifyImage(featureId, selectedImage);
+            const data = await identifyImage(featureId, selectedImage, i18n.language);
             setResult(data);
             setShowResult(true);
         } catch (e: any) {
             // Display specific error from AI (e.g. "Not a plant") or fallback to generic
-            Alert.alert('Analysis Failed', e.message || 'Could not identify image. Please try again.');
+            Alert.alert(t('common.error'), e.message || t('common.error_generation'));
         } finally {
             setIsAnalyzing(false);
         }
@@ -138,7 +138,7 @@ export default function IdentifierToolScreen({ featureId, title, subtitle, backg
                         ) : (
                             <View className="w-full h-full items-center justify-center border-2 border-dashed border-white/30 rounded-[28px]">
                                 <ScanLine size={48} color="rgba(255,255,255,0.6)" />
-                                <Text className="text-stone-300 font-medium mt-4">No image selected</Text>
+                                <Text className="text-stone-300 font-medium mt-4">{t('generic_tool.photo_selected') || "Select Photo"}</Text>
                             </View>
                         )}
 
@@ -181,6 +181,7 @@ export default function IdentifierToolScreen({ featureId, title, subtitle, backg
                 onClose={() => setShowResult(false)}
                 result={result}
                 imageUri={selectedImage}
+                featureImage={backgroundImage}
             />
         </View>
     );

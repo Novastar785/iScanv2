@@ -6,7 +6,7 @@
     "gallery_header": "YOUR SCANS",
     "see_all": "See all",
     "example_tag": "Example",
-    "empty_gallery": "Your future designs will appear here.",
+    "empty_gallery": "Your future Scans will appear here.",
     "nav_shop": "Shop",
     "nav_profile": "Profile",
     "nav_gallery": "Gallery",
@@ -19,6 +19,9 @@
     "smart_scan": "AI smart scan",
     "photos": "Scans",
     "gallery_subtitle": "Your saved scans and discoveries"
+  },
+  "gallery": {
+    "example_badge": "EXAMPLE"
   },
   "tools": {
     "plant": {
@@ -111,6 +114,8 @@
     "company_name": "ADSEGOM LTD",
     "app_name": "iScan AI",
     "contact_email": "info@rizzflows.com",
+    "label_email": "Email:",
+    "label_company": "Company:",
     "terms": {
       "intro": "Welcome to iScan, a mobile application operated by ADSEGOM LTD ('Company', 'we', 'us', 'our'). These Terms of Service (the 'Legal Terms') govern your access to and use of the App. By using the Services, you agree to be bound by these Legal Terms.",
       "section_1_title": "1. Agreement to Terms and Eligibility",
@@ -125,10 +130,10 @@
       "section_2_title": "2. Description of Our Services and AI Disclaimer",
       "section_2_text": "iScan is an AI-powered identifier tool designed to identify plants, animals, objects and more. The App allows users to upload photos to receive AI-generated identification.",
       "ai_disclaimer_title": "IMPORTANT AI DISCLAIMER:",
-      "ai_disclaimer_text": "The content generated is powered by Artificial Intelligence. The AI may make mistakes or 'hallucinate'. We do not guarantee accuracy. Designs are provided for visualization purposes only and should not be used as technical construction plans. You are responsible for reviewing generated images.",
+      "ai_disclaimer_text": "The content generated is powered by Artificial Intelligence. The AI may make mistakes. We do not guarantee accuracy. Identifications are provided for informational purposes only and should not be considered professional advice (e.g., medical, veterinary, or botanical). You are responsible for verifying important information.",
       "section_3_title": "3. Purchases and Subscriptions",
       "section_3_payments": "Payments: You agree to provide current, complete, and accurate purchase information. Transactions are processed by the respective app store.",
-      "section_3_subs": "Subscriptions: Subscriptions automatically renew unless canceled at least 24 hours before the end of the current period.",
+      "section_3_subs": "Subscriptions: Payment will be charged to your Apple Account at confirmation of purchase. Subscriptions automatically renew unless auto-renew is turned off at least 24-hours before the end of the current period. Your account will be charged for renewal within 24-hours prior to the end of the current period. You can manage and cancel your subscriptions in your Account Settings on the App Store after purchase.",
       "section_3_refunds": "Cancellation and Refunds: All purchases are non-refundable. Refund requests must be made through Apple or Google.",
       "section_4_title": "4. Intellectual Property Rights",
       "section_4_text": "We own all intellectual property rights in our Services. We grant you a revocable, non-exclusive, limited right to install and use the Application.",
@@ -182,7 +187,7 @@
       "section_2_list": [
         "Provide and improve the App.",
         "Process AI Requests: To identify objects, plants or animals as requested.",
-        "Image Usage: We use the data in your uploaded photos solely to apply the AI design effects you request. We do not use this data for authentication or tracking.",
+        "Image Usage: We use the data in your uploaded photos solely to perform the AI identification analysis you request. We do not use this data for authentication or tracking.",
         "Data is shared with AI providers only for the duration of the generation process.",
         "Manage accounts and subscriptions.",
         "Respond to support requests."
@@ -233,7 +238,9 @@
     "account_deleted_title": "Account Deleted",
     "account_deleted_msg": "Your account data has been successfully removed.",
     "delete_error": "Could not delete account. Please try again.",
-    "error_mail": "Could not open mail app."
+    "error_mail": "Could not open mail app.",
+    "user_id": "User ID",
+    "app_version": "iScan AI v1.0.0"
   },
   "report": {
     "button": "Report",
@@ -283,6 +290,7 @@
     "restore_error": "Could not restore purchases. Please try again later."
   },
   "onboarding": {
+    "welcome_title": "Welcome to iScan",
     "slide1_title": "Identify",
     "slide1_title_accent": "Anything",
     "slide1_text": "Take a photo to identify plants, animals, objects, and more.",
@@ -295,12 +303,31 @@
     "style_american": "Animals",
     "style_modern": "Rocks",
     "style_minimalist": "Insects",
-    "slide3_title": "Unlimited",
-    "slide3_title_accent": "Scanning",
-    "slide3_text": "Get unlimited identifications with our Pro plan.",
+    "slide3_title": "Keep your",
+    "slide3_title_accent": "Favorite Scans",
+    "slide3_text": "To never forget anything.",
     "gift_title": "Unlimited Access",
     "gift_subtitle": "Go Pro",
     "btn_next": "Continue",
     "btn_claim": "Get Started"
+  },
+  "result_modal": {
+    "swipe_hint": "Swipe to adjust view",
+    "healthy": "Healthy Plant",
+    "unhealthy": "Health Issues Detected",
+    "diagnosis": "Diagnosis",
+    "recommendations": "Recommendations",
+    "average_price": "Average Price",
+    "rating": "Rating",
+    "visual_matches": "Visual Matches",
+    "where_to_buy": "Where to Buy",
+    "visit_store": "Visit Store",
+    "save_scan": "Save Scan",
+    "share_fail": "Sharing not available",
+    "save_fail": "Could not save image.",
+    "save_success": "Image saved to 'Iscan My Collection'.",
+    "permission_needed": "Permission needed",
+    "permission_msg": "Please allow access to save photos.",
+    "iscan_analysis": "ISCAN ANALYSIS"
   }
 }

@@ -5,27 +5,28 @@ module.exports = {
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
-      colors: {
-        "primary": "#d97706",
-        "primary-light": "#f59e0b",
-        "background-light": "#fdfaf6",
-        "background-dark": "#3e2723",
-        "surface-dark": "#5d4037",
-        "surface-glass": "rgba(93, 64, 55, 0.4)",
-        "text-light": "#fdfaf6",
-        "text-dark": "#3e2723",
-      },
+      "primary": "#f59e0b", // Amber 500
+      "primary-light": "#fbbf24", // Amber 400
+      "primary-dark": "#b45309", // Amber 700
+      "background-light": "#fafaf9", // Stone 50
+      "background-dark": "#0c0a09", // Stone 950 (Deep Coffee/Black)
+      "surface-dark": "#1c1917", // Stone 900
+      "surface-glass": "rgba(28, 25, 23, 0.7)", // Dark glass
+      "text-light": "#e7e5e4", // Stone 200
+      "text-dark": "#0c0a09", // Stone 950
       fontFamily: {
         "display": ["Space Grotesk", "sans-serif"]
       },
       backgroundImage: {
-        'shimmer': 'linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%)',
-        'glass-gradient': 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)',
+        'shimmer': 'linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.8) 50%, transparent 60%)',
+        'glass-gradient': 'linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 100%)',
+        'milky-glass': 'linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.6) 100%)',
       },
-      boxShadow: { // NativeWind might not support all complex shadows directly, but we add them for reference or web support
-        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
-        'glass-inset': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.2), inset 1px 0 0 0 rgba(255, 255, 255, 0.1)',
-        'cut-glass': 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.3), 0 10px 20px -5px rgba(0,0,0,0.4)',
+      boxShadow: {
+        'glass': '0 8px 32px 0 rgba(100, 116, 139, 0.1)',
+        'glass-inset': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.8), inset 1px 0 0 0 rgba(255, 255, 255, 0.5)',
+        'cut-glass': 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.05), 0 10px 20px -5px rgba(56, 189, 248, 0.15)',
+        'milky-glow': 'inset 0 0 20px rgba(255,255,255,0.8), 0 8px 32px 0 rgba(56, 189, 248, 0.1)',
       }
     },
   },
