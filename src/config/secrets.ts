@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 
 // 1. TUS CLAVES REALES DE REVENUECAT (Copiadas de tu mensaje anterior)
 const ANDROID_KEY = "goog_XZDPQgjeJCvuWYrTMZVWvIlOQXD";
-const IOS_KEY = "appl_hrcJTrkhsUlgwbtiBsCGjJabonF";
+const IOS_KEY = "appl_vggLKPoNFinuyxlalBpfDGTUyAV";
 
 // 2. Exportamos la clave correcta automáticamente según la plataforma
 // La app detectará si es iOS o Android y usará la clave correspondiente.
